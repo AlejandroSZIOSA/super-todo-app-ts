@@ -3,7 +3,9 @@ import { type FC } from "react";
 const Header: FC = () => {
   return (
     <header>
-      <h1>My Application Header</h1>
+      <a href="/">Home</a>
+      <a href="/organize">Organize</a>
+      <a href="/settings">Settings</a>
     </header>
   );
 };

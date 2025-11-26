@@ -3,25 +3,27 @@ import reactLogo from "../assets/react.svg";
 import viteLogo from "/vite.svg";
 
 import { useDispatch, useSelector } from "react-redux";
-import TodosList from "../components/TodosList";
-import Header from "../components/Header";
+import TodosList from "../components/List";
 
 import { type Todo } from "../types/shared";
 
-const HomePage: FC = () => {
-  const dispatchRedux = useDispatch();
+import { type RootState } from "../store/redux/store";
 
-  const todosRedux = useSelector((state: { todos: Todo[] }) => state.todos); //Fix problem with state type
+import { type AppDispatch } from "../store/redux/store";
+
+const HomePage: FC = () => {
+  const dispatchRedux = useDispatch<AppDispatch>();
+
+  const todosRedux = useSelector((state: RootState) => state.todos); // Use RootState for type safety
 
   function handleAddTodo() {
     // Dispatch an action to add a new todo
     dispatchRedux({
-      type: "todo-list/addTodo",
+      type: "list/addTodo",
       payload: {
         id: Date.now(),
         title: "New Todo",
         description: "This is a new todo item",
-        createdAt: new Date().toISOString(),
         deadline: "2024-12-31",
         isCompleted: false,
       },
@@ -29,14 +31,13 @@ const HomePage: FC = () => {
   }
 
   return (
-    <div>
-      <Header />
+    <>
       <img src={reactLogo} className="logo react" alt="React logo" />
       <img src={viteLogo} className="logo" alt="Vite logo" />
       <h1>home page</h1>
       <button onClick={handleAddTodo}>Add todo </button>
-      <TodosList list={todosRedux} />
-    </div>
+      <TodosList list={todosRedux as Todo[]} />
+    </>
   );
 };
 

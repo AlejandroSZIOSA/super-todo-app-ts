@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import todosReducers from "./reducers";
+import todosReducers from "./todos-reducer"; // Ensure this file has a default export
 
 const store = configureStore({
   reducer: {
@@ -7,7 +7,7 @@ const store = configureStore({
   },
 });
 
-/* export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch; */
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
 export default store;

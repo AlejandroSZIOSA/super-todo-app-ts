@@ -1,23 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 import { type Todo } from "../../types/shared";
 
 export const todoListSlice = createSlice({
-  name: "todo-list",
+  name: "list",
   initialState: [] as Array<Todo | null>, //Using Assertions for put correct type to the initial state
 
   reducers: {
-    addTodo: (state, action) => {
+    addTodo: (state: Array<Todo | null>, action: PayloadAction<Todo>) => {
       state.push(action.payload);
     },
 
-    removeTodo: (state, action) => {
+    removeTodo: (state: Array<Todo | null>, action: PayloadAction<number>) => {
       const todoId: number = action.payload;
       //problem Fixed!
       return (state = state.filter((item) => item && item.id !== todoId)); //fix problem using literals
     },
 
-    updateTodo: (state, action) => {
+    updateTodo: (state: Array<Todo | null>, action: PayloadAction<Todo>) => {
       const updatedItem = action.payload;
       const index = state.findIndex(
         (item) => item && item.id === updatedItem.id //fix problem using literals
