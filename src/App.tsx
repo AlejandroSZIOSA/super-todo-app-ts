@@ -11,7 +11,7 @@ function App() {
       path: "/",
       element: <RootLayout />,
       children: [
-        { index: true, element: <HomePage /> },
+        { index: true, path: "home", element: <HomePage /> },
         { path: "organize", element: <OrganizePage /> },
         { path: "settings", element: <SettingsPage /> },
       ],

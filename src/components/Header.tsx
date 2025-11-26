@@ -1,11 +1,14 @@
 import { type FC } from "react";
 
+import { Link } from "react-router-dom";
+
 const Header: FC = () => {
   return (
     <header>
-      <a href="/">Home</a>
-      <a href="/organize">Organize</a>
-      <a href="/settings">Settings</a>
+      {/*       Fix Redux Problem
+       */}{" "}
+      <Link to="/home">Home</Link>
+      <Link to="/organize">Organize</Link>
     </header>
   );
 };

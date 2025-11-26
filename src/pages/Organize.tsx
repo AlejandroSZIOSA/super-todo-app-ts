@@ -1,19 +1,15 @@
-import { useEffect, type FC } from "react";
+import { type FC } from "react";
 
-import { useSelector } from "react-redux";
-
-import { type RootState } from "../store/redux/store";
+import { useAppSelector } from "../hooks/reduxHooks";
 
 const OrganizePage: FC = () => {
-  const todosRedux = useSelector((state: RootState) => state.todos); // Use RootState for type safety
+  // const todosRedux = useSelector((state: RootState) => state.todos);
 
-  useEffect(() => {
-    console.log(todosRedux);
-  }, [todosRedux]);
+  const counter = useAppSelector((state) => state.counter.value);
 
   return (
     <div>
-      <h1>Organize Page</h1>
+      <h1>Organize Page {counter}</h1>
     </div>
   );
 };
