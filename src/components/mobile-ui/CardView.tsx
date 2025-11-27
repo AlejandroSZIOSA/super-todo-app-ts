@@ -1,12 +1,21 @@
 import { type FC } from "react";
-import { useAppSelector } from "../../hooks/reduxHooks";
+import { type Todo } from "../../types/shared";
 
-const CardView: FC = () => {
+interface CardViewProps {
+  todo?: Todo;
+  variant?: "home" | "organize";
+}
+
+const CardView: FC<CardViewProps> = ({ todo, variant }) => {
   // const counter = useAppSelector((state) => state.counter.value);
   return (
-    <div>
-      <p>card view</p>
-    </div>
+    <>
+      {variant === "home" ? (
+        <div>
+          <p>card view home</p> <p>{todo?.title}</p>
+        </div>
+      ) : null}
+    </>
   );
 };
 

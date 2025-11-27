@@ -6,11 +6,9 @@ import List from "../components/List";
 
 import { type Todo } from "../types/shared";
 
-import type { RootState, AppDispatch } from "../store";
+import type { RootState } from "../store";
 
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
-
-import CardView from "../components/mobile-ui/CardView";
 
 const HomePage: FC = () => {
   const todosRedux = useAppSelector((state: RootState) => state.todos);
@@ -34,7 +32,7 @@ const HomePage: FC = () => {
       <img src={viteLogo} className="logo" alt="Vite logo" />
       <h1>Vite + React + TS Todo App</h1>
       <button onClick={handleAddTodo}>Add todo </button>
-      <List list={todosRedux as Todo[]} />
+      <List todos={todosRedux as Todo[]} variant="mobile-ui" />
     </>
   );
 };

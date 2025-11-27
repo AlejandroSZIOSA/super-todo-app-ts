@@ -1,22 +1,27 @@
-import { type FC, type ReactNode } from "react";
+import { type FC } from "react";
 import { type Todo } from "../types/shared";
 import CardView from "./mobile-ui/CardView";
 
-type TodosListProps = {
-  list: Todo[];
-  children?: ReactNode;
+type ListProps = {
+  todos: Todo[];
+  variant?: "mobile-ui" | "desktop-ui";
 };
 
 //Todo: Add children
 
-const List: FC<TodosListProps> = ({ list, children }) => {
+const List: FC<ListProps> = ({ todos, variant }) => {
   return (
-    <ol>
-      {list.map((todo) => (
-        <li key={todo.id}>{todo.title}</li>
-      ))}
-      {children}
-    </ol>
+    <>
+      {variant === "mobile-ui" ? (
+        <ol>
+          {todos.map((todo) => (
+            <li key={todo.id}>
+              <CardView todo={todo} variant="home" />
+            </li>
+          ))}
+        </ol>
+      ) : null}
+    </>
   );
 };
 
