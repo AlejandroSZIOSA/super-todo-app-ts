@@ -7,7 +7,7 @@ const Header: FC = () => {
     <header>
       {/*       Fix Redux Problem
        */}{" "}
-      <Link to="/home">Home</Link>
+      <Link to="/">Home</Link>
       <Link to="/organize">Organize</Link>
     </header>
   );

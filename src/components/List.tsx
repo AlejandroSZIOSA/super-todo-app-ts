@@ -13,9 +13,7 @@ const List: FC<TodosListProps> = ({ list, children }) => {
   return (
     <ol>
       {list.map((todo) => (
-        <li key={todo.id}>
-          <CardView />
-        </li>
+        <li key={todo.id}>{todo.title}</li>
       ))}
       {children}
     </ol>

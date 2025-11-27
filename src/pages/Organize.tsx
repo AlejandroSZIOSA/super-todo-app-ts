@@ -2,14 +2,18 @@ import { type FC } from "react";
 
 import { useAppSelector } from "../hooks/reduxHooks";
 
-const OrganizePage: FC = () => {
-  // const todosRedux = useSelector((state: RootState) => state.todos);
+import type { RootState } from "../store";
+import List from "../components/List";
 
-  const counter = useAppSelector((state) => state.counter.value);
+import { type Todo } from "../types/shared";
+
+const OrganizePage: FC = () => {
+  const todosRedux = useAppSelector((state: RootState) => state.todos);
 
   return (
     <div>
-      <h1>Organize Page {counter}</h1>
+      <h1>Organize Page </h1>
+      <List list={todosRedux as Todo[]} />
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { type Todo } from "../../types/shared";
 
 export const todoListSlice = createSlice({
-  name: "list",
+  name: "todo-list",
   initialState: [] as Array<Todo | null>, //Using Assertions for put correct type to the initial state
 
   reducers: {
