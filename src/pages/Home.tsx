@@ -10,28 +10,27 @@ import type { RootState } from "../store";
 
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 
+import TodoForm from "../components/TodoForm";
+import { v4 as uuid } from "uuid";
+
 const HomePage: FC = () => {
   const todosRedux = useAppSelector((state: RootState) => state.todos);
   const dispatch = useAppDispatch();
 
-  const handleAddTodo = () => {
-    const newTodo: Todo = {
-      id: Date.now(),
-      title: "New Todo Item",
-      description: "This is a new todo item added from HomePage.",
-      deadline: new Date().toISOString(),
-      isCompleted: false,
-    };
-    // Dispatch an action to add the new todo
-    dispatch({ type: "todo-list/addTodo", payload: newTodo });
+  const handleCreate = (values: Omit<Item, "id">) => {
+    dispatch({ type: "todo-list/addTodo", payload: { id: uuid(), ...values } });
   };
 
   return (
     <>
-      <img src={reactLogo} className="logo react" alt="React logo" />
-      <img src={viteLogo} className="logo" alt="Vite logo" />
       <h1>Vite + React + TS Todo App</h1>
-      <button onClick={handleAddTodo}>Add todo </button>
+      <TodoForm
+        initialValues={{}}
+        onSubmit={handleCreate}
+        submitLabel="Create"
+      />
+
+      {/*   <button onClick={handleAddTodo}>Add todo </button> */}
       <List todos={todosRedux as Todo[]} variant="mobile-ui" />
     </>
   );
