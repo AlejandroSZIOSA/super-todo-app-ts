@@ -13,7 +13,7 @@ const OrganizePage: FC = () => {
   return (
     <div>
       <h1>Organize Page </h1>
-      <List todos={todosRedux as Todo[]} variant="mobile-ui" />
+      <List todos={todosRedux as Todo[]} variant="mobile-ui-organize" />
     </div>
   );
 };

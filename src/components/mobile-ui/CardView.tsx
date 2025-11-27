@@ -2,20 +2,38 @@ import { type FC } from "react";
 import { type Todo } from "../../types/shared";
 
 interface CardViewProps {
-  todo?: Todo;
+  todo: Todo;
   variant?: "home" | "organize";
 }
 
 const CardView: FC<CardViewProps> = ({ todo, variant }) => {
   // const counter = useAppSelector((state) => state.counter.value);
-  return (
-    <>
-      {variant === "home" ? (
+
+  //TODO: FIX HERE
+  if (variant === "home") {
+    return (
+      <div>
+        <h3>Todo - home view</h3>
+        <p>{todo.title}</p>
+        <p>{todo.description}</p>
         <div>
-          <p>card view home</p> <p>{todo?.title}</p>
+          <button>Is completed</button>
+          <button>Delete</button>
         </div>
-      ) : null}
-    </>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <h3>Todo - organize view</h3>
+      <p>{todo.title}</p>
+      <p>{todo.description}</p>
+      <div>
+        <button>Edit</button>
+        <button>Delete</button>
+      </div>
+    </div>
   );
 };
 

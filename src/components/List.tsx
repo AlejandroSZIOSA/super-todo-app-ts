@@ -4,24 +4,32 @@ import CardView from "./mobile-ui/CardView";
 
 type ListProps = {
   todos: Todo[];
-  variant?: "mobile-ui" | "desktop-ui";
+  variant: "mobile-ui-home" | "mobile-ui-organize";
 };
 
 //Todo: Add children
 
 const List: FC<ListProps> = ({ todos, variant }) => {
+  if (variant === "mobile-ui-home") {
+    return (
+      <ol>
+        {todos.map((todo) => (
+          <li key={todo.id}>
+            <CardView todo={todo} variant="home" />
+          </li>
+        ))}
+      </ol>
+    );
+  }
+
   return (
-    <>
-      {variant === "mobile-ui" ? (
-        <ol>
-          {todos.map((todo) => (
-            <li key={todo.id}>
-              <CardView todo={todo} variant="home" />
-            </li>
-          ))}
-        </ol>
-      ) : null}
-    </>
+    <ol>
+      {todos.map((todo) => (
+        <li key={todo.id}>
+          <CardView todo={todo} variant="organize" />
+        </li>
+      ))}
+    </ol>
   );
 };
 

@@ -31,7 +31,7 @@ const HomePage: FC = () => {
       />
 
       {/*   <button onClick={handleAddTodo}>Add todo </button> */}
-      <List todos={todosRedux as Todo[]} variant="mobile-ui" />
+      <List todos={todosRedux as Todo[]} variant="mobile-ui-home" />
     </>
   );
 };
