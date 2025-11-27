@@ -1,23 +1,24 @@
-import { useState } from "react";
+import { useState, type FormEvent, type FC } from "react";
 /* import { Item } from "../store/itemsSlice"; */
+import { type Todo } from "../types/shared";
 
-interface Props {
-  initialValues: Partial<Item>;
-  onSubmit: (values: Omit<Item, "id"> | Item) => void;
-  submitLabel: string;
+interface TodoFormProps {
+  initialValues: Partial<Todo>;
+  onSubmit: (values: Omit<Todo, "id"> | Todo) => void;
+  submitLabel: "Create" | "Update";
 }
 
-export default function TodoForm({
+const TodoForm: FC<TodoFormProps> = ({
   initialValues,
   onSubmit,
   submitLabel,
-}: Props) {
+}) => {
   const [title, setTitle] = useState(initialValues.title ?? "");
   const [description, setDescription] = useState(
     initialValues.description ?? ""
   );
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     onSubmit({
       ...(initialValues.id ? { id: initialValues.id } : {}),
@@ -46,8 +47,8 @@ export default function TodoForm({
           onChange={(e) => setDescription(e.target.value)}
         />
       </div>
-
       <button type="submit">{submitLabel}</button>
     </form>
   );
-}
+};
+export default TodoForm;

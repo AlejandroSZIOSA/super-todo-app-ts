@@ -1,6 +1,6 @@
 import { type FC } from "react";
-import reactLogo from "../assets/react.svg";
-import viteLogo from "/vite.svg";
+/* import reactLogo from "../assets/react.svg";
+import viteLogo from "/vite.svg"; */
 
 import List from "../components/List";
 
@@ -17,7 +17,7 @@ const HomePage: FC = () => {
   const todosRedux = useAppSelector((state: RootState) => state.todos);
   const dispatch = useAppDispatch();
 
-  const handleCreate = (values: Omit<Item, "id">) => {
+  const handleCreate = (values: Omit<Todo, "id">) => {
     dispatch({ type: "todo-list/addTodo", payload: { id: uuid(), ...values } });
   };
 
