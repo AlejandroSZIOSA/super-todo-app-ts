@@ -5,7 +5,7 @@ import { type Todo } from "../types/shared";
 interface TodoFormProps {
   initialValues: Partial<Todo>;
   onSubmit: (values: Omit<Todo, "id"> | Todo) => void;
-  submitLabel: "Create" | "Update";
+  submitLabel: "Create" | "Edit";
 }
 
 const TodoForm: FC<TodoFormProps> = ({

@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 
 import TodoForm from "../components/TodoForm";
 import { v4 as uuid } from "uuid";
+import MessageList from "../components/MessageList";
 
 const HomePage: FC = () => {
   const todosRedux = useAppSelector((state: RootState) => state.todos);
@@ -30,8 +31,11 @@ const HomePage: FC = () => {
         submitLabel="Create"
       />
 
-      {/*   <button onClick={handleAddTodo}>Add todo </button> */}
-      <List todos={todosRedux as Todo[]} variant="mobile-ui-home" />
+      {todosRedux.length ? (
+        <List todos={todosRedux as Todo[]} variant="mobile-ui-home" />
+      ) : (
+        <MessageList message="Empty Todos List. Please add a todo." />
+      )}
     </>
   );
 };
