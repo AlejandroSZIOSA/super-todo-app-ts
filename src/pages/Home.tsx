@@ -15,7 +15,7 @@ import { v4 as uuid } from "uuid";
 import MessageList from "../components/MessageList";
 
 const HomePage: FC = () => {
-  const todosRedux = useAppSelector((state: RootState) => state.todos);
+  const { todos } = useAppSelector((state: RootState) => state.todos);
   const dispatch = useAppDispatch();
 
   const handleCreate = (values: Omit<Todo, "id">) => {
@@ -31,8 +31,8 @@ const HomePage: FC = () => {
         submitLabel="Create"
       />
 
-      {todosRedux.length ? (
-        <List todos={todosRedux as Todo[]} variant="mobile-ui-home" />
+      {todos ? (
+        <List todos={todos} variant="mobile-ui-home" />
       ) : (
         <MessageList message="Empty Todos List. Please add a todo." />
       )}
