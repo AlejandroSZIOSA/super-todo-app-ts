@@ -8,9 +8,13 @@ import List from "../components/List";
 import TodoForm from "../components/TodoForm";
 
 const OrganizePage: FC = () => {
-  const [todoEdit, setTodoEdit] = useState<Todo | null>(null);
+  const [todoEdit, setTodoEdit] = useState<Todo>({
+    id: 0,
+    title: "",
+    description: "",
+  });
 
-  const todosRedux = useAppSelector((state: RootState) => state.todos);
+  const { todos } = useAppSelector((state: RootState) => state.todos);
   const dispatch = useAppDispatch(); // Correctly assign useAppDispatch
 
   /* useEffect(() => {
@@ -22,19 +26,23 @@ const OrganizePage: FC = () => {
 
   //callback Fn Edit
   function handleEditTodo(todoId: number) {
-    // console.log("Edit todo with ID:", todoId);
+    console.log("Edit todo with ID:", todoId);
 
-    const todo = todosRedux.find((todo) => todo?.id === todoId);
+    const todo = todos.find((todo) => todo?.id === todoId);
 
-    setTodoEdit(todo as Todo);
+    if (todo) {
+      setTodoEdit(todo);
+    } else {
+      console.error(`Todo with ID ${todoId} not found.`);
+    }
   }
 
-  function handleEditTodoState(updatedTodo: Todo) {
+  /*   function handleEditTodoState(updatedTodo: Todo) {
     dispatch({
       type: "todo-list/updateTodo",
       payload: { ...updatedTodo },
     });
-  }
+  } */
 
   return (
     <div>
@@ -43,10 +51,11 @@ const OrganizePage: FC = () => {
       <TodoForm
         initialValues={todoEdit}
         onSubmit={() => {}}
+        operation="edit"
         submitLabel="Edit"
       />
       <List
-        todos={todosRedux as Todo[]}
+        todos={todos}
         variant="mobile-ui-organize"
         handleEditAction={handleEditTodo} //callback function passed down x2
       />

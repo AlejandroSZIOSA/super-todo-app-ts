@@ -28,6 +28,7 @@ const HomePage: FC = () => {
       <TodoForm
         initialValues={{}}
         onSubmit={handleCreate}
+        operation="create"
         submitLabel="Create"
       />
 
