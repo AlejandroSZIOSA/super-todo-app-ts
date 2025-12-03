@@ -17,19 +17,12 @@ const OrganizePage: FC = () => {
   const { todos } = useAppSelector((state: RootState) => state.todos);
   const dispatch = useAppDispatch(); // Correctly assign useAppDispatch
 
-  /* useEffect(() => {
-  const todoToEdit = todosRedux.find((todo) => todo?.id === todoId);
+  useEffect(() => {});
 
-
-
-}, []); */
-
-  //callback Fn Edit
-  function handleEditTodo(todoId: number) {
-    console.log("Edit todo with ID:", todoId);
-
+  //callback FN set selected values todo item to the reusable form
+  function handleSelectedEditTodo(todoId: number) {
+    // console.log("Edit todo with ID:", todoId);
     const todo = todos.find((todo) => todo?.id === todoId);
-
     if (todo) {
       setTodoEdit(todo);
     } else {
@@ -37,27 +30,32 @@ const OrganizePage: FC = () => {
     }
   }
 
-  /*   function handleEditTodoState(updatedTodo: Todo) {
+  //2-This function trigger after the validation Form
+  const onChangeTodoEditState = (values: Omit<Todo, "id">) => {
+    console.log("Updated Todo:", todoEdit);
     dispatch({
       type: "todo-list/updateTodo",
-      payload: { ...updatedTodo },
+      payload: { ...values },
     });
-  } */
+  };
+
+  /* const handleEditRedux = () => {
+    dispatch({ type: "todo-list/updateTodo", payload: { ...todoEdit } });
+  }; */
 
   return (
     <div>
       <h1>Organize Page </h1>
-
       <TodoForm
         initialValues={todoEdit}
-        onSubmit={() => {}}
+        onSubmit={onChangeTodoEditState}
         operation="edit"
         submitLabel="Edit"
       />
       <List
         todos={todos}
         variant="mobile-ui-organize"
-        handleEditAction={handleEditTodo} //callback function passed down x2
+        handleEditAction={handleSelectedEditTodo} //callback function passed down x2
       />
     </div>
   );

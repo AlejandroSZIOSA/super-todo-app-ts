@@ -19,19 +19,19 @@ export const todoListSlice = createSlice({
       state.todos.push(action.payload);
     },
 
-    removeTodo: (state: Array<Todo | null>, action: PayloadAction<number>) => {
+    /*     removeTodo: (state: Array<Todo | null>, action: PayloadAction<number>) => {
       const todoId: number = action.payload;
       //problem Fixed!
       return (state = state.filter((item) => item && item.id !== todoId)); //fix problem using literals
-    },
+    }, */
 
-    updateTodo: (state: Array<Todo | null>, action: PayloadAction<Todo>) => {
+    updateTodo: (state, action: PayloadAction<Todo>) => {
       const updatedItem = action.payload;
-      const index = state.findIndex(
-        (item) => item && item.id === updatedItem.id //fix problem using literals
+      const index = state.todos.findIndex(
+        (item: Todo) => item.id === updatedItem.id //fix problem using literals
       );
       if (index !== -1) {
-        state[index] = updatedItem;
+        state.todos[index] = updatedItem;
       }
     },
 
@@ -46,7 +46,7 @@ export const todoListSlice = createSlice({
 
 export const {
   addTodo,
-  removeTodo,
+  // removeTodo,
   updateTodo,
   /* resetTodoList,
   setInitialList, */

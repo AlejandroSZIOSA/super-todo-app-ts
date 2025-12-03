@@ -29,7 +29,7 @@ const TodoForm: FC<TodoFormProps> = ({
     }
   }, [initialValues, operation]);
 
-  const handleSubmit = (e: FormEvent) => {
+  /* const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (operation === "create") {
       onSubmit({
@@ -40,6 +40,18 @@ const TodoForm: FC<TodoFormProps> = ({
       setTitle("");
       setDescription("");
     }
+  }; */
+
+  //1-Pass the object after validate the form fields
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit({
+      ...(initialValues.id ? { id: initialValues.id } : {}),
+      title,
+      description,
+    });
+    setTitle("");
+    setDescription("");
   };
 
   return (
