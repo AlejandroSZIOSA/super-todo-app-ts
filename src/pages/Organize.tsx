@@ -8,8 +8,8 @@ import List from "../components/List";
 import TodoForm from "../components/TodoForm";
 
 const OrganizePage: FC = () => {
-  const [todoEdit, setTodoEdit] = useState<Todo>({
-    id: 0,
+  const [todoEdit, setTodoEdit] = useState<Omit<Todo, "id">>({
+    /*     id: 0, */
     title: "",
     description: "",
   });
