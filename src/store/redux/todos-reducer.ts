@@ -19,11 +19,10 @@ export const todoListSlice = createSlice({
       state.todos.push(action.payload);
     },
 
-    /*     removeTodo: (state: Array<Todo | null>, action: PayloadAction<number>) => {
+    removeTodo: (state, action: PayloadAction<number>) => {
       const todoId: number = action.payload;
-      //problem Fixed!
-      return (state = state.filter((item) => item && item.id !== todoId)); //fix problem using literals
-    }, */
+      state.todos = state.todos.filter((item: Todo) => item.id !== todoId);
+    },
 
     updateTodo: (state, action: PayloadAction<Todo>) => {
       const updatedItem = action.payload;

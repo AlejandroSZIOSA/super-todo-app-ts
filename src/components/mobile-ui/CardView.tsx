@@ -1,41 +1,50 @@
-import { type FC } from "react";
+import { type FC, type ReactNode } from "react";
 import { type Todo } from "../../types/shared";
+
+import { useAppDispatch } from "../../hooks/reduxHooks";
 
 interface CardViewProps {
   todo: Todo;
-  variant?: "home" | "organize";
+  variant: "home" | "organize";
   handleEditAction?: (todoId: number) => void; //prop drilling x2 + call back
 }
 
 const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
-  // const counter = useAppSelector((state) => state.counter.value);
+  const { id, title, description } = todo;
+  const dispatch = useAppDispatch();
 
-  //TODO: FIX HERE
+  function handleRemoveTodo() {
+    dispatch({ type: "todo-list/removeTodo", payload: id });
+  }
+
+  let content: ReactNode;
+
   if (variant === "home") {
-    return (
-      <div>
-        <h3>Todo - home view</h3>
-        <p>{todo.title}</p>
-        <p>{todo.description}</p>
-        <div>
-          <button>Is completed</button>
-          <button>Delete</button>
-        </div>
-      </div>
+    content = (
+      <>
+        <button>Is completed</button>
+        <button onClick={handleRemoveTodo}>Remove</button>
+      </>
+    );
+  }
+
+  if (variant === "organize") {
+    content = (
+      <>
+        <button onClick={() => handleEditAction && handleEditAction(id)}>
+          Edit
+        </button>
+        <button onClick={handleRemoveTodo}>Remove</button>
+      </>
     );
   }
 
   return (
     <div>
       <h3>Todo - organize view</h3>
-      <p>{todo.title}</p>
-      <p>{todo.description}</p>
-      <div>
-        <button onClick={() => handleEditAction && handleEditAction(todo.id)}>
-          Edit
-        </button>
-        <button>Delete</button>
-      </div>
+      <p>{title}</p>
+      <p>{description}</p>
+      <div>{content}</div>
     </div>
   );
 };

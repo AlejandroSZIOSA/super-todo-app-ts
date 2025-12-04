@@ -1,4 +1,4 @@
-import { useState, type FormEvent, type FC, useEffect } from "react";
+import { useState, type FC, useEffect } from "react";
 /* import { Item } from "../store/itemsSlice"; */
 import { type Todo } from "../types/shared";
 
@@ -28,19 +28,6 @@ const TodoForm: FC<TodoFormProps> = ({
       setDescription(description ?? "");
     }
   }, [initialValues, operation]);
-
-  /* const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (operation === "create") {
-      onSubmit({
-        ...(initialValues.id ? { id: initialValues.id } : {}),
-        title,
-        description,
-      });
-      setTitle("");
-      setDescription("");
-    }
-  }; */
 
   //1-Pass the object after validate the form fields
   const handleSubmit = (e: React.FormEvent) => {
