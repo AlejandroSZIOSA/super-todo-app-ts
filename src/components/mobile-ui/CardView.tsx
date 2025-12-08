@@ -1,5 +1,6 @@
 import { type FC, type ReactNode } from "react";
 import { type Todo } from "../../types/shared";
+import { countRemainingDays } from "../../utils/calculations";
 
 import { useAppDispatch } from "../../hooks/reduxHooks";
 
@@ -10,7 +11,7 @@ interface CardViewProps {
 }
 
 const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
-  const { id, title, description } = todo;
+  const { id, title, description, deadline } = todo;
   const dispatch = useAppDispatch();
 
   function handleRemoveTodo() {
@@ -38,12 +39,13 @@ const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
       </>
     );
   }
-
   return (
     <div>
       <h3>Todo - organize view</h3>
       <p>{title}</p>
       <p>{description}</p>
+      <p>Deadline : {deadline}</p>
+      <p>Days remained : {countRemainingDays(new Date(), deadline)}</p>
       <div>{content}</div>
     </div>
   );

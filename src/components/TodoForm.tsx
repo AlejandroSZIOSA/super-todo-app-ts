@@ -19,13 +19,17 @@ const TodoForm: FC<TodoFormProps> = ({
   const [description, setDescription] = useState(
     initialValues.description ?? ""
   );
+  //deadline state
+  const [deadline, setDeadline] = useState(initialValues.deadline ?? "");
 
   //fix problem send edited values
   useEffect(() => {
+    //re-render the component when the initialValues change
     if (operation === "edit") {
       const { title, description } = initialValues;
       setTitle(title ?? "");
       setDescription(description ?? "");
+      setDeadline(initialValues.deadline ?? "");
     }
   }, [initialValues, operation]);
 
@@ -36,9 +40,11 @@ const TodoForm: FC<TodoFormProps> = ({
       ...(initialValues.id ? { id: initialValues.id } : {}),
       title,
       description,
+      deadline,
     });
     setTitle("");
     setDescription("");
+    setDeadline("");
   };
 
   return (
@@ -51,12 +57,20 @@ const TodoForm: FC<TodoFormProps> = ({
           required
         />
       </div>
-
       <div>
         <label>Description</label>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
+        />
+      </div>
+
+      <div>
+        <label>Deadline</label>
+        <input
+          type="date"
+          value={deadline}
+          onChange={(e) => setDeadline(e.target.value)}
         />
       </div>
       <button type="submit">{submitLabel}</button>
