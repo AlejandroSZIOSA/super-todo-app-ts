@@ -24,7 +24,9 @@ const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
     content = (
       <>
         <button>Is completed</button>
-        <button onClick={handleRemoveTodo}>Remove</button>
+        <button id="btn-remove-todo" onClick={handleRemoveTodo}>
+          Remove
+        </button>
       </>
     );
   }
