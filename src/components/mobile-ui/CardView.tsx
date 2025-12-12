@@ -1,4 +1,4 @@
-import { type FC, type ReactNode } from "react";
+import { type FC, type ReactNode, useState, useEffect } from "react";
 import { type Todo } from "../../types/shared";
 import { countRemainingDays } from "../../utils/calculations";
 
@@ -11,8 +11,22 @@ interface CardViewProps {
 }
 
 const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
-  const { id, title, description, deadline } = todo;
+  const { id, title, description, deadline, isComplete } = todo;
   const dispatch = useAppDispatch();
+
+  const [isDone, setIsDone] = useState<boolean>(false);
+
+  //sync isDone with isComplete from the store
+  useEffect(() => {
+    setIsDone(isComplete);
+  }, [isComplete]);
+
+  function updateCompleteStatus() {
+    dispatch({
+      type: "todo-list/updateTodo",
+      payload: { ...todo, isComplete: !isDone },
+    });
+  }
 
   function handleRemoveTodo() {
     dispatch({ type: "todo-list/removeTodo", payload: id });
@@ -23,7 +37,9 @@ const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
   if (variant === "home") {
     content = (
       <>
-        <button>Is completed</button>
+        <button onClick={updateCompleteStatus}>
+          {isDone ? "Done" : "Undone"}
+        </button>
         <button id="btn-remove-todo" onClick={handleRemoveTodo}>
           Remove
         </button>

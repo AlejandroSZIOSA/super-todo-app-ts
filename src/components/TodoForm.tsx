@@ -19,7 +19,6 @@ const TodoForm: FC<TodoFormProps> = ({
   const [description, setDescription] = useState(
     initialValues.description ?? ""
   );
-  //deadline state
   const [deadline, setDeadline] = useState(initialValues.deadline ?? "");
 
   //fix problem send edited values
@@ -41,6 +40,7 @@ const TodoForm: FC<TodoFormProps> = ({
       title,
       description,
       deadline,
+      isComplete: false, //default value when create a new todo
     });
     setTitle("");
     setDescription("");
