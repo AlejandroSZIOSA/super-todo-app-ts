@@ -8,7 +8,7 @@ const Header: FC = () => {
        */}
       <Link to="/">Home</Link>
       <Link to="/organize">Organize</Link>
-      {/* <Link to="/settings">Settings</Link> */}
+      <Link to="/settings">Settings</Link>
     </header>
   );
 };

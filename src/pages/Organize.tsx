@@ -8,7 +8,7 @@ import List from "../components/List";
 import TodoForm from "../components/TodoForm";
 
 const OrganizePage: FC = () => {
-  const [todoEdit, setTodoEdit] = useState<Omit<Todo, "id">>({
+  const [todoEdit, setTodoEdit] = useState<Omit<Todo, "id" | "isComplete">>({
     /*     id: 0, */
     title: "",
     description: "",

@@ -1,9 +1,11 @@
 import { type FC } from "react";
+import SelectorLanguages from "../components/SelectorLanguages";
 
 const SettingsPage: FC = () => {
   return (
     <div>
-      <h1>Settings Page</h1>
+      <h1>Settings Language</h1>
+      <SelectorLanguages />
     </div>
   );
 };
