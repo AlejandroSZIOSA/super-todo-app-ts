@@ -1,13 +1,17 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { type Language } from "../../types/shared";
 
-export type Language = "en" | "sv";
+import {
+  loadLanguage,
+  saveLanguage,
+} from "../../utils/localstorage/localstorage";
 
 interface LanguageState {
   current: Language;
 }
 
 const initialState: LanguageState = {
-  current: "en",
+  current: loadLanguage(),
 };
 
 const languageSlice = createSlice({
@@ -16,6 +20,7 @@ const languageSlice = createSlice({
   reducers: {
     setLanguage(state, action: PayloadAction<Language>) {
       state.current = action.payload;
+      saveLanguage(state.current);
     },
   },
 });

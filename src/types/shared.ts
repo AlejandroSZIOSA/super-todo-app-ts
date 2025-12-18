@@ -5,3 +5,5 @@ export type Todo = {
   isComplete: boolean;
   deadline?: string;
 };
+
+export type Language = "en" | "sv";

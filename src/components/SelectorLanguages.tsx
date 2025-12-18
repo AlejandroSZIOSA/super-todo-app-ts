@@ -1,7 +1,8 @@
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import { type Language } from "../types/shared";
 
 import { type RootState } from "../store";
-import { setLanguage, type Language } from "../store/redux/languageSlice";
+import { setLanguage } from "../store/redux/languageSlice";
 
 const SelectorLanguages = () => {
   const dispatch = useAppDispatch();
