@@ -3,13 +3,9 @@ import { type FC } from "react";
 import viteLogo from "/vite.svg"; */
 
 import List from "../components/List";
-
 import { type Todo } from "../types/shared";
-
 import type { RootState } from "../store";
-
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
-
 import TodoForm from "../components/TodoForm";
 import { v4 as uuid } from "uuid";
 import MessageList from "../components/MessageList";
@@ -24,7 +20,7 @@ const HomePage: FC = () => {
 
   return (
     <>
-      <h1>Vite + React + TS Todo App</h1>
+      <h1>Super Todo App</h1>
       <TodoForm
         initialValues={{}}
         onSubmit={handleCreate}
