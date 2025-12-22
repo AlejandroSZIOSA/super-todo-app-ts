@@ -5,7 +5,7 @@ import type { RootState } from "../store";
 import { useAppSelector, useAppDispatch } from "../hooks/reduxHooks";
 
 import List from "../components/List";
-import TodoForm from "../components/TodoForm";
+import TodoForm from "../components/desktop-ui/TodoForm";
 
 const OrganizePage: FC = () => {
   const [todoEdit, setTodoEdit] = useState<Omit<Todo, "id" | "isComplete">>({

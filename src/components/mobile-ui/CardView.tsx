@@ -2,7 +2,10 @@ import { type FC, type ReactNode, useState, useEffect } from "react";
 import { type Todo } from "../../types/shared";
 import { countRemainingDays } from "../../utils/calculations";
 
-import { useAppDispatch } from "../../hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
+import { type RootState } from "../../store";
+
+import { translations } from "../../utils/translations";
 
 interface CardViewProps {
   todo: Todo;
@@ -14,7 +17,15 @@ const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
   const { id, title, description, deadline, isComplete } = todo;
   const dispatch = useAppDispatch();
 
+  const language = useAppSelector((state: RootState) => state.language.current);
+
   const [isDone, setIsDone] = useState<boolean>(false);
+
+  //translations  en - swe as context param, this change the current language state
+  const T = translations[language];
+
+  const { cardViewT } = T;
+  console.log(cardViewT.RemoveButton);
 
   //sync isDone with isComplete from the store
   useEffect(() => {
@@ -41,7 +52,7 @@ const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
           {isDone ? "Done" : "Undone"}
         </button>
         <button id="btn-remove-todo" onClick={handleRemoveTodo}>
-          Remove
+          {cardViewT.RemoveButton}
         </button>
       </>
     );
@@ -53,7 +64,7 @@ const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
         <button onClick={() => handleEditAction && handleEditAction(id)}>
           Edit
         </button>
-        <button onClick={handleRemoveTodo}>Remove</button>
+        <button onClick={handleRemoveTodo}>{cardViewT.RemoveButton}</button>
       </>
     );
   }

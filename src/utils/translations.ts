@@ -1,10 +1,30 @@
-export const translations = {
+interface TranslationTypes {
   en: {
-    title: "Welcome",
-    button: "Submit",
+    cardViewT: {
+      title: string;
+      RemoveButton: string;
+    };
+  };
+
+  sv: {
+    cardViewT: {
+      title: string;
+      RemoveButton: string;
+    };
+  };
+}
+
+export const translations: TranslationTypes = {
+  en: {
+    cardViewT: {
+      title: "Welcome",
+      RemoveButton: "Remove",
+    },
   },
   sv: {
-    title: "Välkommen",
-    button: "Skicka",
+    cardViewT: {
+      title: "Välkommen",
+      RemoveButton: "Skicka",
+    },
   },
 };

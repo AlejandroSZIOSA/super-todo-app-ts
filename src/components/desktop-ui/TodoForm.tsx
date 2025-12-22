@@ -1,6 +1,6 @@
 import { useState, type FC, useEffect } from "react";
 /* import { Item } from "../store/itemsSlice"; */
-import { type Todo } from "../types/shared";
+import { type Todo } from "../../types/shared";
 
 interface TodoFormProps {
   initialValues: Partial<Todo>;
