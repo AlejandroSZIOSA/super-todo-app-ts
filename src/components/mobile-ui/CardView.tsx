@@ -25,7 +25,7 @@ const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
   const T = translations[language];
 
   const { cardViewT } = T;
-  console.log(cardViewT.RemoveButton);
+  console.log(cardViewT.removeBtn);
 
   //sync isDone with isComplete from the store
   useEffect(() => {
@@ -49,10 +49,10 @@ const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
     content = (
       <>
         <button onClick={updateCompleteStatus}>
-          {isDone ? "Done" : "Undone"}
+          {isDone ? cardViewT.completeBtn : cardViewT.unCompleteBtn}
         </button>
         <button id="btn-remove-todo" onClick={handleRemoveTodo}>
-          {cardViewT.RemoveButton}
+          {cardViewT.removeBtn}
         </button>
       </>
     );
@@ -64,7 +64,7 @@ const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
         <button onClick={() => handleEditAction && handleEditAction(id)}>
           Edit
         </button>
-        <button onClick={handleRemoveTodo}>{cardViewT.RemoveButton}</button>
+        <button onClick={handleRemoveTodo}>{cardViewT.removeBtn}</button>
       </>
     );
   }
