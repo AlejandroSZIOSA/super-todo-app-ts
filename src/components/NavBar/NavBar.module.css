@@ -16,7 +16,17 @@
   z-index: 50;
 }
 
-@media (min-width: 768px) {
+.icon {
+  width: 24px;
+  height: 24px;
+  fill: #3c00ff; /* Dinamic color for SVG icons */
+}
+
+.label {
+  display: none;
+}
+
+@media (min-width: 1024px) {
   .nav {
     top: 0;
     bottom: 0;
@@ -36,6 +46,10 @@
   .link {
     margin: 16px 0;
     font-size: 11px;
+  }
+
+  .label {
+    display: block;
   }
 }
 

@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-
+// import react from "@vitejs/plugin-react";
+import svgr from "vite-plugin-svgr";
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()], //svgr plugin to import svg as react component
+  plugins: [svgr()], //svgr plugin to import svg as react component
 });
