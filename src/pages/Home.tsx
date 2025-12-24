@@ -9,14 +9,20 @@ import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import TodoForm from "../components/desktop-ui/TodoForm";
 import { v4 as uuid } from "uuid";
 import MessageList from "../components/MessageList";
+import useMediaQuery from "../hooks/useMediaQuery";
+import { CONSTANTS } from "../utils/constants";
 
 const HomePage: FC = () => {
   const { todos } = useAppSelector((state: RootState) => state.todos);
   const dispatch = useAppDispatch();
 
+  const isMobile = useMediaQuery(CONSTANTS.DESKTOP_BREAKPOINT);
+
   const handleCreate = (values: Omit<Todo, "id">) => {
     dispatch({ type: "todo-list/addTodo", payload: { id: uuid(), ...values } });
   };
+
+  console.log(isMobile);
 
   return (
     <>
