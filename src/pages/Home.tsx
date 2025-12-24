@@ -1,4 +1,4 @@
-import { type FC } from "react";
+import { type FC, useState, type ReactNode } from "react";
 /* import reactLogo from "../assets/react.svg";
 import viteLogo from "/vite.svg"; */
 
@@ -12,28 +12,61 @@ import MessageList from "../components/MessageList";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { CONSTANTS } from "../utils/constants";
 
+import Modal from "../components/mobile-ui/Modal/Modal";
+
 const HomePage: FC = () => {
+  const [open, setOpen] = useState(false);
   const { todos } = useAppSelector((state: RootState) => state.todos);
   const dispatch = useAppDispatch();
 
-  const isMobile = useMediaQuery(CONSTANTS.DESKTOP_BREAKPOINT);
+  const isMobile = useMediaQuery(CONSTANTS.DESKTOP_BREAKPOINT); //It is working perfectly
 
   const handleCreate = (values: Omit<Todo, "id">) => {
     dispatch({ type: "todo-list/addTodo", payload: { id: uuid(), ...values } });
   };
 
-  console.log(isMobile);
+  let content: ReactNode;
+
+  if (isMobile) {
+    content = (
+      <>
+        <button onClick={() => setOpen(true)}>Add Todo</button>
+        <Modal isOpen={open} onClose={() => setOpen(false)}>
+          <TodoForm
+            initialValues={{}}
+            /* fix problem with the modal */
+            onSubmit={(values) => {
+              handleCreate(values);
+              setOpen(false);
+            }}
+            operation="create"
+            submitLabel="Create"
+          />
+        </Modal>
+      </>
+    );
+  } else {
+    content = (
+      <>
+        <h3>Add Todo</h3>
+        <TodoForm
+          initialValues={{}}
+          /* fix problem with the modal */
+          onSubmit={(values) => {
+            handleCreate(values);
+            setOpen(false);
+          }}
+          operation="create"
+          submitLabel="Create"
+        />
+      </>
+    );
+  }
 
   return (
     <>
-      <h1>Super Todo App</h1>
-      <TodoForm
-        initialValues={{}}
-        onSubmit={handleCreate}
-        operation="create"
-        submitLabel="Create"
-      />
-
+      <h2>Home Page</h2>
+      {content}
       {todos ? (
         <List todos={todos} variant="mobile-ui-home" />
       ) : (

@@ -1,4 +1,4 @@
-import { type FC, type ReactNode, useState, useEffect } from "react";
+import { type FC, type ReactNode, useState, useEffect, useRef } from "react";
 import { type Todo } from "../../types/shared";
 import { countRemainingDays } from "../../utils/calculations";
 
@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { type RootState } from "../../store";
 
 import { translations } from "../../utils/translations";
+import ConfirmDialog, { type ConfirmDialogRef } from "./ConfirmDialog";
 
 interface CardViewProps {
   todo: Todo;
@@ -25,7 +26,8 @@ const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
   const T = translations[language];
 
   const { cardViewT } = T;
-  console.log(cardViewT.removeBtn);
+
+  const dialogRef = useRef<ConfirmDialogRef>(null); //Imported type for ConfirmDialogRef
 
   //sync isDone with isComplete from the store
   useEffect(() => {
@@ -43,6 +45,15 @@ const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
     dispatch({ type: "todo-list/removeTodo", payload: id });
   }
 
+  //Dialog handlers
+  const handleOpenDialog = () => {
+    dialogRef.current?.open();
+  };
+
+  const confirmAction = () => {
+    handleRemoveTodo(); // Call the remove function
+  };
+
   let content: ReactNode;
 
   if (variant === "home") {
@@ -51,9 +62,15 @@ const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
         <button onClick={updateCompleteStatus}>
           {isDone ? cardViewT.completeBtn : cardViewT.unCompleteBtn}
         </button>
-        <button id="btn-remove-todo" onClick={handleRemoveTodo}>
+        <button id="btn-remove-todo" onClick={handleOpenDialog}>
           {cardViewT.removeBtn}
         </button>
+        <ConfirmDialog
+          ref={dialogRef}
+          title="Remove Todo"
+          message="Are you sure you remove?"
+          onConfirm={confirmAction}
+        />
       </>
     );
   }
@@ -65,9 +82,16 @@ const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
           Edit
         </button>
         <button onClick={handleRemoveTodo}>{cardViewT.removeBtn}</button>
+        <ConfirmDialog
+          ref={dialogRef}
+          title="Edit Todo"
+          message="Are you sure?"
+          onConfirm={confirmAction}
+        />
       </>
     );
   }
+
   return (
     <div>
       <h3>Todo - organize view</h3>

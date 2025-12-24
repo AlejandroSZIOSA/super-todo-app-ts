@@ -47,6 +47,12 @@ const TodoForm: FC<TodoFormProps> = ({
     setDeadline("");
   };
 
+  /* const handleCancel = () => {
+    setTitle("");
+    setDescription("");
+    setDeadline("");
+  }; */
+
   return (
     <form onSubmit={handleSubmit}>
       <div>
