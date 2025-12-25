@@ -1,7 +1,6 @@
 import { type FC, useState, type ReactNode } from "react";
 /* import reactLogo from "../assets/react.svg";
 import viteLogo from "/vite.svg"; */
-
 import List from "../components/List";
 import { type Todo } from "../types/shared";
 import type { RootState } from "../store";
@@ -11,15 +10,14 @@ import { v4 as uuid } from "uuid";
 import MessageList from "../components/MessageList";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { CONSTANTS } from "../utils/constants";
-
 import Modal from "../components/mobile-ui/Modal/Modal";
 
 const HomePage: FC = () => {
-  const [open, setOpen] = useState(false);
   const { todos } = useAppSelector((state: RootState) => state.todos);
   const dispatch = useAppDispatch();
 
   const isMobile = useMediaQuery(CONSTANTS.DESKTOP_BREAKPOINT); //It is working perfectly
+  const [open, setOpen] = useState(false);
 
   const handleCreate = (values: Omit<Todo, "id">) => {
     dispatch({ type: "todo-list/addTodo", payload: { id: uuid(), ...values } });
@@ -65,7 +63,6 @@ const HomePage: FC = () => {
 
   return (
     <>
-      <h2>Home Page</h2>
       {content}
       {todos ? (
         <List todos={todos} variant="mobile-ui-home" />

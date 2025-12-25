@@ -42,11 +42,11 @@ const ConfirmDialog = forwardRef<ConfirmDialogRef, ConfirmDialogProps>(
         <h1>{title}</h1>
         <p>{message}</p>
         <div className={classes.buttonContainer}>
-          <button onClick={handleCancel} className={classes.buttonCancel}>
-            Cancel
-          </button>
           <button onClick={handleConfirm} className={classes.buttonConfirm}>
             Confirm
+          </button>
+          <button onClick={handleCancel} className={classes.buttonCancel}>
+            Cancel
           </button>
         </div>
       </dialog>

@@ -6,7 +6,9 @@ import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { type RootState } from "../../store";
 
 import { translations } from "../../utils/translations";
-import ConfirmDialog, { type ConfirmDialogRef } from "./ConfirmDialog";
+import ConfirmDialog, {
+  type ConfirmDialogRef,
+} from "./ConfirmDialog/ConfirmDialog";
 
 interface CardViewProps {
   todo: Todo;
