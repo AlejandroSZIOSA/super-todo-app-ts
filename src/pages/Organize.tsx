@@ -7,10 +7,10 @@ import TodoForm from "../components/desktop-ui/TodoForm";
 import { CONSTANTS } from "../utils/constants";
 import useMediaQuery from "../hooks/useMediaQuery";
 import Modal from "../components/mobile-ui/Modal/Modal";
+import Header from "../components/Header/Header";
 
 const OrganizePage: FC = () => {
   const [todoEdit, setTodoEdit] = useState<Omit<Todo, "id" | "isComplete">>({
-    /*     id: 0, Omit fix the problem */
     title: "",
     description: "",
   });
@@ -42,26 +42,24 @@ const OrganizePage: FC = () => {
     setOpen(false);
   };
 
+  //jsx content variable
   let content: ReactNode;
-
   if (isMobile) {
     content = (
       <>
-        <>
-          <Modal isOpen={open} onClose={() => setOpen(false)}>
-            <TodoForm
-              initialValues={todoEdit}
-              onSubmit={onChangeTodoEditState}
-              operation="edit"
-              submitLabel="Edit"
-            />
-          </Modal>
-          <List
-            todos={todos}
-            variant="mobile-ui-organize"
-            handleEditAction={handleSelectedEditTodo} //callback function passed down x2
+        <Modal isOpen={open} onClose={() => setOpen(false)}>
+          <TodoForm
+            initialValues={todoEdit}
+            onSubmit={onChangeTodoEditState}
+            operation="edit"
+            submitLabel="Edit"
           />
-        </>
+        </Modal>
+        <List
+          todos={todos}
+          variant="mobile-ui-organize"
+          handleEditAction={handleSelectedEditTodo} //callback function passed down x2
+        />
       </>
     );
   } else {
@@ -83,10 +81,12 @@ const OrganizePage: FC = () => {
   }
 
   return (
-    <div>
-      <h1>Organize Page </h1>
-      {content}
-    </div>
+    <>
+      <Header>
+        <h2>Organize</h2>
+      </Header>
+      <main>{content}</main>
+    </>
   );
 };
 

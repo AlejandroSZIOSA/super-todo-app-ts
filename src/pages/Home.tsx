@@ -1,4 +1,4 @@
-import { type FC, useState, type ReactNode } from "react";
+import { type FC, useState, type ReactNode, useEffect } from "react";
 /* import reactLogo from "../assets/react.svg";
 import viteLogo from "/vite.svg"; */
 import List from "../components/List";
@@ -12,6 +12,10 @@ import useMediaQuery from "../hooks/useMediaQuery";
 import { CONSTANTS } from "../utils/constants";
 import Modal from "../components/mobile-ui/Modal/Modal";
 
+import Header from "../components/Header/Header";
+
+import { loadDaysRemainingCounter } from "../utils/localstorage/localstorage";
+
 const HomePage: FC = () => {
   const { todos } = useAppSelector((state: RootState) => state.todos);
   const dispatch = useAppDispatch();
@@ -23,12 +27,17 @@ const HomePage: FC = () => {
     dispatch({ type: "todo-list/addTodo", payload: { id: uuid(), ...values } });
   };
 
-  let content: ReactNode;
+  useEffect(() => {
+    //Continue from here :)
+    let counterDaysUntilWarning = loadDaysRemainingCounter();
+    console.log(counterDaysUntilWarning);
+  }, []);
 
+  //jsx content variable
+  let content: ReactNode;
   if (isMobile) {
     content = (
       <>
-        <button onClick={() => setOpen(true)}>Add Todo</button>
         <Modal isOpen={open} onClose={() => setOpen(false)}>
           <TodoForm
             initialValues={{}}
@@ -63,12 +72,17 @@ const HomePage: FC = () => {
 
   return (
     <>
-      {content}
-      {todos ? (
-        <List todos={todos} variant="mobile-ui-home" />
-      ) : (
-        <MessageList message="Empty Todos List. Please add a todo." />
-      )}
+      <Header>
+        <button onClick={() => setOpen(true)}>Add Todo</button>
+      </Header>
+      <main>
+        {content}
+        {todos ? (
+          <List todos={todos} variant="mobile-ui-home" />
+        ) : (
+          <MessageList message="Empty Todos List. Please add a todo." />
+        )}
+      </main>
     </>
   );
 };

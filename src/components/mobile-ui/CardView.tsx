@@ -56,8 +56,8 @@ const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
     handleRemoveTodo(); // Call the remove function
   };
 
+  //jsx content variable
   let content: ReactNode;
-
   if (variant === "home") {
     content = (
       <>
@@ -76,7 +76,6 @@ const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
       </>
     );
   }
-
   if (variant === "organize") {
     content = (
       <>
