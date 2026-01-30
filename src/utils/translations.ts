@@ -21,7 +21,7 @@ export const translations: TranslationTypes = {
   sv: {
     cardViewT: {
       title: "Välkommen",
-      removeBtn: "Skicka",
+      removeBtn: "Radera",
       completeBtn: "Klart",
       unCompleteBtn: "Inte klart",
     },

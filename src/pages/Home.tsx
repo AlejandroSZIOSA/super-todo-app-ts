@@ -6,7 +6,7 @@ import { type Todo } from "../types/shared";
 import type { RootState } from "../store";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import TodoForm from "../components/desktop-ui/TodoForm";
-import { v4 as uuid } from "uuid";
+import { v4 as uuid } from "uuid"; //create unique ids
 import MessageList from "../components/MessageList";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { CONSTANTS } from "../utils/constants";
@@ -29,7 +29,7 @@ const HomePage: FC = () => {
 
   useEffect(() => {
     //Continue from here :)
-    let counterDaysUntilWarning = loadDaysRemainingCounter();
+    const counterDaysUntilWarning = loadDaysRemainingCounter();
     console.log(counterDaysUntilWarning);
   }, []);
 

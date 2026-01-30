@@ -10,6 +10,8 @@ import ConfirmDialog, {
   type ConfirmDialogRef,
 } from "./ConfirmDialog/ConfirmDialog";
 
+import { loadDaysRemainingCounter } from "../../utils/localstorage/localstorage";
+
 interface CardViewProps {
   todo: Todo;
   variant: "home" | "organize";
@@ -99,7 +101,9 @@ const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
       <p>{title}</p>
       <p>{description}</p>
       <p>Deadline : {deadline}</p>
+      <p>Warning me Before:{loadDaysRemainingCounter()} days</p>
       <p>Days remained : {countRemainingDays(new Date(), deadline)}</p>
+
       <div>{content}</div>
     </div>
   );

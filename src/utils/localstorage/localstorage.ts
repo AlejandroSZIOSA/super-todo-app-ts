@@ -54,7 +54,7 @@ export const saveDaysRemainingCounter = (daysRemaining: number) => {
   try {
     localStorage.setItem(
       REMAIN_DAYS_WARNING_KEY,
-      JSON.stringify(daysRemaining)
+      JSON.stringify(daysRemaining),
     );
   } catch {
     // ignore write errors
