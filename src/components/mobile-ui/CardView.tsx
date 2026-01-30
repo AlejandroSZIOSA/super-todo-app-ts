@@ -27,9 +27,9 @@ const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
   const [isDone, setIsDone] = useState<boolean>(false);
 
   //translations  en - swe as context param, this change the current language state
-  const T = translations[language];
+  const TRANSLATION = translations[language];
 
-  const { cardViewT } = T;
+  const { cardViewT } = TRANSLATION;
 
   const dialogRef = useRef<ConfirmDialogRef>(null); //Imported type for ConfirmDialogRef
 
