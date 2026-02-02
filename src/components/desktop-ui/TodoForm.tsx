@@ -1,6 +1,7 @@
 import { useState, type FC, useEffect } from "react";
 /* import { Item } from "../store/itemsSlice"; */
 import { type Todo } from "../../types/shared";
+import { getCurrentDate } from "../../utils/calculations";
 
 interface TodoFormProps {
   initialValues: Partial<Todo>;
@@ -17,7 +18,7 @@ const TodoForm: FC<TodoFormProps> = ({
 }) => {
   const [title, setTitle] = useState(initialValues.title ?? "");
   const [description, setDescription] = useState(
-    initialValues.description ?? ""
+    initialValues.description ?? "",
   );
   const [deadline, setDeadline] = useState(initialValues.deadline ?? "");
 
@@ -78,6 +79,8 @@ const TodoForm: FC<TodoFormProps> = ({
         <input
           type="date"
           id="deadline"
+          defaultValue={getCurrentDate()}
+          min={getCurrentDate()}
           value={deadline}
           onChange={(e) => setDeadline(e.target.value)}
         />

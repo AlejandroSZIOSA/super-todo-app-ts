@@ -11,6 +11,7 @@ import ConfirmDialog, {
 } from "./ConfirmDialog/ConfirmDialog";
 
 import { loadDaysRemainingCounter } from "../../utils/localstorage/localstorage";
+import Accordion from "../mobile-ui/Accordion/Accordion";
 
 interface CardViewProps {
   todo: Todo;
@@ -97,9 +98,8 @@ const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
 
   return (
     <div>
-      <h3>Todo - organize view</h3>
-      <p>{title}</p>
-      <p>{description}</p>
+      {/* <p>{title}</p> */}
+      <Accordion title={title} description={description} isDone={isDone} />
       <p>Deadline : {deadline}</p>
       <p>Warning me Before:{loadDaysRemainingCounter()} days</p>
       <p>Days remained : {countRemainingDays(new Date(), deadline)}</p>

@@ -1,6 +1,6 @@
 export function countRemainingDays(
   currentDate: Date,
-  deadline?: string
+  deadline?: string,
 ): number {
   const current = new Date(currentDate);
   //gard condition
@@ -17,3 +17,5 @@ export function countRemainingDays(
   const remainingDays = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)); // milliseconds to days
   return remainingDays;
 }
+
+export const getCurrentDate = () => new Date().toISOString().split("T")[0];
