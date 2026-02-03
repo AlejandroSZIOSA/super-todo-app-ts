@@ -1,17 +1,21 @@
 //Record Record<K, V>
 interface TranslationTypes {
   en: {
-    cardViewT: Record<string, string>;
+    cardView_T: Record<string, string>;
   };
 
   sv: {
-    cardViewT: Record<string, string>;
+    cardView_T: Record<string, string>;
+  };
+
+  es: {
+    cardView_T: Record<string, string>;
   };
 }
 
 export const translations: TranslationTypes = {
   en: {
-    cardViewT: {
+    cardView_T: {
       title: "Welcome",
       removeBtn: "Remove",
       completeBtn: "Done",
@@ -19,11 +23,19 @@ export const translations: TranslationTypes = {
     },
   },
   sv: {
-    cardViewT: {
+    cardView_T: {
       title: "Välkommen",
       removeBtn: "Radera",
       completeBtn: "Klart",
       unCompleteBtn: "Inte klart",
+    },
+  },
+  es: {
+    cardView_T: {
+      title: "Bienvenido",
+      removeBtn: "Eliminar",
+      completeBtn: "Hecho",
+      unCompleteBtn: "incompleto",
     },
   },
 };

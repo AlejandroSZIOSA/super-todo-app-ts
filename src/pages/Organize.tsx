@@ -8,6 +8,7 @@ import { CONSTANTS } from "../utils/constants";
 import useMediaQuery from "../hooks/useMediaQuery";
 import Modal from "../components/mobile-ui/Modal/Modal";
 import Header from "../components/Header/Header";
+import Message from "../components/Message";
 
 const OrganizePage: FC = () => {
   const [todoEdit, setTodoEdit] = useState<Omit<Todo, "id" | "isComplete">>({
@@ -52,31 +53,23 @@ const OrganizePage: FC = () => {
             initialValues={todoEdit}
             onSubmit={onChangeTodoEditState}
             operation="edit"
-            submitLabel="Edit"
+            submitBtnLabel="Save"
           />
         </Modal>
-        <List
-          todos={todos}
-          variant="mobile-ui-organize"
-          handleEditAction={handleSelectedEditTodo} //callback function passed down x2
-        />
       </>
     );
   } else {
     content = (
-      <>
+      <aside>
+        <h3>Edit Todo</h3>
         <TodoForm
           initialValues={todoEdit}
           onSubmit={onChangeTodoEditState}
           operation="edit"
-          submitLabel="Edit"
+          submitBtnLabel="Save"
         />
-        <List
-          todos={todos}
-          variant="mobile-ui-organize"
-          handleEditAction={handleSelectedEditTodo} //callback function passed down x2
-        />
-      </>
+        <div> App logo</div>
+      </aside>
     );
   }
 
@@ -85,7 +78,18 @@ const OrganizePage: FC = () => {
       <Header>
         <h2>Organize</h2>
       </Header>
-      <main>{content}</main>
+      <main className="homePage_reusableBase__main">
+        {content}
+        {todos.length !== 0 ? (
+          <List
+            todos={todos}
+            variant="mobile-ui-organize"
+            handleEditAction={handleSelectedEditTodo} //callback function passed down x2
+          />
+        ) : (
+          <Message message="Empty List" />
+        )}
+      </main>
     </>
   );
 };

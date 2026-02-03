@@ -15,3 +15,9 @@
 .childrenContainer {
   margin: 0.5rem 0;
 }
+
+/* @media (min-width: 1024px) {
+  .childrenContainer {
+    display: none;
+  }
+} */

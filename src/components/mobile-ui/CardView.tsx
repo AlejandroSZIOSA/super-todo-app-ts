@@ -30,7 +30,7 @@ const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
   //translations  en - swe as context param, this change the current language state
   const TRANSLATION = translations[language];
 
-  const { cardViewT } = TRANSLATION;
+  const { cardView_T } = TRANSLATION;
 
   const dialogRef = useRef<ConfirmDialogRef>(null); //Imported type for ConfirmDialogRef
 
@@ -65,10 +65,10 @@ const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
     content = (
       <>
         <button onClick={updateCompleteStatus}>
-          {isDone ? cardViewT.completeBtn : cardViewT.unCompleteBtn}
+          {isDone ? cardView_T.completeBtn : cardView_T.unCompleteBtn}
         </button>
         <button id="btn-remove-todo" onClick={handleOpenDialog}>
-          {cardViewT.removeBtn}
+          {cardView_T.removeBtn}
         </button>
         <ConfirmDialog
           ref={dialogRef}
@@ -85,7 +85,7 @@ const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
         <button onClick={() => handleEditAction && handleEditAction(id)}>
           Edit
         </button>
-        <button onClick={handleRemoveTodo}>{cardViewT.removeBtn}</button>
+        <button onClick={handleRemoveTodo}>{cardView_T.removeBtn}</button>
         <ConfirmDialog
           ref={dialogRef}
           title="Edit Todo"

@@ -1,35 +1,29 @@
-import { type FC, useState, useEffect } from "react";
-import SelectorLanguages from "../components/SelectorLanguages";
+import { type FC } from "react";
 import Header from "../components/Header/Header";
-import { saveDaysRemainingCounter } from "../utils/localstorage/localstorage";
-import { loadDaysRemainingCounter } from "../utils/localstorage/localstorage";
+import SelectorRoot from "../components/selector/SelectorRoot";
 
 const SettingsPage: FC = () => {
-  const [counterWarning, setCounterWarning] = useState(
-    loadDaysRemainingCounter
-  );
-
-  useEffect(() => {
-    saveDaysRemainingCounter(counterWarning);
-  }, [counterWarning]);
-
   return (
     <>
       <Header>
         <h2>Settings</h2>
       </Header>
       <main>
-        <section>
+        <section className="settingsPage__sections">
           <h3>Language</h3>
-          <SelectorLanguages />
+          <SelectorRoot variant="Language">
+            <SelectorRoot.Item value="en">English</SelectorRoot.Item>
+            <SelectorRoot.Item value="sv">Svenska</SelectorRoot.Item>
+            <SelectorRoot.Item value="es">Spanish</SelectorRoot.Item>
+          </SelectorRoot>
         </section>
-        <section>
-          <label>remain days warning</label>
-          <input
-            type="number"
-            value={counterWarning}
-            onChange={(e) => setCounterWarning(Number(e.target.value))}
-          ></input>
+        <section className="settingsPage__sections">
+          <h3>remain days warning</h3>
+          <SelectorRoot variant="RemainDaysBeforeWarning">
+            <SelectorRoot.Item value={3}>Three</SelectorRoot.Item>
+            <SelectorRoot.Item value={6}>Six</SelectorRoot.Item>
+            <SelectorRoot.Item value={9}>Nine</SelectorRoot.Item>
+          </SelectorRoot>
         </section>
       </main>
     </>

@@ -6,4 +6,4 @@ export type Todo = {
   deadline?: string;
 };
 
-export type Language = "en" | "sv";
+export type Language = "en" | "sv" | "es";

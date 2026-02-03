@@ -7,11 +7,11 @@ import type { RootState } from "../store";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import TodoForm from "../components/desktop-ui/TodoForm";
 import { v4 as uuid } from "uuid"; //create unique ids
-import MessageList from "../components/MessageList";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { CONSTANTS } from "../utils/constants";
 import Modal from "../components/mobile-ui/Modal/Modal";
 
+import Message from "../components/Message";
 import Header from "../components/Header/Header";
 
 import { loadDaysRemainingCounter } from "../utils/localstorage/localstorage";
@@ -47,14 +47,14 @@ const HomePage: FC = () => {
               setOpen(false);
             }}
             operation="create"
-            submitLabel="Create"
+            submitBtnLabel="Add"
           />
         </Modal>
       </>
     );
   } else {
     content = (
-      <>
+      <aside>
         <h3>Add Todo</h3>
         <TodoForm
           initialValues={{}}
@@ -64,23 +64,27 @@ const HomePage: FC = () => {
             setOpen(false);
           }}
           operation="create"
-          submitLabel="Create"
+          submitBtnLabel="Add"
         />
-      </>
+      </aside>
     );
   }
 
   return (
     <>
       <Header>
-        <button onClick={() => setOpen(true)}>Add Todo</button>
+        {isMobile ? (
+          <button onClick={() => setOpen(true)}>Add Todo</button>
+        ) : (
+          <h2>Home</h2>
+        )}
       </Header>
-      <main>
+      <main className="homePage_reusableBase__main">
         {content}
-        {todos ? (
+        {todos.length !== 0 ? (
           <List todos={todos} variant="mobile-ui-home" />
         ) : (
-          <MessageList message="Empty Todos List. Please add a todo." />
+          <Message message="Empty List." />
         )}
       </main>
     </>

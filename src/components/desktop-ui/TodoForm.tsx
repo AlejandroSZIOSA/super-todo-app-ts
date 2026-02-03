@@ -7,14 +7,14 @@ interface TodoFormProps {
   initialValues: Partial<Todo>;
   onSubmit: (values: Omit<Todo, "id"> | Todo) => void;
   operation?: "create" | "edit";
-  submitLabel: "Create" | "Edit";
+  submitBtnLabel: "Add" | "Edit" | "Save";
 }
 
 const TodoForm: FC<TodoFormProps> = ({
   initialValues,
   onSubmit,
   operation,
-  submitLabel,
+  submitBtnLabel,
 }) => {
   const [title, setTitle] = useState(initialValues.title ?? "");
   const [description, setDescription] = useState(
@@ -86,7 +86,7 @@ const TodoForm: FC<TodoFormProps> = ({
         />
       </div>
       <button id="btn-add-todo" type="submit">
-        {submitLabel}
+        {submitBtnLabel}
       </button>
     </form>
   );
