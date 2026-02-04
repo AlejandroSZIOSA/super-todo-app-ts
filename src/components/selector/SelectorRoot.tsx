@@ -67,5 +67,5 @@ const SelectorRoot: SelectorRootComponent = ({ children, variant }) => {
     </select>
   );
 };
-SelectorRoot.Item = SelectorItem;
+SelectorRoot.Item = SelectorItem; //Assigning the Item sub-component
 export default SelectorRoot;

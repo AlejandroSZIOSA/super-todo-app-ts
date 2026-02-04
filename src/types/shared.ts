@@ -10,4 +10,4 @@ export type Language = "en" | "sv" | "es";
 
 export type Theme = "default" | "ocean";
 
-export type RemainDaysBeforeWarning = 3 | 6 | 9;
+export type DaysCountdown = 3 | 6 | 9;
