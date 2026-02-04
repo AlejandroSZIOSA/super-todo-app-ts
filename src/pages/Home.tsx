@@ -1,4 +1,4 @@
-import { type FC, useState, type ReactNode, useEffect } from "react";
+import { type FC, useState, type ReactNode } from "react";
 /* import reactLogo from "../assets/react.svg";
 import viteLogo from "/vite.svg"; */
 import List from "../components/List";
@@ -14,8 +14,6 @@ import Modal from "../components/mobile-ui/Modal/Modal";
 import Message from "../components/Message";
 import Header from "../components/Header/Header";
 
-import { loadDaysRemainingCounter } from "../utils/localstorage/localstorage";
-
 const HomePage: FC = () => {
   const { todos } = useAppSelector((state: RootState) => state.todos);
   const dispatch = useAppDispatch();
@@ -26,12 +24,6 @@ const HomePage: FC = () => {
   const handleCreate = (values: Omit<Todo, "id">) => {
     dispatch({ type: "todo-list/addTodo", payload: { id: uuid(), ...values } });
   };
-
-  useEffect(() => {
-    //Continue from here :)
-    const counterDaysUntilWarning = loadDaysRemainingCounter();
-    console.log(counterDaysUntilWarning);
-  }, []);
 
   //jsx content variable
   let content: ReactNode;

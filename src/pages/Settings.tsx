@@ -13,7 +13,7 @@ const SettingsPage: FC = () => {
           <h3>Language</h3>
           <SelectorRoot variant="Language">
             <SelectorRoot.Item value="en">English</SelectorRoot.Item>
-            <SelectorRoot.Item value="sv">Svenska</SelectorRoot.Item>
+            <SelectorRoot.Item value="sv">Swedish</SelectorRoot.Item>
             <SelectorRoot.Item value="es">Spanish</SelectorRoot.Item>
           </SelectorRoot>
         </section>

@@ -28,6 +28,7 @@ const SelectorRoot: SelectorRootComponent = ({ children, variant }) => {
   const dispatch = useAppDispatch();
   const language = useAppSelector((state: RootState) => state.language.current);
   const theme = useAppSelector((state: RootState) => state.theme.current);
+  // For remaining days warning selector not using redux only localstorage
   const [warningDays, setWarningDays] = useState(loadDaysRemainingCounter());
 
   const changeLanguage = (lang: Language) => {
