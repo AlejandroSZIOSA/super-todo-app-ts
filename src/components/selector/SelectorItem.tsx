@@ -1,10 +1,8 @@
 import React, { type FC } from "react";
-import { type Language } from "../../types/shared";
-
-type WarningDaysAllowValues = 3 | 6 | 9;
+import type { Language, Theme, DaysCountdown } from "../../types/shared";
 
 export type SelectorItemProps = {
-  value: Language | WarningDaysAllowValues;
+  value: Language | DaysCountdown | Theme;
   children: React.ReactNode;
 };
 

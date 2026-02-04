@@ -7,3 +7,7 @@ export type Todo = {
 };
 
 export type Language = "en" | "sv" | "es";
+
+export type Theme = "default" | "ocean";
+
+export type RemainDaysBeforeWarning = 3 | 6 | 9;

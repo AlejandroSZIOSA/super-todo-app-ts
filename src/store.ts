@@ -1,12 +1,14 @@
 //Redux Store
 import { configureStore } from "@reduxjs/toolkit";
-import todosReducer from "./store/redux/todos-reducer";
+import todosReducer from "./store/redux/todosSlice";
 import languageReducer from "./store/redux/languageSlice";
+import themeReducer from "./store/redux/themeSlice";
 
 export const store = configureStore({
   reducer: {
     todos: todosReducer,
     language: languageReducer,
+    theme: themeReducer,
   },
 });
 

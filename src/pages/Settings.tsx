@@ -18,11 +18,18 @@ const SettingsPage: FC = () => {
           </SelectorRoot>
         </section>
         <section className="settingsPage__sections">
-          <h3>remain days warning</h3>
+          <h3>Remaining days warning</h3>
           <SelectorRoot variant="RemainDaysBeforeWarning">
             <SelectorRoot.Item value={3}>Three</SelectorRoot.Item>
             <SelectorRoot.Item value={6}>Six</SelectorRoot.Item>
             <SelectorRoot.Item value={9}>Nine</SelectorRoot.Item>
+          </SelectorRoot>
+        </section>
+        <section className="settingsPage__sections">
+          <h3>Select theme</h3>
+          <SelectorRoot variant="Theme">
+            <SelectorRoot.Item value="default">Default</SelectorRoot.Item>
+            <SelectorRoot.Item value="ocean">Ocean</SelectorRoot.Item>
           </SelectorRoot>
         </section>
       </main>
