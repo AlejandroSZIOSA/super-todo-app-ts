@@ -1,25 +1,25 @@
 import { type FC, type ReactNode, useState, useEffect, useRef } from "react";
-import { type Todo } from "../../types/shared";
-import { countRemainingDays } from "../../utils/calculations";
+import { type Todo } from "../../../types/shared";
+import { countRemainingDays } from "../../../utils/calculations";
 
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import { type RootState } from "../../store";
+import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
+import { type RootState } from "../../../store";
 
-import { translations } from "../../utils/translations";
+import { translations } from "../../../utils/translations";
 import ConfirmDialog, {
   type ConfirmDialogRef,
-} from "./ConfirmDialog/ConfirmDialog";
+} from "../ConfirmDialog/ConfirmDialog";
 
-import { loadDaysRemainingCounter } from "../../utils/localstorage/localstorage";
-import Accordion from "../mobile-ui/Accordion/Accordion";
+import { loadDaysRemainingCounter } from "../../../utils/localstorage/localstorage";
+import Accordion from "../Accordion/Accordion";
 
-interface CardViewProps {
+interface CardProps {
   todo: Todo;
   variant: "home" | "organize";
   handleEditAction?: (todoId: number) => void; //prop drilling x2 + call back
 }
 
-const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
+const Card: FC<CardProps> = ({ todo, variant, handleEditAction }) => {
   const { id, title, description, deadline, isComplete } = todo;
   const dispatch = useAppDispatch();
 
@@ -39,7 +39,7 @@ const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
     setIsDone(isComplete);
   }, [isComplete]);
 
-  function updateCompleteStatus() {
+  function handleUpdateStatus() {
     dispatch({
       type: "todo-list/updateTodo",
       payload: { ...todo, isComplete: !isDone },
@@ -64,7 +64,7 @@ const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
   if (variant === "home") {
     content = (
       <>
-        <button onClick={updateCompleteStatus}>
+        <button onClick={handleUpdateStatus}>
           {isDone ? cardView_T.completeBtn : cardView_T.unCompleteBtn}
         </button>
         <button id="btn-remove-todo" onClick={handleOpenDialog}>
@@ -109,4 +109,4 @@ const CardView: FC<CardViewProps> = ({ todo, variant, handleEditAction }) => {
   );
 };
 
-export default CardView;
+export default Card;

@@ -1,10 +1,10 @@
 import type { Todo, Language, Theme } from "../../types/shared";
 
 //The browser is using this keys to store data in localstorage
-const TODOS_KEY = "todos";
+const TODOS_KEY = "todo-list";
 const LANGUAGE_KEY = "languages";
-const REMAIN_DAYS_WARNING_KEY = "remain_days_warning";
-const THEME_KEY = "theme-localstorage-key";
+const REMAIN_DAYS_WARNING_KEY = "countdown-days-bef-warning";
+const THEME_KEY = "theme";
 
 //todos
 export const loadTodos = (): Todo[] => {
@@ -42,7 +42,7 @@ export const saveLanguage = (language: Language) => {
   }
 };
 
-//warning countdown days
+//warning  days
 export const loadDaysRemainingCounter = (): number => {
   try {
     const data = localStorage.getItem(REMAIN_DAYS_WARNING_KEY);

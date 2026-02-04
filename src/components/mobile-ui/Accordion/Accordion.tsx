@@ -13,7 +13,7 @@ const Accordion: FC<AccordionProps> = ({ title, description, isDone }) => {
     setIsOpen(!isOpen);
   };
   return (
-    <ul>
+    <menu>
       <li onClick={toggleAccordion}>
         <span>{title}</span>
         {isDone ? (
@@ -27,7 +27,7 @@ const Accordion: FC<AccordionProps> = ({ title, description, isDone }) => {
           <p>{description}</p>
         </div>
       )}
-    </ul>
+    </menu>
   );
 };
 

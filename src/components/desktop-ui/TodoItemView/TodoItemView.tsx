@@ -10,14 +10,14 @@ interface TodoItemViewProps {
 const TodoItemView: FC<TodoItemViewProps> = ({ todo, variant }) => {
   return (
     <div className={styles.todoItemContainer}>
-      <div>
+      <span>
         <h3>{todo.title}</h3>
         <p>{todo.description}</p>
-      </div>
-      <div>
+      </span>
+      <span>
         <button>complete</button>
-        <button>Delete</button>
-      </div>
+        {variant === "home" ? <button>remove</button> : <button>edit</button>}
+      </span>
     </div>
   );
 };

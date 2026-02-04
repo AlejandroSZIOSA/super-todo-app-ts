@@ -86,6 +86,13 @@ button {
   font-size: 1rem;
 }
 
+ol {
+  list-style: numeric;
+}
+/* li {
+  list-style: none;
+} */
+
 .settingsPage__sections {
   text-align: center;
 }

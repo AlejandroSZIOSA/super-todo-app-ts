@@ -1,14 +1,19 @@
 import { type FC } from "react";
 import { type Todo } from "../types/shared";
-import CardView from "./mobile-ui/CardView";
+import Card from "./mobile-ui/Card/Card";
+import TodoItemView from "./desktop-ui/TodoItemView/TodoItemView";
 
 type ListProps = {
   todos: Todo[];
-  variant: "mobile-ui-home" | "mobile-ui-organize";
+  variant:
+    | "mobile-ui-home"
+    | "mobile-ui-organize"
+    | "desktop-ui-home"
+    | "desktop-ui-organize";
   handleEditAction?: (todoId: number) => void; //prop drilling x2 + call back
 };
 
-//Todo: Add children
+//Todo: Integrar componentes cards como items :)
 
 const List: FC<ListProps> = ({ todos, variant, handleEditAction }) => {
   if (variant === "mobile-ui-home") {
@@ -16,7 +21,19 @@ const List: FC<ListProps> = ({ todos, variant, handleEditAction }) => {
       <ol>
         {todos.map((todo) => (
           <li key={todo.id}>
-            <CardView todo={todo} variant="home" />
+            <Card todo={todo} variant="home" />
+          </li>
+        ))}
+      </ol>
+    );
+  }
+
+  if (variant === "desktop-ui-home") {
+    return (
+      <ol>
+        {todos.map((todo) => (
+          <li key={todo.id}>
+            <TodoItemView todo={todo} variant="home" />
           </li>
         ))}
       </ol>
@@ -27,7 +44,7 @@ const List: FC<ListProps> = ({ todos, variant, handleEditAction }) => {
     <ol>
       {todos.map((todo) => (
         <li key={todo.id}>
-          <CardView
+          <Card
             todo={todo}
             variant="organize"
             handleEditAction={handleEditAction}
