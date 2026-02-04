@@ -11,7 +11,7 @@ const SettingsPage: FC = () => {
       <main>
         <section className="settingsPage__sections">
           <h3>Language</h3>
-          <SelectorRoot variant="Language">
+          <SelectorRoot variant="language">
             <SelectorRoot.Item value="en">English</SelectorRoot.Item>
             <SelectorRoot.Item value="sv">Swedish</SelectorRoot.Item>
             <SelectorRoot.Item value="es">Spanish</SelectorRoot.Item>
@@ -19,7 +19,7 @@ const SettingsPage: FC = () => {
         </section>
         <section className="settingsPage__sections">
           <h3>Remaining days warning</h3>
-          <SelectorRoot variant="RemainDaysBeforeWarning">
+          <SelectorRoot variant="daysCountdownWarning">
             <SelectorRoot.Item value={3}>Three</SelectorRoot.Item>
             <SelectorRoot.Item value={6}>Six</SelectorRoot.Item>
             <SelectorRoot.Item value={9}>Nine</SelectorRoot.Item>
@@ -27,7 +27,7 @@ const SettingsPage: FC = () => {
         </section>
         <section className="settingsPage__sections">
           <h3>Select theme</h3>
-          <SelectorRoot variant="Theme">
+          <SelectorRoot variant="theme">
             <SelectorRoot.Item value="default">Default</SelectorRoot.Item>
             <SelectorRoot.Item value="ocean">Ocean</SelectorRoot.Item>
           </SelectorRoot>

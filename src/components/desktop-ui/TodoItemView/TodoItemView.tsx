@@ -7,6 +7,7 @@ interface TodoItemViewProps {
   variant: "home" | "organize";
 }
 
+// TODO:PONER LENGUAJES
 const TodoItemView: FC<TodoItemViewProps> = ({ todo, variant }) => {
   return (
     <div className={styles.todoItemContainer}>

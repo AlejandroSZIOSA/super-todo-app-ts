@@ -16,7 +16,7 @@ import { type SelectorItemProps } from "./SelectorItem";
 import { setTheme } from "../../store/redux/themeSlice";
 
 type SelectorRootProps = {
-  variant?: "Language" | "RemainDaysBeforeWarning" | "Theme";
+  variant?: "language" | "daysCountdownWarning" | "theme";
   children?: React.ReactNode;
 };
 
@@ -28,7 +28,7 @@ const SelectorRoot: SelectorRootComponent = ({ children, variant }) => {
   const dispatch = useAppDispatch();
   const language = useAppSelector((state: RootState) => state.language.current);
   const theme = useAppSelector((state: RootState) => state.theme.current);
-  // For remaining days warning selector not using redux only localstorage
+  // For remaining days warning selector not using redux store
   const [warningDays, setWarningDays] = useState(loadDaysRemainingCounter());
 
   const changeLanguage = (lang: Language) => {
@@ -40,14 +40,14 @@ const SelectorRoot: SelectorRootComponent = ({ children, variant }) => {
   };
 
   const handleOnChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    if (variant === "Language") {
+    if (variant === "language") {
       changeLanguage(e.target.value as Language);
     }
-    if (variant === "RemainDaysBeforeWarning") {
+    if (variant === "daysCountdownWarning") {
       saveDaysRemainingCounter(Number(e.target.value));
       setWarningDays(Number(e.target.value));
     }
-    if (variant === "Theme") {
+    if (variant === "theme") {
       changeTheme(e.target.value as Theme);
     }
   };
@@ -55,9 +55,9 @@ const SelectorRoot: SelectorRootComponent = ({ children, variant }) => {
   return (
     <select
       value={
-        variant === "Language"
+        variant === "language"
           ? language
-          : variant === "RemainDaysBeforeWarning"
+          : variant === "daysCountdownWarning"
             ? warningDays
             : theme
       }

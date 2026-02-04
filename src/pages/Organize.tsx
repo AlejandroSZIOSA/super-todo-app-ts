@@ -73,6 +73,17 @@ const OrganizePage: FC = () => {
     );
   }
 
+  /* const renderListItems = (todo: Todo,uiProp:string,pageProp:string) => {
+   
+    return (<List
+            todos={todos}
+            variantUI={uiProp}
+            variantPage={pageProp}
+            handleEditAction={handleSelectedEditTodo} //callback function passed down x2
+          />)
+    
+  }
+ */
   return (
     <>
       <Header>
@@ -83,7 +94,8 @@ const OrganizePage: FC = () => {
         {todos.length !== 0 ? (
           <List
             todos={todos}
-            variant="mobile-ui-organize"
+            variantUI={isMobile ? "mobile" : "desktop"}
+            variantPage="organize"
             handleEditAction={handleSelectedEditTodo} //callback function passed down x2
           />
         ) : (

@@ -74,11 +74,11 @@ const HomePage: FC = () => {
       <main className="homePage_reusableBase__main">
         {content}
         {todos.length !== 0 ? (
-          isMobile ? (
-            <List todos={todos} variant="mobile-ui-home" />
-          ) : (
-            <List todos={todos} variant="desktop-ui-home" />
-          )
+          <List
+            todos={todos}
+            variantUI={isMobile ? "mobile" : "desktop"}
+            variantPage="home"
+          />
         ) : (
           <Message message="Empty List." />
         )}
