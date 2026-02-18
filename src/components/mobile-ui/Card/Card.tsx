@@ -16,10 +16,10 @@ import Accordion from "../Accordion/Accordion";
 interface CardProps {
   todo: Todo;
   variant: "home" | "organize";
-  handleEditAction?: (todoId: number) => void; //prop drilling x2 + call back
+  onEdit?: (todoId: number) => void; //prop drilling x2 + call back
 }
 
-const Card: FC<CardProps> = ({ todo, variant, handleEditAction }) => {
+const Card: FC<CardProps> = ({ todo, variant, onEdit }) => {
   const { id, title, description, deadline, isComplete } = todo;
   const dispatch = useAppDispatch();
 
@@ -82,9 +82,7 @@ const Card: FC<CardProps> = ({ todo, variant, handleEditAction }) => {
   if (variant === "organize") {
     content = (
       <>
-        <button onClick={() => handleEditAction && handleEditAction(id)}>
-          Edit
-        </button>
+        <button onClick={() => onEdit && onEdit(id)}>Edit</button>
         <button onClick={handleRemoveTodo}>{cardView_T.removeBtn}</button>
         <ConfirmDialog
           ref={dialogRef}

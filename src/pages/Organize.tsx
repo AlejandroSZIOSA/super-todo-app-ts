@@ -9,6 +9,7 @@ import useMediaQuery from "../hooks/useMediaQuery";
 import Modal from "../components/mobile-ui/Modal/Modal";
 import Header from "../components/Header/Header";
 import Message from "../components/Message";
+import ConfirmDialog from "../components/ConfirmDialog/ConfirmDialog";
 
 const OrganizePage: FC = () => {
   const [todoEdit, setTodoEdit] = useState<Omit<Todo, "id" | "isComplete">>({
@@ -23,7 +24,7 @@ const OrganizePage: FC = () => {
   const [open, setOpen] = useState(false);
 
   //callback FN set selected values todo item to the reusable form
-  function handleSelectedEditTodo(todoId: number) {
+  function handleOnEdit(todoId: number) {
     setOpen(true);
     // console.log("Edit todo with ID:", todoId);
     const todo = todos.find((todo) => todo?.id === todoId);
@@ -35,7 +36,7 @@ const OrganizePage: FC = () => {
   }
 
   //2-This function trigger after the validation Form
-  const onChangeTodoEditState = (values: Omit<Todo, "id">) => {
+  const handleTodoEditState = (values: Omit<Todo, "id">) => {
     dispatch({
       type: "todo-list/updateTodo",
       payload: { ...values },
@@ -51,7 +52,7 @@ const OrganizePage: FC = () => {
         <Modal isOpen={open} onClose={() => setOpen(false)}>
           <TodoForm
             initialValues={todoEdit}
-            onSubmit={onChangeTodoEditState}
+            onSubmit={handleTodoEditState}
             operation="edit"
             submitBtnLabel="Save"
           />
@@ -64,7 +65,7 @@ const OrganizePage: FC = () => {
         <h3>Edit Todo</h3>
         <TodoForm
           initialValues={todoEdit}
-          onSubmit={onChangeTodoEditState}
+          onSubmit={handleTodoEditState}
           operation="edit"
           submitBtnLabel="Save"
         />
@@ -96,7 +97,7 @@ const OrganizePage: FC = () => {
             todos={todos}
             variantUI={isMobile ? "mobile" : "desktop"}
             variantPage="organize"
-            handleEditAction={handleSelectedEditTodo} //callback function passed down x2
+            onEdit={handleOnEdit} //callback function passed down x2
           />
         ) : (
           <Message message="Empty List" />

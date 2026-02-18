@@ -7,18 +7,12 @@ type ListProps = {
   todos: Todo[];
   variantUI: "mobile" | "desktop";
   variantPage: "home" | "organize";
-
-  handleEditAction?: (todoId: number) => void; //prop drilling x2 + call back
+  onEdit?: (todoId: number) => void; //prop drilling x1 + call back
 };
 
 //Todo: Integrar componentes cards como items :)
 
-const List: FC<ListProps> = ({
-  todos,
-  variantPage,
-  variantUI,
-  handleEditAction,
-}) => {
+const List: FC<ListProps> = ({ todos, variantPage, variantUI, onEdit }) => {
   function renderListItems(todo: Todo) {
     const { id } = todo;
     if (variantUI === "mobile") {
@@ -27,11 +21,7 @@ const List: FC<ListProps> = ({
           {variantPage === "home" ? (
             <Card todo={todo} variant="home" />
           ) : (
-            <Card
-              todo={todo}
-              variant="organize"
-              handleEditAction={handleEditAction}
-            />
+            <Card todo={todo} variant="organize" onEdit={onEdit} />
           )}
         </li>
       );
