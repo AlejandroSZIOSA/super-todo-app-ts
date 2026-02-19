@@ -9,7 +9,6 @@ import useMediaQuery from "../hooks/useMediaQuery";
 import Modal from "../components/mobile-ui/Modal/Modal";
 import Header from "../components/Header/Header";
 import Message from "../components/Message";
-import ConfirmDialog from "../components/ConfirmDialog/ConfirmDialog";
 
 const OrganizePage: FC = () => {
   const [todoEdit, setTodoEdit] = useState<Omit<Todo, "id" | "isComplete">>({
@@ -21,11 +20,11 @@ const OrganizePage: FC = () => {
   const dispatch = useAppDispatch(); // Correctly assign useAppDispatch
 
   const isMobile = useMediaQuery(CONSTANTS.DESKTOP_BREAKPOINT); //It is working perfectly
-  const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   //callback FN set selected values todo item to the reusable form
-  function handleOnEdit(todoId: number) {
-    setOpen(true);
+  function handleEditForm(todoId: number) {
+    setOpenModal(true);
     // console.log("Edit todo with ID:", todoId);
     const todo = todos.find((todo) => todo?.id === todoId);
     if (todo) {
@@ -36,12 +35,12 @@ const OrganizePage: FC = () => {
   }
 
   //2-This function trigger after the validation Form
-  const handleTodoEditState = (values: Omit<Todo, "id">) => {
+  const handleOnEdit = (values: Omit<Todo, "id">) => {
     dispatch({
       type: "todo-list/updateTodo",
       payload: { ...values },
     });
-    setOpen(false);
+    setOpenModal(false);
   };
 
   //jsx content variable
@@ -49,10 +48,10 @@ const OrganizePage: FC = () => {
   if (isMobile) {
     content = (
       <>
-        <Modal isOpen={open} onClose={() => setOpen(false)}>
+        <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
           <TodoForm
             initialValues={todoEdit}
-            onSubmit={handleTodoEditState}
+            onSubmit={handleOnEdit}
             operation="edit"
             submitBtnLabel="Save"
           />
@@ -65,7 +64,7 @@ const OrganizePage: FC = () => {
         <h3>Edit Todo</h3>
         <TodoForm
           initialValues={todoEdit}
-          onSubmit={handleTodoEditState}
+          onSubmit={handleOnEdit}
           operation="edit"
           submitBtnLabel="Save"
         />
@@ -74,17 +73,6 @@ const OrganizePage: FC = () => {
     );
   }
 
-  /* const renderListItems = (todo: Todo,uiProp:string,pageProp:string) => {
-   
-    return (<List
-            todos={todos}
-            variantUI={uiProp}
-            variantPage={pageProp}
-            handleEditAction={handleSelectedEditTodo} //callback function passed down x2
-          />)
-    
-  }
- */
   return (
     <>
       <Header>
@@ -95,9 +83,9 @@ const OrganizePage: FC = () => {
         {todos.length !== 0 ? (
           <List
             todos={todos}
-            variantUI={isMobile ? "mobile" : "desktop"}
-            variantPage="organize"
-            onEdit={handleOnEdit} //callback function passed down x2
+            screenSize={isMobile ? "mobile" : "desktop"}
+            page="organize"
+            onEdit={handleEditForm} //callback function passed down x2
           />
         ) : (
           <Message message="Empty List" />

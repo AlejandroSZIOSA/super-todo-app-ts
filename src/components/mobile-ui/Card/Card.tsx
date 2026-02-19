@@ -14,13 +14,13 @@ import { loadDaysRemainingCounter } from "../../../utils/localstorage/localstora
 import Accordion from "../Accordion/Accordion";
 
 interface CardProps {
-  todo: Todo;
-  variant: "home" | "organize";
+  todoData: Todo;
+  page: "home" | "organize";
   onEdit?: (todoId: number) => void; //prop drilling x2 + call back
 }
 
-const Card: FC<CardProps> = ({ todo, variant, onEdit }) => {
-  const { id, title, description, deadline, isComplete } = todo;
+const Card: FC<CardProps> = ({ todoData, page, onEdit }) => {
+  const { id, title, description, deadline, isComplete } = todoData;
 
   const dispatch = useAppDispatch();
   const language = useAppSelector((state: RootState) => state.language.current);
@@ -42,7 +42,7 @@ const Card: FC<CardProps> = ({ todo, variant, onEdit }) => {
   function handleUpdateStatus() {
     dispatch({
       type: "todo-list/updateTodo",
-      payload: { ...todo, isComplete: !isDone },
+      payload: { ...todoData, isComplete: !isDone },
     });
   }
 
@@ -57,7 +57,7 @@ const Card: FC<CardProps> = ({ todo, variant, onEdit }) => {
 
   //jsx content variable
   let content: ReactNode;
-  if (variant === "home") {
+  if (page === "home") {
     content = (
       <>
         <button onClick={handleUpdateStatus}>
@@ -69,7 +69,7 @@ const Card: FC<CardProps> = ({ todo, variant, onEdit }) => {
       </>
     );
   }
-  if (variant === "organize") {
+  if (page === "organize") {
     content = (
       <>
         <button onClick={() => onEdit && onEdit(id)}>Edit</button>

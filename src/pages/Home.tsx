@@ -76,8 +76,8 @@ const HomePage: FC = () => {
         {todos.length !== 0 ? (
           <List
             todos={todos}
-            variantUI={isMobile ? "mobile" : "desktop"}
-            variantPage="home"
+            screenSize={isMobile ? "mobile" : "desktop"}
+            page="home"
           />
         ) : (
           <Message message="Empty List." />

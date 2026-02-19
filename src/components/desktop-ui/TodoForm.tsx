@@ -22,6 +22,13 @@ const TodoForm: FC<TodoFormProps> = ({
   );
   const [deadline, setDeadline] = useState(initialValues.deadline ?? "");
 
+  /* const [data, setData] = useState<Omit<Todo, "id">>({
+    title: "",
+    description: "",
+    deadline: "",
+    isComplete: false,
+  }); */
+
   //fix problem send edited values
   useEffect(() => {
     //re-render the component when the initialValues change
@@ -47,12 +54,6 @@ const TodoForm: FC<TodoFormProps> = ({
     setDescription("");
     setDeadline("");
   };
-
-  /* const handleCancel = () => {
-    setTitle("");
-    setDescription("");
-    setDeadline("");
-  }; */
 
   return (
     <form onSubmit={handleSubmit}>
