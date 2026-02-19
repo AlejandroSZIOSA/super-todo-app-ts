@@ -21,8 +21,8 @@ interface CardProps {
 
 const Card: FC<CardProps> = ({ todo, variant, onEdit }) => {
   const { id, title, description, deadline, isComplete } = todo;
-  const dispatch = useAppDispatch();
 
+  const dispatch = useAppDispatch();
   const language = useAppSelector((state: RootState) => state.language.current);
 
   const [isDone, setIsDone] = useState<boolean>(false);
@@ -55,10 +55,6 @@ const Card: FC<CardProps> = ({ todo, variant, onEdit }) => {
     dialogRef.current?.open();
   };
 
-  const confirmAction = () => {
-    handleRemoveTodo(); // Call the remove function
-  };
-
   //jsx content variable
   let content: ReactNode;
   if (variant === "home") {
@@ -70,12 +66,6 @@ const Card: FC<CardProps> = ({ todo, variant, onEdit }) => {
         <button id="btn-remove-todo" onClick={handleOpenDialog}>
           {cardView_T.removeBtn}
         </button>
-        <ConfirmDialog
-          ref={dialogRef}
-          title="Remove Todo"
-          message="Are you sure you remove?"
-          onConfirm={confirmAction}
-        />
       </>
     );
   }
@@ -83,13 +73,7 @@ const Card: FC<CardProps> = ({ todo, variant, onEdit }) => {
     content = (
       <>
         <button onClick={() => onEdit && onEdit(id)}>Edit</button>
-        <button onClick={handleRemoveTodo}>{cardView_T.removeBtn}</button>
-        <ConfirmDialog
-          ref={dialogRef}
-          title="Edit Todo"
-          message="Are you sure?"
-          onConfirm={confirmAction}
-        />
+        <button onClick={handleOpenDialog}>{cardView_T.removeBtn}</button>
       </>
     );
   }
@@ -101,8 +85,15 @@ const Card: FC<CardProps> = ({ todo, variant, onEdit }) => {
       <p>Deadline : {deadline}</p>
       <p>Warning me Before:{loadDaysRemainingCounter()} days</p>
       <p>Days remained : {countRemainingDays(new Date(), deadline)}</p>
-
-      <div>{content}</div>
+      <div>
+        {content}
+        <ConfirmDialog
+          ref={dialogRef}
+          title="Remove Todo"
+          message="Are you sure you remove?"
+          onConfirm={handleRemoveTodo}
+        />
+      </div>
     </div>
   );
 };
