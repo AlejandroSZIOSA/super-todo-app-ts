@@ -3,6 +3,8 @@ import { useState, type FC, useEffect } from "react";
 import { type Todo } from "../../types/shared";
 import { getCurrentDate } from "../../utils/calculations";
 
+/* type InitialValues = Partial<Todo>; */
+
 interface TodoFormProps {
   initialValues: Partial<Todo>;
   onSubmit: (values: Omit<Todo, "id"> | Todo) => void;
@@ -16,43 +18,57 @@ const TodoForm: FC<TodoFormProps> = ({
   operation,
   submitBtnLabel,
 }) => {
-  const [title, setTitle] = useState(initialValues.title ?? "");
+  /*   const [title, setTitle] = useState(initialValues.title ?? "");
   const [description, setDescription] = useState(
     initialValues.description ?? "",
   );
-  const [deadline, setDeadline] = useState(initialValues.deadline ?? "");
+  const [deadline, setDeadline] = useState(initialValues.deadline ?? ""); */
 
-  /* const [data, setData] = useState<Omit<Todo, "id">>({
-    title: "",
-    description: "",
-    deadline: "",
-    isComplete: false,
-  }); */
+  const [formData, setFormData] = useState<Omit<Todo, "id" | "isComplete">>({
+    title: initialValues.title ?? "",
+    description: initialValues.description ?? "",
+    deadline: initialValues.deadline ?? "",
+    /* isComplete: initialValues.isComplete ?? false, */
+  });
 
   //fix problem send edited values
   useEffect(() => {
     //re-render the component when the initialValues change
     if (operation === "edit") {
       const { title, description } = initialValues;
-      setTitle(title ?? "");
-      setDescription(description ?? "");
-      setDeadline(initialValues.deadline ?? "");
+      setFormData((prev) => ({
+        ...prev,
+        title: title ?? "",
+        description: description ?? "",
+        deadline: initialValues.deadline ?? "",
+      }));
     }
   }, [initialValues, operation]);
 
   //1-Pass the object after validate the form fields
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit({
-      ...(initialValues.id ? { id: initialValues.id } : {}),
-      title,
-      description,
-      deadline,
-      isComplete: false, //default value when create a new todo
-    });
-    setTitle("");
-    setDescription("");
-    setDeadline("");
+    //fixed: using guards :)
+    if (operation === "create") {
+      onSubmit({
+        ...(initialValues.id ? { id: initialValues.id } : {}),
+        ...formData,
+        isComplete: false,
+      });
+    } else if (operation === "edit") {
+      onSubmit({
+        ...(initialValues.id ? { id: initialValues.id } : {}),
+        ...formData,
+        isComplete: initialValues.isComplete ?? false,
+      });
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      title: "",
+      description: "",
+      deadline: "",
+    }));
   };
 
   return (
@@ -61,8 +77,8 @@ const TodoForm: FC<TodoFormProps> = ({
         <label htmlFor="title">Title</label>
         <input
           id="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={formData.title}
+          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
           required
         />
       </div>
@@ -70,8 +86,10 @@ const TodoForm: FC<TodoFormProps> = ({
         <label htmlFor="description">Description</label>
         <textarea
           id="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          value={formData.description}
+          onChange={(e) =>
+            setFormData({ ...formData, description: e.target.value })
+          }
         />
       </div>
 
@@ -82,8 +100,10 @@ const TodoForm: FC<TodoFormProps> = ({
           id="deadline"
           defaultValue={getCurrentDate()}
           min={getCurrentDate()}
-          value={deadline}
-          onChange={(e) => setDeadline(e.target.value)}
+          value={formData.deadline}
+          onChange={(e) =>
+            setFormData({ ...formData, deadline: e.target.value })
+          }
         />
       </div>
       <button id="btn-add-todo" type="submit">
