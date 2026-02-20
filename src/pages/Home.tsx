@@ -1,7 +1,6 @@
 import { type FC, useState, type ReactNode } from "react";
 /* import reactLogo from "../assets/react.svg";
 import viteLogo from "/vite.svg"; */
-import List from "../components/List";
 import { type Todo } from "../types/shared";
 import type { RootState } from "../store";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
@@ -13,6 +12,8 @@ import Modal from "../components/mobile-ui/Modal/Modal";
 
 import Message from "../components/Message";
 import Header from "../components/Header/Header";
+import Card from "../components/mobile-ui/Card/Card";
+import TodoItem from "../components/desktop-ui/TodoItem/TodoItem";
 
 const HomePage: FC = () => {
   const { todos } = useAppSelector((state: RootState) => state.todos);
@@ -24,6 +25,10 @@ const HomePage: FC = () => {
   const handleCreate = (values: Omit<Todo, "id">) => {
     dispatch({ type: "todo-list/addTodo", payload: { id: uuid(), ...values } });
   };
+
+  function handleRemoveTodo(id: number) {
+    dispatch({ type: "todo-list/removeTodo", payload: id });
+  }
 
   //jsx content variable
   let content: ReactNode;
@@ -74,11 +79,25 @@ const HomePage: FC = () => {
       <main className="homePage_reusableBase__main">
         {content}
         {todos.length !== 0 ? (
-          <List
-            todos={todos}
-            screenSize={isMobile ? "mobile" : "desktop"}
-            page="home"
-          />
+          <ol>
+            {todos.map((todo) => (
+              <li key={todo.id}>
+                {isMobile ? (
+                  <Card
+                    todoData={todo}
+                    page="home"
+                    onRemove={handleRemoveTodo}
+                  />
+                ) : (
+                  <TodoItem
+                    todoData={todo}
+                    page="home"
+                    onRemove={handleRemoveTodo}
+                  />
+                )}
+              </li>
+            ))}
+          </ol>
         ) : (
           <Message message="Empty List." />
         )}

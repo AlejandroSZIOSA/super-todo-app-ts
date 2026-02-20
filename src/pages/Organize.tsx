@@ -2,18 +2,20 @@ import { type FC, useState, type ReactNode } from "react";
 import { type Todo } from "../types/shared";
 import type { RootState } from "../store";
 import { useAppSelector, useAppDispatch } from "../hooks/reduxHooks";
-import List from "../components/List";
 import TodoForm from "../components/desktop-ui/TodoForm";
 import { CONSTANTS } from "../utils/constants";
 import useMediaQuery from "../hooks/useMediaQuery";
 import Modal from "../components/mobile-ui/Modal/Modal";
 import Header from "../components/Header/Header";
 import Message from "../components/Message";
+import TodoItem from "../components/desktop-ui/TodoItem/TodoItem";
+import Card from "../components/mobile-ui/Card/Card";
 
 const OrganizePage: FC = () => {
   const [todoEdit, setTodoEdit] = useState<Omit<Todo, "id" | "isComplete">>({
     title: "",
     description: "",
+    deadline: "",
   });
 
   const { todos } = useAppSelector((state: RootState) => state.todos);
@@ -42,6 +44,10 @@ const OrganizePage: FC = () => {
     });
     setOpenModal(false);
   };
+
+  function handleRemoveTodo(id: number) {
+    dispatch({ type: "todo-list/removeTodo", payload: id });
+  }
 
   //jsx content variable
   let content: ReactNode;
@@ -81,12 +87,27 @@ const OrganizePage: FC = () => {
       <main className="homePage_reusableBase__main">
         {content}
         {todos.length !== 0 ? (
-          <List
-            todos={todos}
-            screenSize={isMobile ? "mobile" : "desktop"}
-            page="organize"
-            onEdit={handleEditForm} //callback function passed down x2
-          />
+          <ol>
+            {todos.map((todo) => (
+              <li key={todo.id}>
+                {isMobile ? (
+                  <Card
+                    todoData={todo}
+                    page="organize"
+                    onEdit={handleEditForm}
+                    onRemove={handleRemoveTodo}
+                  />
+                ) : (
+                  <TodoItem
+                    todoData={todo}
+                    page="organize"
+                    onEdit={handleEditForm}
+                    onRemove={handleRemoveTodo}
+                  />
+                )}
+              </li>
+            ))}
+          </ol>
         ) : (
           <Message message="Empty List" />
         )}
@@ -94,5 +115,4 @@ const OrganizePage: FC = () => {
     </>
   );
 };
-
 export default OrganizePage;

@@ -1,4 +1,4 @@
-import { useEffect, useRef, type FC } from "react";
+import { useEffect, type FC } from "react";
 import { type Todo } from "../../../types/shared";
 
 import { useAppDispatch } from "../../../hooks/reduxHooks";
@@ -8,25 +8,24 @@ import { countRemainingDays } from "../../../utils/calculations";
 
 import styles from "./TodoItem.module.css";
 
-//dialog
-import ConfirmDialog, {
-  type ConfirmDialogRef,
-} from "../../ConfirmDialog/ConfirmDialog";
-
 interface TodoItemViewProps {
   todoData: Todo;
   page: "home" | "organize";
-  onEdit?: (todoId: number) => void; //prop drilling x2 + call back
+  onEdit?: (todoId: number) => void; //prop drilling x1 + call back
+  onRemove?: (todoId: number) => void; //prop drilling x1 + call back
 }
 
 // TODO:PONER LENGUAJES
-const TodoItemView: FC<TodoItemViewProps> = ({ todoData, page, onEdit }) => {
+const TodoItemView: FC<TodoItemViewProps> = ({
+  todoData,
+  page,
+  onEdit,
+  onRemove,
+}) => {
   const [isDone, setIsDone] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
   const { id, title, description, deadline, isComplete } = todoData;
-
-  const dialogRef = useRef<ConfirmDialogRef>(null); //Imported type for ConfirmDialog
 
   //sync isDone with isComplete from the store
   useEffect(() => {
@@ -39,14 +38,6 @@ const TodoItemView: FC<TodoItemViewProps> = ({ todoData, page, onEdit }) => {
       payload: { ...todoData, isComplete: !isDone },
     });
   }
-
-  function handleRemoveTodo() {
-    dispatch({ type: "todo-list/removeTodo", payload: id });
-  }
-
-  const handleOpenDialog = () => {
-    dialogRef.current?.open();
-  };
 
   return (
     <div className={styles.todoItemContainer}>
@@ -64,15 +55,8 @@ const TodoItemView: FC<TodoItemViewProps> = ({ todoData, page, onEdit }) => {
         ) : (
           <button onClick={() => onEdit && onEdit(id)}>Edit</button>
         )}
-
-        <button onClick={handleOpenDialog}>remove</button>
+        <button onClick={() => onRemove && onRemove(id)}>remove</button>
       </span>
-      <ConfirmDialog
-        ref={dialogRef}
-        title="Remove Todo"
-        message="Are you sure you remove?"
-        onConfirm={handleRemoveTodo}
-      />
     </div>
   );
 };

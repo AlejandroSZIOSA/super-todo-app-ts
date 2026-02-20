@@ -1,4 +1,4 @@
-import { type FC, type ReactNode, useState, useEffect, useRef } from "react";
+import { type FC, type ReactNode, useState, useEffect } from "react";
 import { type Todo } from "../../../types/shared";
 import { countRemainingDays } from "../../../utils/calculations";
 
@@ -6,9 +6,6 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
 import { type RootState } from "../../../store";
 
 import { translations } from "../../../utils/translations";
-import ConfirmDialog, {
-  type ConfirmDialogRef,
-} from "../ConfirmDialog/ConfirmDialog";
 
 import { loadDaysRemainingCounter } from "../../../utils/localstorage/localstorage";
 import Accordion from "../Accordion/Accordion";
@@ -16,10 +13,11 @@ import Accordion from "../Accordion/Accordion";
 interface CardProps {
   todoData: Todo;
   page: "home" | "organize";
-  onEdit?: (todoId: number) => void; //prop drilling x2 + call back
+  onEdit?: (todoId: number) => void; //prop drilling x1 + call back
+  onRemove?: (todoId: number) => void;
 }
 
-const Card: FC<CardProps> = ({ todoData, page, onEdit }) => {
+const Card: FC<CardProps> = ({ todoData, page, onEdit, onRemove }) => {
   const { id, title, description, deadline, isComplete } = todoData;
 
   const dispatch = useAppDispatch();
@@ -31,8 +29,6 @@ const Card: FC<CardProps> = ({ todoData, page, onEdit }) => {
   const TRANSLATION = translations[language];
 
   const { cardView_T } = TRANSLATION;
-
-  const dialogRef = useRef<ConfirmDialogRef>(null); //Imported type for ConfirmDialogRef
 
   //sync isDone with isComplete from the store
   useEffect(() => {
@@ -46,15 +42,6 @@ const Card: FC<CardProps> = ({ todoData, page, onEdit }) => {
     });
   }
 
-  function handleRemoveTodo() {
-    dispatch({ type: "todo-list/removeTodo", payload: id });
-  }
-
-  //Dialog handlers
-  const handleOpenDialog = () => {
-    dialogRef.current?.open();
-  };
-
   //jsx content variable
   let content: ReactNode;
   if (page === "home") {
@@ -63,7 +50,7 @@ const Card: FC<CardProps> = ({ todoData, page, onEdit }) => {
         <button onClick={handleUpdateStatus}>
           {isDone ? cardView_T.completeBtn : cardView_T.unCompleteBtn}
         </button>
-        <button id="btn-remove-todo" onClick={handleOpenDialog}>
+        <button id="btn-remove-todo" onClick={() => onRemove && onRemove(id)}>
           {cardView_T.removeBtn}
         </button>
       </>
@@ -73,7 +60,9 @@ const Card: FC<CardProps> = ({ todoData, page, onEdit }) => {
     content = (
       <>
         <button onClick={() => onEdit && onEdit(id)}>Edit</button>
-        <button onClick={handleOpenDialog}>{cardView_T.removeBtn}</button>
+        <button onClick={() => onRemove && onRemove(id)}>
+          {cardView_T.removeBtn}
+        </button>
       </>
     );
   }
@@ -85,15 +74,7 @@ const Card: FC<CardProps> = ({ todoData, page, onEdit }) => {
       <p>Deadline : {deadline}</p>
       <p>Warning me Before:{loadDaysRemainingCounter()} days</p>
       <p>Days remained : {countRemainingDays(new Date(), deadline)}</p>
-      <div>
-        {content}
-        <ConfirmDialog
-          ref={dialogRef}
-          title="Remove Todo"
-          message="Are you sure you remove?"
-          onConfirm={handleRemoveTodo}
-        />
-      </div>
+      <div>{content}</div>
     </div>
   );
 };
