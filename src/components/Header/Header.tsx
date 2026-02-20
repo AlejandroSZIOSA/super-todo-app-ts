@@ -10,7 +10,7 @@ const Header: FC<HeaderProps> = ({ children }) => {
   return (
     <header>
       <div className={styles.appTitleContainer}>
-        <h1>Super Todo +</h1>
+        <h1>Super Todo App</h1>
         <button className={styles.animationBtn}>Ani Btn</button>
       </div>
       <div className={styles.childrenContainer}>{children}</div>

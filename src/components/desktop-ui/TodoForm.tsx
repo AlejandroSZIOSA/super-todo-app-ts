@@ -18,29 +18,22 @@ const TodoForm: FC<TodoFormProps> = ({
   operation,
   submitBtnLabel,
 }) => {
-  /*   const [title, setTitle] = useState(initialValues.title ?? "");
-  const [description, setDescription] = useState(
-    initialValues.description ?? "",
-  );
-  const [deadline, setDeadline] = useState(initialValues.deadline ?? ""); */
-
   const [formData, setFormData] = useState<Omit<Todo, "id" | "isComplete">>({
     title: initialValues.title ?? "",
     description: initialValues.description ?? "",
-    deadline: initialValues.deadline ?? "",
-    /* isComplete: initialValues.isComplete ?? false, */
+    deadline: initialValues.deadline ?? getCurrentDate(),
   });
 
   //fix problem send edited values
   useEffect(() => {
     //re-render the component when the initialValues change
     if (operation === "edit") {
-      const { title, description } = initialValues;
+      const { title, description, deadline } = initialValues;
       setFormData((prev) => ({
         ...prev,
         title: title ?? "",
         description: description ?? "",
-        deadline: initialValues.deadline ?? "",
+        deadline: deadline ?? "",
       }));
     }
   }, [initialValues, operation]);
@@ -104,6 +97,7 @@ const TodoForm: FC<TodoFormProps> = ({
           onChange={(e) =>
             setFormData({ ...formData, deadline: e.target.value })
           }
+          required
         />
       </div>
       <button id="btn-add-todo" type="submit">
