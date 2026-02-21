@@ -1,4 +1,4 @@
-import { type FC, useState, type ReactNode } from "react";
+import { type FC, useState, type ReactNode, useRef } from "react";
 /* import reactLogo from "../assets/react.svg";
 import viteLogo from "/vite.svg"; */
 import { type Todo } from "../types/shared";
@@ -15,12 +15,25 @@ import Header from "../components/Header/Header";
 import Card from "../components/mobile-ui/Card/Card";
 import TodoItem from "../components/desktop-ui/TodoItem/TodoItem";
 
+import ConfirmDialog, {
+  type ConfirmDialogRef,
+} from "../components/ConfirmDialog/ConfirmDialog";
+
+type SelectedTodo = {
+  id?: number;
+  operation: string;
+};
+
 const HomePage: FC = () => {
+  const [selectedTodoId, setSelectedTodoId] = useState<number | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const { todos } = useAppSelector((state: RootState) => state.todos);
   const dispatch = useAppDispatch();
 
   const isMobile = useMediaQuery(CONSTANTS.DESKTOP_BREAKPOINT); //It is working perfectly
-  const [open, setOpen] = useState(false);
+
+  const dialogRef = useRef<ConfirmDialogRef>(null); //Imported type for ConfirmDialogRef
 
   const handleCreate = (values: Omit<Todo, "id">) => {
     dispatch({ type: "todo-list/addTodo", payload: { id: uuid(), ...values } });
@@ -30,18 +43,30 @@ const HomePage: FC = () => {
     dispatch({ type: "todo-list/removeTodo", payload: id });
   }
 
+  const handleOpenDialog = (todoId: number) => {
+    setSelectedTodoId(todoId);
+    dialogRef.current?.onOpenDialog();
+  };
+
+  const confirmAction = () => {
+    if (selectedTodoId !== null) {
+      handleRemoveTodo(selectedTodoId);
+      setSelectedTodoId(null);
+    }
+  };
+
   //jsx content variable
   let content: ReactNode;
   if (isMobile) {
     content = (
       <>
-        <Modal isOpen={open} onClose={() => setOpen(false)}>
+        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
           <TodoForm
             initialValues={{}}
             /* fix problem with the modal */
             onSubmit={(values) => {
               handleCreate(values);
-              setOpen(false);
+              setIsModalOpen(false);
             }}
             operation="create"
             submitBtnLabel="Add"
@@ -58,7 +83,7 @@ const HomePage: FC = () => {
           /* fix problem with the modal */
           onSubmit={(values) => {
             handleCreate(values);
-            setOpen(false);
+            setIsModalOpen(false);
           }}
           operation="create"
           submitBtnLabel="Add"
@@ -71,7 +96,7 @@ const HomePage: FC = () => {
     <>
       <Header>
         {isMobile ? (
-          <button onClick={() => setOpen(true)}>Add Todo</button>
+          <button onClick={() => setIsModalOpen(true)}>Add Todo</button>
         ) : (
           <h2>Home</h2>
         )}
@@ -86,13 +111,13 @@ const HomePage: FC = () => {
                   <Card
                     todoData={todo}
                     page="home"
-                    onRemove={handleRemoveTodo}
+                    onRemove={() => handleOpenDialog(todo.id)}
                   />
                 ) : (
                   <TodoItem
                     todoData={todo}
                     page="home"
-                    onRemove={handleRemoveTodo}
+                    onRemove={() => handleOpenDialog(todo.id)}
                   />
                 )}
               </li>
@@ -101,6 +126,12 @@ const HomePage: FC = () => {
         ) : (
           <Message message="Empty List." />
         )}
+
+        <ConfirmDialog
+          ref={dialogRef}
+          operation="remove"
+          onConfirm={confirmAction}
+        />
       </main>
     </>
   );
