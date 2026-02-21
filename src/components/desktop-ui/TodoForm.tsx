@@ -29,12 +29,11 @@ const TodoForm: FC<TodoFormProps> = ({
     //re-render the component when the initialValues change
     if (operation === "edit") {
       const { title, description, deadline } = initialValues;
-      setFormData((prev) => ({
-        ...prev,
+      setFormData({
         title: title ?? "",
         description: description ?? "",
         deadline: deadline ?? "",
-      }));
+      });
     }
   }, [initialValues, operation]);
 
@@ -48,20 +47,23 @@ const TodoForm: FC<TodoFormProps> = ({
         ...formData,
         isComplete: false,
       });
+      setFormData({
+        title: "",
+        description: "",
+        deadline: getCurrentDate(),
+      });
     } else if (operation === "edit") {
       onSubmit({
         ...(initialValues.id ? { id: initialValues.id } : {}),
         ...formData,
         isComplete: initialValues.isComplete ?? false,
       });
+      setFormData({
+        title: "",
+        description: "",
+        deadline: "",
+      });
     }
-
-    setFormData((prev) => ({
-      ...prev,
-      title: "",
-      description: "",
-      deadline: "",
-    }));
   };
 
   return (

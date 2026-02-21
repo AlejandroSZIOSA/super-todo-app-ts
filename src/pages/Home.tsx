@@ -18,14 +18,19 @@ import TodoItem from "../components/desktop-ui/TodoItem/TodoItem";
 import ConfirmDialog, {
   type ConfirmDialogRef,
 } from "../components/ConfirmDialog/ConfirmDialog";
+import { getCurrentDate } from "../utils/calculations";
 
 type SelectedTodo = {
-  id?: number;
+  id?: number | null;
   operation: string;
 };
 
 const HomePage: FC = () => {
-  const [selectedTodoId, setSelectedTodoId] = useState<number | null>(null);
+  //TODO:crear un objeto con informacion cambiar nombre a dialog data , incluidas funciones  .. mision aplicar en operacion "crear todo" :)
+  const [selectedTodo, setSelectedTodo] = useState<SelectedTodo>({
+    id: null,
+    operation: "",
+  });
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { todos } = useAppSelector((state: RootState) => state.todos);
@@ -43,15 +48,15 @@ const HomePage: FC = () => {
     dispatch({ type: "todo-list/removeTodo", payload: id });
   }
 
-  const handleOpenDialog = (todoId: number) => {
-    setSelectedTodoId(todoId);
+  const handleOpenDialog = (todoId: number, operation: string) => {
+    setSelectedTodo({ id: todoId, operation: operation });
     dialogRef.current?.onOpenDialog();
   };
 
   const confirmAction = () => {
-    if (selectedTodoId !== null) {
-      handleRemoveTodo(selectedTodoId);
-      setSelectedTodoId(null);
+    if (selectedTodo.id) {
+      handleRemoveTodo(selectedTodo.id);
+      setSelectedTodo({ id: null, operation: "" });
     }
   };
 
@@ -62,7 +67,7 @@ const HomePage: FC = () => {
       <>
         <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
           <TodoForm
-            initialValues={{}}
+            initialValues={{ deadline: getCurrentDate() }}
             /* fix problem with the modal */
             onSubmit={(values) => {
               handleCreate(values);
@@ -79,7 +84,7 @@ const HomePage: FC = () => {
       <aside>
         <h3>Add Todo</h3>
         <TodoForm
-          initialValues={{}}
+          initialValues={{ deadline: getCurrentDate() }}
           /* fix problem with the modal */
           onSubmit={(values) => {
             handleCreate(values);
@@ -111,13 +116,13 @@ const HomePage: FC = () => {
                   <Card
                     todoData={todo}
                     page="home"
-                    onRemove={() => handleOpenDialog(todo.id)}
+                    onRemove={(id) => handleOpenDialog(id, "remove")}
                   />
                 ) : (
                   <TodoItem
                     todoData={todo}
                     page="home"
-                    onRemove={() => handleOpenDialog(todo.id)}
+                    onRemove={(id) => handleOpenDialog(id, "remove")}
                   />
                 )}
               </li>
@@ -129,7 +134,7 @@ const HomePage: FC = () => {
 
         <ConfirmDialog
           ref={dialogRef}
-          operation="remove"
+          operation={selectedTodo.operation}
           onConfirm={confirmAction}
         />
       </main>
