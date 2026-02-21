@@ -3,7 +3,8 @@ import styles from "./ConfirmDialog.module.css";
 
 type ConfirmDialogProps = {
   // Define any p title?: string;
-  operation?: string;
+  operation: string;
+  todoTitle: string;
   onConfirm: () => void;
   onCancel?: () => void;
 };
@@ -14,7 +15,7 @@ export type ConfirmDialogRef = {
 };
 
 const ConfirmDialog = forwardRef<ConfirmDialogRef, ConfirmDialogProps>(
-  ({ operation, onConfirm, onCancel }, ref) => {
+  ({ operation, todoTitle, onConfirm, onCancel }, ref) => {
     const dialogRef = useRef<HTMLDialogElement>(null);
 
     useImperativeHandle(ref, () => ({
@@ -32,14 +33,15 @@ const ConfirmDialog = forwardRef<ConfirmDialogRef, ConfirmDialogProps>(
         onCancel();
       }
       dialogRef.current?.close();
+      document.body.classList.remove("no-scroll"); //fixed: scrolling when backdrop is active :)
     };
 
     let content: ReactNode;
     if (operation === "remove") {
       content = (
         <>
-          <h1>Confirm Removal</h1>
-          <p>Are you sure you want to remove this item?</p>
+          <h1>Confirm Remove</h1>
+          <p>Remove todo title: {todoTitle}?</p>
         </>
       );
     }

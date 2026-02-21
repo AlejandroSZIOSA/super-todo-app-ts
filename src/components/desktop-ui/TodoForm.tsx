@@ -3,8 +3,6 @@ import { useState, type FC, useEffect } from "react";
 import { type Todo } from "../../types/shared";
 import { getCurrentDate } from "../../utils/calculations";
 
-/* type InitialValues = Partial<Todo>; */
-
 interface TodoFormProps {
   initialValues: Partial<Todo>;
   onSubmit: (values: Omit<Todo, "id"> | Todo) => void;
@@ -67,45 +65,48 @@ const TodoForm: FC<TodoFormProps> = ({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="title">Title</label>
-        <input
-          id="title"
-          value={formData.title}
-          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="description">Description</label>
-        <textarea
-          id="description"
-          value={formData.description}
-          onChange={(e) =>
-            setFormData({ ...formData, description: e.target.value })
-          }
-        />
-      </div>
-
-      <div>
-        <label htmlFor="deadline">Deadline</label>
-        <input
-          type="date"
-          id="deadline"
-          defaultValue={getCurrentDate()}
-          min={getCurrentDate()}
-          value={formData.deadline}
-          onChange={(e) =>
-            setFormData({ ...formData, deadline: e.target.value })
-          }
-          required
-        />
-      </div>
-      <button id="btn-add-todo" type="submit">
-        {submitBtnLabel}
-      </button>
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="title">Title</label>
+          <input
+            id="title"
+            value={formData.title}
+            onChange={(e) =>
+              setFormData({ ...formData, title: e.target.value })
+            }
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="description">Description</label>
+          <textarea
+            id="description"
+            value={formData.description}
+            onChange={(e) =>
+              setFormData({ ...formData, description: e.target.value })
+            }
+          />
+        </div>
+        <div>
+          <label htmlFor="deadline">Deadline</label>
+          <input
+            type="date"
+            id="deadline"
+            defaultValue={getCurrentDate()}
+            min={getCurrentDate()}
+            value={formData.deadline}
+            onChange={(e) =>
+              setFormData({ ...formData, deadline: e.target.value })
+            }
+            required
+          />
+        </div>
+        <button id="btn-add-todo" type="submit">
+          {submitBtnLabel}
+        </button>
+      </form>
+    </>
   );
 };
 export default TodoForm;

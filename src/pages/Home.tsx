@@ -20,15 +20,16 @@ import ConfirmDialog, {
 } from "../components/ConfirmDialog/ConfirmDialog";
 import { getCurrentDate } from "../utils/calculations";
 
-type SelectedTodo = {
+type DialogData = {
   id?: number | null;
+  title: string;
   operation: string;
 };
 
 const HomePage: FC = () => {
-  //TODO:crear un objeto con informacion cambiar nombre a dialog data , incluidas funciones  .. mision aplicar en operacion "crear todo" :)
-  const [selectedTodo, setSelectedTodo] = useState<SelectedTodo>({
+  const [dialogData, setDialogData] = useState<DialogData>({
     id: null,
+    title: "",
     operation: "",
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,15 +49,21 @@ const HomePage: FC = () => {
     dispatch({ type: "todo-list/removeTodo", payload: id });
   }
 
-  const handleOpenDialog = (todoId: number, operation: string) => {
-    setSelectedTodo({ id: todoId, operation: operation });
+  const handleOpenDialog = (
+    todoId: number,
+    title: string,
+    operation: string,
+  ) => {
+    setDialogData({ id: todoId, title: title, operation: operation });
     dialogRef.current?.onOpenDialog();
+    document.body.classList.add("no-scroll"); //fixed: scrolling when backdrop is active :)
   };
 
   const confirmAction = () => {
-    if (selectedTodo.id) {
-      handleRemoveTodo(selectedTodo.id);
-      setSelectedTodo({ id: null, operation: "" });
+    if (dialogData.id) {
+      handleRemoveTodo(dialogData.id);
+      setDialogData({ id: null, operation: "", title: "" });
+      document.body.classList.remove("no-scroll"); //fixed: scrolling when backdrop is active :)
     }
   };
 
@@ -116,13 +123,17 @@ const HomePage: FC = () => {
                   <Card
                     todoData={todo}
                     page="home"
-                    onRemove={(id) => handleOpenDialog(id, "remove")}
+                    onRemove={(id) =>
+                      handleOpenDialog(id, todo.title, "remove")
+                    }
                   />
                 ) : (
                   <TodoItem
                     todoData={todo}
                     page="home"
-                    onRemove={(id) => handleOpenDialog(id, "remove")}
+                    onRemove={(id) =>
+                      handleOpenDialog(id, todo.title, "remove")
+                    }
                   />
                 )}
               </li>
@@ -134,7 +145,8 @@ const HomePage: FC = () => {
 
         <ConfirmDialog
           ref={dialogRef}
-          operation={selectedTodo.operation}
+          todoTitle={dialogData.title}
+          operation={dialogData.operation}
           onConfirm={confirmAction}
         />
       </main>
