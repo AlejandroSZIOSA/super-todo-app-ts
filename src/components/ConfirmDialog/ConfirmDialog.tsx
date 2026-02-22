@@ -2,11 +2,10 @@ import { forwardRef, useImperativeHandle, useRef, type ReactNode } from "react";
 import styles from "./ConfirmDialog.module.css";
 
 type ConfirmDialogProps = {
-  // Define any p title?: string;
   operation: string;
   todoTitle: string;
   onConfirm: () => void;
-  onCancel?: () => void;
+  /* onCancel?: () => void; */
 };
 
 export type ConfirmDialogRef = {
@@ -15,7 +14,7 @@ export type ConfirmDialogRef = {
 };
 
 const ConfirmDialog = forwardRef<ConfirmDialogRef, ConfirmDialogProps>(
-  ({ operation, todoTitle, onConfirm, onCancel }, ref) => {
+  ({ operation, todoTitle, onConfirm }, ref) => {
     const dialogRef = useRef<HTMLDialogElement>(null);
 
     useImperativeHandle(ref, () => ({
@@ -29,9 +28,9 @@ const ConfirmDialog = forwardRef<ConfirmDialogRef, ConfirmDialogProps>(
     };
 
     const handleCancel = () => {
-      if (onCancel) {
+      /* if (onCancel) {
         onCancel();
-      }
+      } */
       dialogRef.current?.close();
       document.body.classList.remove("no-scroll"); //fixed: scrolling when backdrop is active :)
     };

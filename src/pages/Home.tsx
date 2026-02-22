@@ -1,15 +1,14 @@
 import { type FC, useState, type ReactNode, useRef } from "react";
 /* import reactLogo from "../assets/react.svg";
 import viteLogo from "/vite.svg"; */
-import { type Todo } from "../types/shared";
 import type { RootState } from "../store";
 import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import TodoForm from "../components/desktop-ui/TodoForm";
-import { v4 as uuid } from "uuid"; //create unique ids
 import useMediaQuery from "../hooks/useMediaQuery";
 import { CONSTANTS } from "../utils/constants";
 import Modal from "../components/mobile-ui/Modal/Modal";
 
+import { getCurrentDate } from "../utils/calculations";
 import Message from "../components/Message";
 import Header from "../components/Header/Header";
 import Card from "../components/mobile-ui/Card/Card";
@@ -18,16 +17,13 @@ import TodoItem from "../components/desktop-ui/TodoItem/TodoItem";
 import ConfirmDialog, {
   type ConfirmDialogRef,
 } from "../components/ConfirmDialog/ConfirmDialog";
-import { getCurrentDate } from "../utils/calculations";
 
-type DialogData = {
-  id?: number | null;
-  title: string;
-  operation: string;
-};
+import { handleCreate, handleRemoveTodo } from "../utils/cruds";
+
+import { type ConfirmDialogData } from "../types/shared";
 
 const HomePage: FC = () => {
-  const [dialogData, setDialogData] = useState<DialogData>({
+  const [dialogData, setDialogData] = useState<ConfirmDialogData>({
     id: null,
     title: "",
     operation: "",
@@ -41,14 +37,6 @@ const HomePage: FC = () => {
 
   const dialogRef = useRef<ConfirmDialogRef>(null); //Imported type for ConfirmDialogRef
 
-  const handleCreate = (values: Omit<Todo, "id">) => {
-    dispatch({ type: "todo-list/addTodo", payload: { id: uuid(), ...values } });
-  };
-
-  function handleRemoveTodo(id: number) {
-    dispatch({ type: "todo-list/removeTodo", payload: id });
-  }
-
   const handleOpenDialog = (
     todoId: number,
     title: string,
@@ -61,13 +49,13 @@ const HomePage: FC = () => {
 
   const confirmAction = () => {
     if (dialogData.id) {
-      handleRemoveTodo(dialogData.id);
+      handleRemoveTodo(dispatch, dialogData.id);
       setDialogData({ id: null, operation: "", title: "" });
       document.body.classList.remove("no-scroll"); //fixed: scrolling when backdrop is active :)
     }
   };
 
-  //jsx content variable
+  //jsx dynamic content
   let content: ReactNode;
   if (isMobile) {
     content = (
@@ -77,7 +65,7 @@ const HomePage: FC = () => {
             initialValues={{ deadline: getCurrentDate() }}
             /* fix problem with the modal */
             onSubmit={(values) => {
-              handleCreate(values);
+              handleCreate(dispatch, values);
               setIsModalOpen(false);
             }}
             operation="create"
@@ -94,7 +82,7 @@ const HomePage: FC = () => {
           initialValues={{ deadline: getCurrentDate() }}
           /* fix problem with the modal */
           onSubmit={(values) => {
-            handleCreate(values);
+            handleCreate(dispatch, values);
             setIsModalOpen(false);
           }}
           operation="create"

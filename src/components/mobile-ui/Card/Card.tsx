@@ -10,6 +10,8 @@ import { translations } from "../../../utils/translations";
 import { loadDaysRemainingCounter } from "../../../utils/localstorage/localstorage";
 import Accordion from "../Accordion/Accordion";
 
+import { handleChangeCompleteStatus } from "../../../utils/cruds";
+
 interface CardProps {
   todoData: Todo;
   page: "home" | "organize";
@@ -35,19 +37,14 @@ const Card: FC<CardProps> = ({ todoData, page, onEdit, onRemove }) => {
     setIsDone(isComplete);
   }, [isComplete]);
 
-  function handleUpdateStatus() {
-    dispatch({
-      type: "todo-list/updateTodo",
-      payload: { ...todoData, isComplete: !isDone },
-    });
-  }
-
   //jsx content variable
   let content: ReactNode;
   if (page === "home") {
     content = (
       <>
-        <button onClick={handleUpdateStatus}>
+        <button
+          onClick={() => handleChangeCompleteStatus(dispatch, todoData, isDone)}
+        >
           {isDone ? cardView_T.completeBtn : cardView_T.unCompleteBtn}
         </button>
         <button id="btn-remove-todo" onClick={() => onRemove && onRemove(id)}>

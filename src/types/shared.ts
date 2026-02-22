@@ -6,8 +6,18 @@ export type Todo = {
   deadline?: string;
 };
 
+//dialog types
+export type ConfirmDialogData = {
+  id?: number | null;
+  title: string;
+  operation: string;
+};
+
+//languages types
 export type Language = "en" | "sv" | "es";
 
+//theme
 export type Theme = "default" | "ocean";
 
+//countdown days remainder
 export type DaysCountdown = 3 | 6 | 9;

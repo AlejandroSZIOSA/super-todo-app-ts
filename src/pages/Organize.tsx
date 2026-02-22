@@ -1,5 +1,5 @@
-import { type FC, useState, type ReactNode } from "react";
-import { type Todo } from "../types/shared";
+import { type FC, useState, type ReactNode, useRef } from "react";
+import type { Todo, ConfirmDialogData } from "../types/shared";
 import type { RootState } from "../store";
 import { useAppSelector, useAppDispatch } from "../hooks/reduxHooks";
 import TodoForm from "../components/desktop-ui/TodoForm";
@@ -11,11 +11,22 @@ import Message from "../components/Message";
 import TodoItem from "../components/desktop-ui/TodoItem/TodoItem";
 import Card from "../components/mobile-ui/Card/Card";
 
+import ConfirmDialog, {
+  type ConfirmDialogRef,
+} from "../components/ConfirmDialog/ConfirmDialog";
+
+import { handleRemoveTodo, handleOnEdit } from "../utils/cruds";
+
 const OrganizePage: FC = () => {
   const [todoEdit, setTodoEdit] = useState<Omit<Todo, "id" | "isComplete">>({
     title: "",
     description: "",
     deadline: "",
+  });
+  const [dialogData, setDialogData] = useState<ConfirmDialogData>({
+    id: null,
+    title: "",
+    operation: "",
   });
 
   const { todos } = useAppSelector((state: RootState) => state.todos);
@@ -23,6 +34,8 @@ const OrganizePage: FC = () => {
 
   const isMobile = useMediaQuery(CONSTANTS.DESKTOP_BREAKPOINT); //It is working perfectly
   const [openModal, setOpenModal] = useState(false);
+
+  const dialogRef = useRef<ConfirmDialogRef>(null); //Imported type for ConfirmDialogRef
 
   //callback FN set selected values todo item to the reusable form
   function handleEditForm(todoId: number) {
@@ -36,20 +49,26 @@ const OrganizePage: FC = () => {
     }
   }
 
-  //2-This function trigger after the validation Form
-  const handleOnEdit = (values: Omit<Todo, "id">) => {
-    dispatch({
-      type: "todo-list/updateTodo",
-      payload: { ...values },
-    });
-    setOpenModal(false);
+  const handleOpenDialog = (
+    todoId: number,
+    title: string,
+    operation: string,
+  ) => {
+    setDialogData({ id: todoId, title: title, operation: operation });
+    dialogRef.current?.onOpenDialog();
+    document.body.classList.add("no-scroll"); //fixed: scrolling when backdrop is active :)
   };
 
-  function handleRemoveTodo(id: number) {
-    dispatch({ type: "todo-list/removeTodo", payload: id });
-  }
+  const confirmAction = () => {
+    //NOTE:here can put more operations
+    if (dialogData.id) {
+      handleRemoveTodo(dispatch, dialogData.id);
+      setDialogData({ id: null, title: "", operation: "" });
+      document.body.classList.remove("no-scroll"); //fixed: scrolling when backdrop is active :)
+    }
+  };
 
-  //jsx content variable
+  //jsx dynamic content
   let content: ReactNode;
   if (isMobile) {
     content = (
@@ -57,7 +76,10 @@ const OrganizePage: FC = () => {
         <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
           <TodoForm
             initialValues={todoEdit}
-            onSubmit={handleOnEdit}
+            onSubmit={(values) => {
+              handleOnEdit(dispatch, values);
+              setOpenModal(false);
+            }}
             operation="edit"
             submitBtnLabel="Save"
           />
@@ -70,7 +92,10 @@ const OrganizePage: FC = () => {
         <h3>Edit Todo</h3>
         <TodoForm
           initialValues={todoEdit}
-          onSubmit={handleOnEdit}
+          onSubmit={(values) => {
+            handleOnEdit(dispatch, values);
+            setOpenModal(false);
+          }}
           operation="edit"
           submitBtnLabel="Save"
         />
@@ -95,14 +120,18 @@ const OrganizePage: FC = () => {
                     todoData={todo}
                     page="organize"
                     onEdit={handleEditForm}
-                    onRemove={handleRemoveTodo}
+                    onRemove={(id) =>
+                      handleOpenDialog(id, todo.title, "remove")
+                    }
                   />
                 ) : (
                   <TodoItem
                     todoData={todo}
                     page="organize"
                     onEdit={handleEditForm}
-                    onRemove={handleRemoveTodo}
+                    onRemove={(id) =>
+                      handleOpenDialog(id, todo.title, "remove")
+                    }
                   />
                 )}
               </li>
@@ -112,6 +141,12 @@ const OrganizePage: FC = () => {
           <Message message="Empty List" />
         )}
       </main>
+      <ConfirmDialog
+        ref={dialogRef}
+        todoTitle={dialogData.title}
+        operation={dialogData.operation}
+        onConfirm={confirmAction}
+      />
     </>
   );
 };

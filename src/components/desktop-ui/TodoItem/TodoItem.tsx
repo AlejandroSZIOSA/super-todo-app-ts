@@ -6,6 +6,8 @@ import { useAppDispatch } from "../../../hooks/reduxHooks";
 import { useState } from "react";
 import { countRemainingDays } from "../../../utils/calculations";
 
+import { handleChangeCompleteStatus } from "../../../utils/cruds";
+
 import styles from "./TodoItem.module.css";
 
 interface TodoItemViewProps {
@@ -32,13 +34,6 @@ const TodoItemView: FC<TodoItemViewProps> = ({
     setIsDone(isComplete);
   }, [isComplete]);
 
-  function handleUpdateStatus() {
-    dispatch({
-      type: "todo-list/updateTodo",
-      payload: { ...todoData, isComplete: !isDone },
-    });
-  }
-
   return (
     <div className={styles.todoItemContainer}>
       <span>
@@ -46,16 +41,26 @@ const TodoItemView: FC<TodoItemViewProps> = ({
         <p>Deadline : {deadline}</p>
         <p>Days remained : {countRemainingDays(new Date(), deadline)}</p>
       </span>
-      <p>desc: {description}</p>
       <span>
         {page === "home" ? (
-          <button onClick={handleUpdateStatus}>
-            {isDone ? "done" : "undone"}
-          </button>
+          <span>
+            <label>
+              {isDone ? "Completed" : "Mark as done"}
+              <input
+                type="checkbox"
+                checked={isDone}
+                onChange={() => {
+                  setIsDone(!isDone);
+                  handleChangeCompleteStatus(dispatch, todoData, isDone);
+                }}
+              />
+            </label>
+          </span>
         ) : (
           <button onClick={() => onEdit && onEdit(id)}>Edit</button>
         )}
         <button onClick={() => onRemove && onRemove(id)}>remove</button>
+        <p>desc: {description}</p>
       </span>
     </div>
   );
