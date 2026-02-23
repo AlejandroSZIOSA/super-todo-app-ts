@@ -1,4 +1,4 @@
-import { type FC, useState, type ReactNode, useRef } from "react";
+import { type FC, useState, type ReactNode, useRef, useEffect } from "react";
 import type { Todo, ConfirmDialogData } from "../types/shared";
 import type { RootState } from "../store";
 import { useAppSelector, useAppDispatch } from "../hooks/reduxHooks";
@@ -15,7 +15,8 @@ import ConfirmDialog, {
   type ConfirmDialogRef,
 } from "../components/ConfirmDialog/ConfirmDialog";
 
-import { handleRemoveTodo, handleOnEdit } from "../utils/cruds";
+import { handleRemoveTodo, handleOnEdit, todosFromDb } from "../utils/crudsCTX";
+import { getAllTodosDb } from "../services/db/crudsDB";
 
 const OrganizePage: FC = () => {
   const [todoEdit, setTodoEdit] = useState<Omit<Todo, "id" | "isComplete">>({
@@ -36,6 +37,15 @@ const OrganizePage: FC = () => {
   const [openModal, setOpenModal] = useState(false);
 
   const dialogRef = useRef<ConfirmDialogRef>(null); //Imported type for ConfirmDialogRef
+
+  //fetch todos from db on component mount
+  useEffect(() => {
+    const fetchTodos = async () => {
+      const todosDb = await getAllTodosDb();
+      todosFromDb(dispatch, todosDb);
+    };
+    fetchTodos();
+  }, [dispatch]);
 
   //callback FN set selected values todo item to the reusable form
   function handleEditForm(todoId: number) {

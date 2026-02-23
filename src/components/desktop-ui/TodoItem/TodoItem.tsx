@@ -6,7 +6,7 @@ import { useAppDispatch } from "../../../hooks/reduxHooks";
 import { useState } from "react";
 import { countRemainingDays } from "../../../utils/calculations";
 
-import { handleChangeCompleteStatus } from "../../../utils/cruds";
+import { handleChangeCompleteStatus } from "../../../utils/crudsCTX";
 
 import styles from "./TodoItem.module.css";
 

@@ -1,28 +1,9 @@
-import type { Todo, Language, Theme } from "../../types/shared";
+import type { Language, Theme, DaysCountdown } from "../../types/shared";
 
 //The browser is using this keys to store data in localstorage
-const TODOS_KEY = "todo-list";
 const LANGUAGE_KEY = "languages";
 const REMAIN_DAYS_WARNING_KEY = "countdown-days-bef-warning";
 const THEME_KEY = "theme";
-
-//todos
-export const loadTodos = (): Todo[] => {
-  try {
-    const data = localStorage.getItem(TODOS_KEY);
-    return data ? (JSON.parse(data) as Todo[]) : [];
-  } catch {
-    return [];
-  }
-};
-
-export const saveTodos = (todos: Todo[]) => {
-  try {
-    localStorage.setItem(TODOS_KEY, JSON.stringify(todos));
-  } catch {
-    // ignore write errors
-  }
-};
 
 //language
 export const loadLanguage = (): Language => {
@@ -43,16 +24,16 @@ export const saveLanguage = (language: Language) => {
 };
 
 //warning  days
-export const loadDaysRemainingCounter = (): number => {
+export const loadDaysRemainingCounter = (): DaysCountdown => {
   try {
     const data = localStorage.getItem(REMAIN_DAYS_WARNING_KEY);
-    return data ? (JSON.parse(data) as number) : 0;
+    return data ? (JSON.parse(data) as DaysCountdown) : 3;
   } catch {
-    return 0;
+    return 3;
   }
 };
 
-export const saveDaysRemainingCounter = (daysRemaining: number) => {
+export const saveDaysRemainingCounter = (daysRemaining: DaysCountdown) => {
   try {
     localStorage.setItem(
       REMAIN_DAYS_WARNING_KEY,
@@ -60,7 +41,7 @@ export const saveDaysRemainingCounter = (daysRemaining: number) => {
     );
   } catch {
     // ignore write errors
-    return 0;
+    return 3;
   }
 };
 
@@ -74,7 +55,7 @@ export const loadTheme = (): Theme => {
   }
 };
 
-export const saveTheme = (theme: string) => {
+export const saveTheme = (theme: Theme) => {
   try {
     localStorage.setItem(THEME_KEY, JSON.stringify(theme));
   } catch {

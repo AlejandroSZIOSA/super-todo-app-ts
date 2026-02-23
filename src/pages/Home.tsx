@@ -1,4 +1,4 @@
-import { type FC, useState, type ReactNode, useRef } from "react";
+import { type FC, useState, type ReactNode, useRef, useEffect } from "react";
 /* import reactLogo from "../assets/react.svg";
 import viteLogo from "/vite.svg"; */
 import type { RootState } from "../store";
@@ -18,9 +18,10 @@ import ConfirmDialog, {
   type ConfirmDialogRef,
 } from "../components/ConfirmDialog/ConfirmDialog";
 
-import { handleCreate, handleRemoveTodo } from "../utils/cruds";
+import { getAllTodosDb } from "../services/db/crudsDB";
 
 import { type ConfirmDialogData } from "../types/shared";
+import { handleCreate, handleRemoveTodo, todosFromDb } from "../utils/crudsCTX";
 
 const HomePage: FC = () => {
   const [dialogData, setDialogData] = useState<ConfirmDialogData>({
@@ -36,6 +37,15 @@ const HomePage: FC = () => {
   const isMobile = useMediaQuery(CONSTANTS.DESKTOP_BREAKPOINT); //It is working perfectly
 
   const dialogRef = useRef<ConfirmDialogRef>(null); //Imported type for ConfirmDialogRef
+
+  //fetch todos from db on component mount
+  useEffect(() => {
+    const fetchTodos = async () => {
+      const todosDb = await getAllTodosDb();
+      todosFromDb(dispatch, todosDb);
+    };
+    fetchTodos();
+  }, [dispatch]);
 
   const handleOpenDialog = (
     todoId: number,

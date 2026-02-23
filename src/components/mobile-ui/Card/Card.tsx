@@ -10,7 +10,7 @@ import { translations } from "../../../utils/translations";
 import { loadDaysRemainingCounter } from "../../../utils/localstorage/localstorage";
 import Accordion from "../Accordion/Accordion";
 
-import { handleChangeCompleteStatus } from "../../../utils/cruds";
+import { handleChangeCompleteStatus } from "../../../utils/crudsCTX";
 
 interface CardProps {
   todoData: Todo;

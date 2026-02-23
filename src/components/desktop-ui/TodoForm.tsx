@@ -28,6 +28,7 @@ const TodoForm: FC<TodoFormProps> = ({
     if (operation === "edit") {
       const { title, description, deadline } = initialValues;
       setFormData({
+        ...formData,
         title: title ?? "",
         description: description ?? "",
         deadline: deadline ?? "",
@@ -46,6 +47,7 @@ const TodoForm: FC<TodoFormProps> = ({
         isComplete: false,
       });
       setFormData({
+        ...TodoForm,
         title: "",
         description: "",
         deadline: getCurrentDate(),
@@ -56,11 +58,7 @@ const TodoForm: FC<TodoFormProps> = ({
         ...formData,
         isComplete: initialValues.isComplete ?? false,
       });
-      setFormData({
-        title: "",
-        description: "",
-        deadline: "",
-      });
+      setFormData({ ...TodoForm, title: "", description: "", deadline: "" });
     }
   };
 

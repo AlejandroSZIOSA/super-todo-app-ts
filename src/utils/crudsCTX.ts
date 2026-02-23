@@ -2,6 +2,13 @@ import { v4 as uuid } from "uuid"; //create unique ids
 import { type Todo } from "../types/shared";
 import type { AppDispatch } from "../store";
 
+export function todosFromDb(dispatch: AppDispatch, todosDb: Todo[]) {
+  dispatch({
+    type: "todo-list/setTodosFromDb",
+    payload: todosDb,
+  });
+}
+
 export function handleCreate(dispatch: AppDispatch, values: Omit<Todo, "id">) {
   dispatch({ type: "todo-list/addTodo", payload: { id: uuid(), ...values } });
 }
