@@ -32,7 +32,7 @@ const SelectorRoot: SelectorRootComponent = ({
 
   const handleOnChange = (e: ChangeEvent<HTMLSelectElement>) => {
     //NOTE: removed type casting with SelectorKey type, this is more robust and maintainable
-    const key: SelectorKey = selectorIdentifier;
+    const key = selectorIdentifier;
     const newValue = e.target.value;
 
     const newSettings = {
@@ -45,16 +45,7 @@ const SelectorRoot: SelectorRootComponent = ({
   };
 
   return (
-    <select
-      value={
-        selectorIdentifier === "language"
-          ? settings.language
-          : selectorIdentifier === "daysCountdown"
-            ? settings.daysCountdown
-            : settings.theme
-      }
-      onChange={handleOnChange}
-    >
+    <select value={settings[selectorIdentifier]} onChange={handleOnChange}>
       {children}
     </select>
   );
