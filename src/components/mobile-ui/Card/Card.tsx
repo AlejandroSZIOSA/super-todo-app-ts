@@ -7,7 +7,6 @@ import { type RootState } from "../../../store";
 
 import { translations } from "../../../utils/translations";
 
-import { loadDaysRemainingCounter } from "../../../utils/localstorage/localstorage";
 import Accordion from "../Accordion/Accordion";
 
 import { handleChangeCompleteStatus } from "../../../utils/crudsCTX";
@@ -23,13 +22,11 @@ const Card: FC<CardProps> = ({ todoData, page, onEdit, onRemove }) => {
   const { id, title, description, deadline, isComplete } = todoData;
 
   const dispatch = useAppDispatch();
-  const language = useAppSelector((state: RootState) => state.language.current);
-
+  const settings = useAppSelector((state: RootState) => state.settings);
   const [isDone, setIsDone] = useState<boolean>(false);
 
   //translations  en - swe as context param, this change the current language state
-  const TRANSLATION = translations[language];
-
+  const TRANSLATION = translations[settings.language];
   const { cardView_T } = TRANSLATION;
 
   //sync isDone with isComplete from the store
@@ -69,7 +66,7 @@ const Card: FC<CardProps> = ({ todoData, page, onEdit, onRemove }) => {
       {/* <p>{title}</p> */}
       <Accordion title={title} description={description} isDone={isDone} />
       <p>Deadline : {deadline}</p>
-      <p>Warning me Before:{loadDaysRemainingCounter()} days</p>
+      <p>Warning me Before: {settings.daysCountdown} days</p>
       <p>Days remained : {countRemainingDays(new Date(), deadline)}</p>
       <div>{content}</div>
     </div>

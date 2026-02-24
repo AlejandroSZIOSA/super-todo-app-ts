@@ -1,22 +1,21 @@
-import { type FC, useState, type ChangeEvent } from "react";
+import type { FC, ChangeEvent } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import type { Language, Theme } from "../../types/shared";
 
 import { type RootState } from "../../store";
-import { setLanguage } from "../../store/redux/languageSlice";
 
 import {
-  loadDaysRemainingCounter,
-  saveDaysRemainingCounter,
+  saveSettings,
+  type Settings,
 } from "../../utils/localstorage/localstorage";
 
-import SelectorItem from "./SelectorItem";
-import { type SelectorItemProps } from "./SelectorItem";
+import SelectorItem, { type SelectorItemProps } from "./SelectorItem";
+import { setSettings } from "../../store/redux/settingsSlice";
 
-import { setTheme } from "../../store/redux/themeSlice";
+//fixed:created a key type for avoid type casting :)
+type SelectorKey = keyof Settings;
 
 type SelectorRootProps = {
-  variant?: "language" | "daysCountdownWarning" | "theme";
+  selectorIdentifier: SelectorKey;
   children?: React.ReactNode;
 };
 
@@ -24,42 +23,36 @@ type SelectorRootComponent = FC<SelectorRootProps> & {
   Item: FC<SelectorItemProps>;
 };
 
-const SelectorRoot: SelectorRootComponent = ({ children, variant }) => {
+const SelectorRoot: SelectorRootComponent = ({
+  children,
+  selectorIdentifier,
+}) => {
   const dispatch = useAppDispatch();
-  const language = useAppSelector((state: RootState) => state.language.current);
-  const theme = useAppSelector((state: RootState) => state.theme.current);
-  // For remaining days warning selector not using redux store
-  const [warningDays, setWarningDays] = useState(loadDaysRemainingCounter());
-
-  const changeLanguage = (lang: Language) => {
-    dispatch(setLanguage(lang));
-  };
-
-  const changeTheme = (theme: Theme) => {
-    dispatch(setTheme(theme));
-  };
+  const settings = useAppSelector((state: RootState) => state.settings);
 
   const handleOnChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    if (variant === "language") {
-      changeLanguage(e.target.value as Language);
-    }
-    if (variant === "daysCountdownWarning") {
-      saveDaysRemainingCounter(Number(e.target.value));
-      setWarningDays(Number(e.target.value));
-    }
-    if (variant === "theme") {
-      changeTheme(e.target.value as Theme);
-    }
+    //NOTE: removed type casting with SelectorKey type, this is more robust and maintainable
+    const key: SelectorKey = selectorIdentifier;
+    const newValue = e.target.value;
+    //update redux state
+    dispatch(
+      setSettings({
+        ...settings,
+        [key]: newValue,
+      }),
+    );
+    //save to localStorage
+    saveSettings({ ...settings, [key]: newValue });
   };
 
   return (
     <select
       value={
-        variant === "language"
-          ? language
-          : variant === "daysCountdownWarning"
-            ? warningDays
-            : theme
+        selectorIdentifier === "language"
+          ? settings.language
+          : selectorIdentifier === "daysCountdown"
+            ? settings.daysCountdown
+            : settings.theme
       }
       onChange={handleOnChange}
     >

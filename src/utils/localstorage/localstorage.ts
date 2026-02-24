@@ -1,30 +1,15 @@
 import type { Language, Theme, DaysCountdown } from "../../types/shared";
 
-//The browser is using this keys to store data in localstorage
-const LANGUAGE_KEY = "languages";
-const REMAIN_DAYS_WARNING_KEY = "countdown-days-bef-warning";
-const THEME_KEY = "theme";
-
-//language
-export const loadLanguage = (): Language => {
-  try {
-    const data = localStorage.getItem(LANGUAGE_KEY);
-    return data ? (JSON.parse(data) as Language) : "en";
-  } catch {
-    return "en";
-  }
+export type Settings = {
+  language: Language;
+  daysCountdown: DaysCountdown;
+  theme: Theme;
 };
 
-export const saveLanguage = (language: Language) => {
-  try {
-    localStorage.setItem(LANGUAGE_KEY, JSON.stringify(language));
-  } catch {
-    // ignore write errors
-  }
-};
+const SETTING_KEY = "settings";
 
 //warning  days
-export const loadDaysRemainingCounter = (): DaysCountdown => {
+/* export const loadDaysRemainingCounter = (): DaysCountdown => {
   try {
     const data = localStorage.getItem(REMAIN_DAYS_WARNING_KEY);
     return data ? (JSON.parse(data) as DaysCountdown) : 3;
@@ -43,10 +28,10 @@ export const saveDaysRemainingCounter = (daysRemaining: DaysCountdown) => {
     // ignore write errors
     return 3;
   }
-};
+}; */
 
 //theme
-export const loadTheme = (): Theme => {
+/* export const loadTheme = (): Theme => {
   try {
     const data = localStorage.getItem(THEME_KEY);
     return data ? (JSON.parse(data) as Theme) : "default";
@@ -58,6 +43,26 @@ export const loadTheme = (): Theme => {
 export const saveTheme = (theme: Theme) => {
   try {
     localStorage.setItem(THEME_KEY, JSON.stringify(theme));
+  } catch {
+    // ignore write errors
+  }
+}; */
+
+//Settings
+export const loadSettings = (): Settings => {
+  try {
+    const data = localStorage.getItem(SETTING_KEY);
+    return data
+      ? (JSON.parse(data) as Settings)
+      : { language: "en", theme: "default", daysCountdown: 3 };
+  } catch {
+    return { language: "en", theme: "default", daysCountdown: 3 };
+  }
+};
+
+export const saveSettings = (settings: Settings) => {
+  try {
+    localStorage.setItem(SETTING_KEY, JSON.stringify(settings));
   } catch {
     // ignore write errors
   }
