@@ -34,15 +34,14 @@ const SelectorRoot: SelectorRootComponent = ({
     //NOTE: removed type casting with SelectorKey type, this is more robust and maintainable
     const key: SelectorKey = selectorIdentifier;
     const newValue = e.target.value;
-    //update redux state
-    dispatch(
-      setSettings({
-        ...settings,
-        [key]: newValue,
-      }),
-    );
-    //save to localStorage
-    saveSettings({ ...settings, [key]: newValue });
+
+    const newSettings = {
+      ...settings,
+      [key]: newValue,
+    };
+
+    dispatch(setSettings(newSettings));
+    saveSettings(newSettings);
   };
 
   return (
