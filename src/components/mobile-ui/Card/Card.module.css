@@ -8,6 +8,12 @@
   transition: box-shadow 0.2s ease-in-out;
 }
 
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
 .cardContainer p {
   text-align: center;
 }

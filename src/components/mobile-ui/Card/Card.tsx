@@ -1,16 +1,17 @@
 import { type FC, type ReactNode, useState, useEffect } from "react";
 import { type Todo } from "../../../types/shared";
-import { countRemainingDays } from "../../../utils/calculations";
 
 import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
 import { type RootState } from "../../../store";
 
+import { countRemainingDays } from "../../../utils/calculations";
 import { translations } from "../../../utils/translations";
 
 import Accordion from "../Accordion/Accordion";
-
-import { handleChangeCompleteStatus } from "../../../utils/crudsCTX";
-
+import {
+  handleChangeCompleteStatus,
+  handleChangePriority,
+} from "../../../utils/crudsCTX";
 import styles from "./Card.module.css";
 
 interface CardProps {
@@ -28,11 +29,16 @@ const Card: FC<CardProps> = ({
   onEdit,
   onRemove,
 }) => {
-  const { id, title, description, deadline, isComplete } = todoData;
+  const { id, title, description, priority, deadline, isComplete } = todoData;
 
   const dispatch = useAppDispatch();
   const settings = useAppSelector((state: RootState) => state.settings);
+  //TODO:OBTENER VALORES DESDE REDUX STORE PARA SINCRONIZAR LOS CAMBIOS EN TIEMPO REAL CUANDO SE EDITA O CAMBIA EL ESTADO DE COMPLETADO DESDE EL CARD COMPONENT
   const [isDone, setIsDone] = useState<boolean>(false);
+
+  const [selectedPriority, setSelectedPriority] = useState<
+    "low" | "medium" | "high"
+  >(priority ?? "low");
 
   //translations  en - swe as context param, this change the current language state
   const TRANSLATION = translations[settings.language];
@@ -63,6 +69,18 @@ const Card: FC<CardProps> = ({
   if (page === "organize") {
     content = (
       <>
+        <select
+          value={selectedPriority}
+          onChange={(e) => {
+            const newPriority = e.target.value as "low" | "medium" | "high";
+            setSelectedPriority(newPriority);
+            handleChangePriority(dispatch, todoData, newPriority);
+          }}
+        >
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
         <button onClick={() => onEdit && onEdit(id)}>Edit</button>
         <p>Days remained : {countRemainingDays(new Date(), deadline)}</p>
         <button onClick={() => onRemove && onRemove(id)}>
@@ -74,10 +92,14 @@ const Card: FC<CardProps> = ({
 
   return (
     <div className={styles.cardContainer}>
-      <p>Event #{todoNumber}</p>
+      <div className={styles.cardHeader}>
+        <p>Event #{todoNumber}</p>
+        <p>Priority : {selectedPriority}</p>
+      </div>
       <Accordion title={title} description={description} isDone={isDone} />
       <p>Deadline : {deadline}</p>
       <p>Warning me Before: {settings.daysCountdown} days</p>
+
       <div className={styles.cardBtns}>{content}</div>
     </div>
   );

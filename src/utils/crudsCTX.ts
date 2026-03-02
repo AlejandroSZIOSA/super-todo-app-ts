@@ -31,6 +31,17 @@ export function handleChangeCompleteStatus(
   });
 }
 
+export function handleChangePriority(
+  dispatch: AppDispatch,
+  todoData: Todo,
+  priority: "low" | "medium" | "high",
+) {
+  dispatch({
+    type: "todo-list/updateTodo",
+    payload: { ...todoData, priority: priority },
+  });
+}
+
 export function handleRemoveTodo(dispatch: AppDispatch, id: number) {
   dispatch({ type: "todo-list/removeTodo", payload: id });
 }
