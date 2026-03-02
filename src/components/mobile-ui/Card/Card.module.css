@@ -1,0 +1,27 @@
+.cardContainer {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  border: 2px solid #000000;
+  margin-bottom: 12px;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.cardContainer p {
+  text-align: center;
+}
+.cardContainer:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cardContainer:active {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.cardBtns {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  justify-content: space-between;
+}

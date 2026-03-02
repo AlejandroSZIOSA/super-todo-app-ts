@@ -115,12 +115,13 @@ const HomePage: FC = () => {
         {content}
         {todos.length !== 0 ? (
           <ol>
-            {todos.map((todo) => (
+            {todos.map((todo, index) => (
               <li key={todo.id}>
                 {isMobile ? (
                   <Card
                     todoData={todo}
                     page="home"
+                    todoNumber={index}
                     onRemove={(id) =>
                       handleOpenDialog(id, todo.title, "remove")
                     }

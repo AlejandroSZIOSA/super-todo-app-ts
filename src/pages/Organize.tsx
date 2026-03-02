@@ -123,12 +123,13 @@ const OrganizePage: FC = () => {
         {content}
         {todos.length !== 0 ? (
           <ol>
-            {todos.map((todo) => (
+            {todos.map((todo, index) => (
               <li key={todo.id}>
                 {isMobile ? (
                   <Card
                     todoData={todo}
                     page="organize"
+                    todoNumber={index}
                     onEdit={handleEditForm}
                     onRemove={(id) =>
                       handleOpenDialog(id, todo.title, "remove")

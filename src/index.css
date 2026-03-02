@@ -47,7 +47,7 @@ header {
   color: rgb(0, 0, 0);
   text-align: center;
   z-index: 1000;
-  background-color: #e9e9e9;
+  background-color: rgba(0, 234, 243, 0.85);
   /* height: 4rem; */
 }
 
@@ -87,7 +87,8 @@ button {
 }
 
 ol {
-  list-style: numeric;
+  list-style: none;
+  width: 95%;
 }
 /* li {
   list-style: none;

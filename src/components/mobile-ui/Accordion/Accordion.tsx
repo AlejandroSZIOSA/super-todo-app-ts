@@ -1,4 +1,5 @@
 import { type FC, useState } from "react";
+import styles from "./Accordion.module.css";
 
 type AccordionProps = {
   description?: string;
@@ -13,7 +14,7 @@ const Accordion: FC<AccordionProps> = ({ title, description, isDone }) => {
     setIsOpen(!isOpen);
   };
   return (
-    <menu>
+    <menu className={styles.menu}>
       <li onClick={toggleAccordion}>
         <span>{title}</span>
         {isDone ? (
@@ -23,7 +24,7 @@ const Accordion: FC<AccordionProps> = ({ title, description, isDone }) => {
         )}
       </li>
       {isOpen && (
-        <div>
+        <div className={styles.content}>
           <p>{description}</p>
         </div>
       )}
