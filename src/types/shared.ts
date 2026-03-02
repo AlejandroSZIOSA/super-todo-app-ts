@@ -3,6 +3,7 @@ export type Todo = {
   title: string;
   description: string;
   isComplete: boolean;
+  priority?: "low" | "medium" | "high";
   deadline?: string;
 };
 

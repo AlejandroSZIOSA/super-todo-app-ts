@@ -19,6 +19,7 @@ const TodoForm: FC<TodoFormProps> = ({
   const [formData, setFormData] = useState<Omit<Todo, "id" | "isComplete">>({
     title: initialValues.title ?? "",
     description: initialValues.description ?? "",
+    priority: initialValues.priority ?? "low",
     deadline: initialValues.deadline ?? getCurrentDate(),
   });
 
@@ -26,11 +27,11 @@ const TodoForm: FC<TodoFormProps> = ({
   useEffect(() => {
     //re-render the component when the initialValues change
     if (operation === "edit") {
-      const { title, description, deadline } = initialValues;
+      const { title, description, priority, deadline } = initialValues;
       setFormData({
-        ...formData,
         title: title ?? "",
         description: description ?? "",
+        priority: priority ?? "low",
         deadline: deadline ?? "",
       });
     }
@@ -44,6 +45,7 @@ const TodoForm: FC<TodoFormProps> = ({
       onSubmit({
         ...(initialValues.id ? { id: initialValues.id } : {}),
         ...formData,
+        priority: formData.priority ?? "low",
         isComplete: false,
       });
       setFormData({
@@ -51,6 +53,7 @@ const TodoForm: FC<TodoFormProps> = ({
         title: "",
         description: "",
         deadline: getCurrentDate(),
+        priority: "low",
       });
     } else if (operation === "edit") {
       onSubmit({
@@ -58,7 +61,13 @@ const TodoForm: FC<TodoFormProps> = ({
         ...formData,
         isComplete: initialValues.isComplete ?? false,
       });
-      setFormData({ ...TodoForm, title: "", description: "", deadline: "" });
+      setFormData({
+        ...TodoForm,
+        title: "",
+        description: "",
+        deadline: "",
+        priority: "low",
+      });
     }
   };
 
