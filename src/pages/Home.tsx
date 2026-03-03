@@ -51,6 +51,17 @@ const HomePage: FC = () => {
     fetchTodos();
   }, [dispatch]);
 
+  //manage no-scroll class on body
+  //fixed: problem with side effect when the dialog is open and the user scrolls, the dialog closes but the scroll lock remains, this is to remove the scroll lock when the dialog is closed by any means.
+  //if remove id todo is not null, it means that the dialog is open, so we add the no-scroll class to the body, if it is null, it means that the dialog is closed, so we remove the no-scroll class from the body.
+  useEffect(() => {
+    if (dialogData.id !== null) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+  }, [dialogData.id]);
+
   const handleOpenDialog = (
     todoId: number,
     title: string,
@@ -58,14 +69,13 @@ const HomePage: FC = () => {
   ) => {
     setDialogData({ id: todoId, title: title, operation: operation });
     dialogRef.current?.onOpenDialog();
-    document.body.classList.add("no-scroll"); //fixed: scrolling when backdrop is active :)
   };
 
   const confirmAction = () => {
     if (dialogData.id) {
       handleRemoveTodo(dispatch, dialogData.id);
       setDialogData({ id: null, operation: "", title: "" });
-      document.body.classList.remove("no-scroll"); //fixed: scrolling when backdrop is active :)
+      //style class no-scroll is removed in the handleCancel function inside the ConfirmDialog component, this is to prevent the scroll lock when the dialog is closed after confirming the action.
     }
   };
 
@@ -145,7 +155,6 @@ const HomePage: FC = () => {
         ) : (
           <Message message="Empty List." />
         )}
-
         <ConfirmDialog
           ref={dialogRef}
           todoTitle={dialogData.title}

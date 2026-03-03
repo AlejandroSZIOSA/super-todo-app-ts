@@ -14,6 +14,18 @@
   gap: 8px;
 }
 
+.warningContainer {
+  height: 2rem;
+}
+
+.warningShow {
+  background-color: rgb(255, 0, 0);
+}
+
+.warningNotShow {
+  background-color: rgb(246, 254, 26);
+}
+
 .cardContainer p {
   text-align: center;
 }
@@ -23,6 +35,21 @@
 
 .cardContainer:active {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.btnStatusContainer {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 12px 0;
+}
+
+.btnToggleComplete {
+  border: 2px solid #007bff;
+  color: #007bff;
+  background-color: rgb(194, 194, 194);
+  cursor: pointer;
+  padding: 7px 11px;
 }
 
 .cardBtns {

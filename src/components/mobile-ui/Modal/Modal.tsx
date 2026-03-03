@@ -8,7 +8,12 @@ type ModalProps = {
 };
 
 export default function Modal({ isOpen, onClose, children }: ModalProps) {
-  if (!isOpen) return null;
+  if (!isOpen) {
+    document.body.classList.remove("no-scroll"); //fixed: scrolling in mobile :)
+    return null;
+  } else {
+    document.body.classList.add("no-scroll"); //fixed: scrolling in mobile :)
+  }
 
   return (
     <div className={styles.backdrop} onClick={onClose}>
