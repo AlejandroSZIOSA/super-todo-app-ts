@@ -6,7 +6,7 @@ import { useAppDispatch } from "../../../hooks/reduxHooks";
 import { useState } from "react";
 import { countRemainingDays } from "../../../utils/calculations";
 
-import { handleChangeCompleteStatus } from "../../../utils/crudsCTX";
+import { handleToggleCompleteStatus } from "../../../utils/crudsREDUX";
 
 import styles from "./TodoItem.module.css";
 
@@ -51,7 +51,7 @@ const TodoItemView: FC<TodoItemViewProps> = ({
                 checked={isDone}
                 onChange={() => {
                   setIsDone(!isDone);
-                  handleChangeCompleteStatus(dispatch, todoData, isDone);
+                  handleToggleCompleteStatus(dispatch, todoData, isDone);
                 }}
               />
             </label>

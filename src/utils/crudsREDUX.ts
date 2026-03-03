@@ -20,7 +20,7 @@ export function handleOnEdit(dispatch: AppDispatch, values: Omit<Todo, "id">) {
   });
 }
 
-export function handleChangeCompleteStatus(
+export function handleToggleCompleteStatus(
   dispatch: AppDispatch,
   todoData: Todo,
   isDone: boolean,

@@ -5,13 +5,13 @@ import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
 import { type RootState } from "../../../store";
 
 import { countRemainingDays } from "../../../utils/calculations";
-import { translations } from "../../../utils/translations";
+import { translations } from "../../../data/translations";
 
 import Accordion from "../Accordion/Accordion";
 import {
-  handleChangeCompleteStatus,
+  handleToggleCompleteStatus,
   handleChangePriority,
-} from "../../../utils/crudsCTX";
+} from "../../../utils/crudsREDUX";
 import styles from "./Card.module.css";
 
 interface CardProps {
@@ -30,10 +30,8 @@ const Card: FC<CardProps> = ({
   onRemove,
 }) => {
   const { id, title, description, priority, deadline, isComplete } = todoData;
-
   const dispatch = useAppDispatch();
   const settings = useAppSelector((state: RootState) => state.settings);
-  //TODO:OBTENER VALORES DESDE REDUX STORE PARA SINCRONIZAR LOS CAMBIOS EN TIEMPO REAL CUANDO SE EDITA O CAMBIA EL ESTADO DE COMPLETADO DESDE EL CARD COMPONENT
   const [isDone, setIsDone] = useState<boolean>(false);
 
   const [selectedPriority, setSelectedPriority] = useState<
@@ -55,7 +53,7 @@ const Card: FC<CardProps> = ({
     content = (
       <>
         <button
-          onClick={() => handleChangeCompleteStatus(dispatch, todoData, isDone)}
+          onClick={() => handleToggleCompleteStatus(dispatch, todoData, isDone)}
         >
           {isDone ? cardView_T.completeBtn : cardView_T.unCompleteBtn}
         </button>

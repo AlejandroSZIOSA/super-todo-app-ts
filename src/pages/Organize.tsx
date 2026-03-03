@@ -15,7 +15,11 @@ import ConfirmDialog, {
   type ConfirmDialogRef,
 } from "../components/ConfirmDialog/ConfirmDialog";
 
-import { handleRemoveTodo, handleOnEdit, todosFromDb } from "../utils/crudsCTX";
+import {
+  handleRemoveTodo,
+  handleOnEdit,
+  todosFromDb,
+} from "../utils/crudsREDUX";
 import { getAllTodosDb } from "../services/db/crudsDB";
 
 const OrganizePage: FC = () => {

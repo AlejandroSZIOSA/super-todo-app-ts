@@ -21,7 +21,11 @@ import ConfirmDialog, {
 import { getAllTodosDb } from "../services/db/crudsDB";
 
 import { type ConfirmDialogData } from "../types/shared";
-import { handleCreate, handleRemoveTodo, todosFromDb } from "../utils/crudsCTX";
+import {
+  handleCreate,
+  handleRemoveTodo,
+  todosFromDb,
+} from "../utils/crudsREDUX";
 
 const HomePage: FC = () => {
   const [dialogData, setDialogData] = useState<ConfirmDialogData>({
