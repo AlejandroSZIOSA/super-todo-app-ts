@@ -2,7 +2,7 @@ import { v4 as uuid } from "uuid"; //create unique ids
 import { type Todo } from "../types/shared";
 import type { AppDispatch } from "../store";
 
-export function todosFromDb(dispatch: AppDispatch, todosDb: Todo[]) {
+export function getTodosFromDb(dispatch: AppDispatch, todosDb: Todo[]) {
   dispatch({
     type: "todo-list/setTodosFromDb",
     payload: todosDb,
@@ -44,4 +44,8 @@ export function handleChangePriority(
 
 export function handleRemoveTodo(dispatch: AppDispatch, id: number) {
   dispatch({ type: "todo-list/removeTodo", payload: id });
+}
+
+export function handleDeleteAllTodos(dispatch: AppDispatch) {
+  dispatch({ type: "todo-list/deleteAllTodos" });
 }

@@ -35,7 +35,7 @@ export async function deleteTodoDb(id: number) {
 }
 
 /* Clear All */
-export async function clearTodosDb() {
+export async function deleteTodosDb() {
   const db = await dbPromise;
   await db.clear("todos");
 }

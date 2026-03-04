@@ -1,26 +1,26 @@
 import { type FC, useState, type ReactNode, useRef, useEffect } from "react";
-import type { Todo, ConfirmDialogData } from "../types/shared";
-import type { RootState } from "../store";
-import { useAppSelector, useAppDispatch } from "../hooks/reduxHooks";
-import TodoForm from "../components/desktop-ui/TodoForm";
-import { CONSTANTS } from "../utils/constants";
-import useMediaQuery from "../hooks/useMediaQuery";
-import Modal from "../components/mobile-ui/Modal/Modal";
-import Header from "../components/Header/Header";
-import Message from "../components/Message";
-import TodoItem from "../components/desktop-ui/TodoItem/TodoItem";
-import Card from "../components/mobile-ui/Card/Card";
+import type { Todo, ConfirmDialogData } from "../../types/shared";
+import type { RootState } from "../../store";
+import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
+import TodoForm from "../../components/desktop-ui/TodoForm";
+import { CONSTANTS } from "../../utils/constants";
+import useMediaQuery from "../../hooks/useMediaQuery";
+import Modal from "../../components/mobile-ui/Modal/Modal";
+import Header from "../../components/Header/Header";
+import Message from "../../components/Message";
+import TodoItem from "../../components/desktop-ui/TodoItem/TodoItem";
+import Card from "../../components/mobile-ui/Card/Card";
 
 import ConfirmDialog, {
   type ConfirmDialogRef,
-} from "../components/ConfirmDialog/ConfirmDialog";
+} from "../../components/ConfirmDialog/ConfirmDialog";
 
 import {
   handleRemoveTodo,
   handleOnEdit,
-  todosFromDb,
-} from "../utils/crudsREDUX";
-import { getAllTodosDb } from "../services/db/crudsDB";
+  getTodosFromDb,
+} from "../../utils/crudsREDUX";
+import { getAllTodosDb } from "../../services/db/crudsDB";
 
 const OrganizePage: FC = () => {
   const [todoEdit, setTodoEdit] = useState<Omit<Todo, "id" | "isComplete">>({
@@ -46,7 +46,7 @@ const OrganizePage: FC = () => {
   useEffect(() => {
     const fetchTodos = async () => {
       const todosDb = await getAllTodosDb();
-      todosFromDb(dispatch, todosDb);
+      getTodosFromDb(dispatch, todosDb);
     };
     fetchTodos();
   }, [dispatch]);
@@ -123,7 +123,7 @@ const OrganizePage: FC = () => {
       <Header>
         <h2>Organize</h2>
       </Header>
-      <main className="homePage_reusableBase__main">
+      <main>
         {content}
         {todos.length !== 0 ? (
           <ol>

@@ -1,7 +1,11 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 import { type Todo } from "../../types/shared";
-import { saveTodoDb, deleteTodoDb } from "../../services/db/crudsDB";
+import {
+  saveTodoDb,
+  deleteTodoDb,
+  deleteTodosDb,
+} from "../../services/db/crudsDB";
 
 interface TodosState {
   todos: Todo[];
@@ -45,20 +49,22 @@ export const todoListSlice = createSlice({
       }
     },
 
-    /*   resetTodoList: (state) => {
-      return [];
+    deleteAllTodos: (state) => {
+      state.todos = [];
+      deleteTodosDb(); //clear all todos from the db, this is more efficient and prevent possible bugs with async state updates and localstorage saving.
     },
-    setInitialList: (state, action) => {
+    /*  setInitialList: (state, action) => {
       return [...action.payload];
     }, */
   },
 });
 
 export const {
+  setTodosFromDb,
   addTodo,
   // removeTodo,
   updateTodo,
-  setTodosFromDb,
+  deleteAllTodos,
   /* resetTodoList,
   setInitialList, */
 } = todoListSlice.actions; //destructuring reducers

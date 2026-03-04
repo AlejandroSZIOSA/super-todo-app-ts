@@ -1,8 +1,8 @@
 /* import "./App.css"; */
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import HomePage from "./pages/Home";
-import OrganizePage from "./pages/Organize";
-import SettingsPage from "./pages/Settings";
+import HomePage from "./pages/Home/Home";
+import OrganizePage from "./pages/Organize/Organize";
+import SettingsPage from "./pages/Settings/Settings";
 import RootLayout from "./layouts/Root";
 
 function App() {

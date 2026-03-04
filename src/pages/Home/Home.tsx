@@ -1,31 +1,31 @@
 import { type FC, useState, type ReactNode, useRef, useEffect } from "react";
 /* import reactLogo from "../assets/react.svg";
 import viteLogo from "/vite.svg"; */
-import type { RootState } from "../store";
-import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
-import TodoForm from "../components/desktop-ui/TodoForm";
-import useMediaQuery from "../hooks/useMediaQuery";
-import { CONSTANTS } from "../utils/constants";
-import Modal from "../components/mobile-ui/Modal/Modal";
+import type { RootState } from "../../store";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
+import TodoForm from "../../components/desktop-ui/TodoForm";
+import useMediaQuery from "../../hooks/useMediaQuery";
+import { CONSTANTS } from "../../utils/constants";
+import Modal from "../../components/mobile-ui/Modal/Modal";
 
-import { getCurrentDate } from "../utils/calculations";
-import Message from "../components/Message";
-import Header from "../components/Header/Header";
-import Card from "../components/mobile-ui/Card/Card";
-import TodoItem from "../components/desktop-ui/TodoItem/TodoItem";
+import { getCurrentDate } from "../../utils/calculations";
+import Message from "../../components/Message";
+import Header from "../../components/Header/Header";
+import Card from "../../components/mobile-ui/Card/Card";
+import TodoItem from "../../components/desktop-ui/TodoItem/TodoItem";
 
 import ConfirmDialog, {
   type ConfirmDialogRef,
-} from "../components/ConfirmDialog/ConfirmDialog";
+} from "../../components/ConfirmDialog/ConfirmDialog";
 
-import { getAllTodosDb } from "../services/db/crudsDB";
+import { getAllTodosDb } from "../../services/db/crudsDB";
 
-import { type ConfirmDialogData } from "../types/shared";
+import { type ConfirmDialogData } from "../../types/shared";
 import {
   handleCreate,
   handleRemoveTodo,
-  todosFromDb,
-} from "../utils/crudsREDUX";
+  getTodosFromDb,
+} from "../../utils/crudsREDUX";
 
 const HomePage: FC = () => {
   const [dialogData, setDialogData] = useState<ConfirmDialogData>({
@@ -46,7 +46,7 @@ const HomePage: FC = () => {
   useEffect(() => {
     const fetchTodos = async () => {
       const todosDb = await getAllTodosDb();
-      todosFromDb(dispatch, todosDb);
+      getTodosFromDb(dispatch, todosDb);
     };
     fetchTodos();
   }, [dispatch]);
@@ -125,7 +125,7 @@ const HomePage: FC = () => {
           <h2>Home</h2>
         )}
       </Header>
-      <main className="homePage_reusableBase__main">
+      <main>
         {content}
         {todos.length !== 0 ? (
           <ol>

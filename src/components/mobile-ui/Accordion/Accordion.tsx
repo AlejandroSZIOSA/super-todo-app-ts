@@ -10,19 +10,16 @@ type AccordionProps = {
 const Accordion: FC<AccordionProps> = ({ title, description, isDone }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleAccordion = () => {
-    setIsOpen(!isOpen);
-  };
   return (
     <menu className={styles.menu}>
-      <li onClick={toggleAccordion}>
+      <h3 onClick={() => setIsOpen(!isOpen)}>
         <span>{title}</span>
         {isDone ? (
           <span>{isOpen ? "(-)" : "(+)"}</span>
         ) : (
           <span>{isOpen ? "(-)" : "(+)"}</span>
         )}
-      </li>
+      </h3>
       {isOpen && (
         <div className={styles.content}>
           <p>{description}</p>

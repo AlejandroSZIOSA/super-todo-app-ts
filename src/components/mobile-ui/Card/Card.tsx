@@ -103,7 +103,7 @@ const Card: FC<CardProps> = ({
       ></div>
       {page === "home" && <p>{isDone ? "Done" : "Not Done"}</p>}
       <div className={styles.cardHeader}>
-        <p>Event #{todoNumber}</p>
+        <p>#{todoNumber}</p>
         <p>Priority : {selectedPriority}</p>
       </div>
       <Accordion title={title} description={description} isDone={isDone} />

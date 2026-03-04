@@ -140,20 +140,19 @@ button:focus-visible {
 } */
 
 @media (min-width: 1024px) {
-  .homePage_reusableBase__main {
-    /*   display: grid;
-    grid-template-columns: 1fr 3fr;
-    gap: 1rem;
-    width: 80%;
-    justify-items: left;
-    margin: auto; */
+  main {
     display: flex;
     flex-direction: row;
     /* justify-content: space-around; */
     align-items: baseline;
   }
 
-  .homePage_reusableBase__main aside {
+  aside {
     margin-left: 8rem;
+  }
+
+  .settingsPage__main {
+    flex-direction: column;
+    align-items: unset;
   }
 }

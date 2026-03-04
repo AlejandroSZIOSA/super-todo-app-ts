@@ -7,7 +7,7 @@
   border-radius: 4px;
 }
 
-.menu li {
+.menu h3 {
   list-style: none;
   cursor: pointer;
   display: flex;
