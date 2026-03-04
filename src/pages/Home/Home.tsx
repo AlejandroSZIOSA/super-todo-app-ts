@@ -4,8 +4,7 @@ import viteLogo from "/vite.svg"; */
 import type { RootState } from "../../store";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import TodoForm from "../../components/desktop-ui/TodoForm";
-import useMediaQuery from "../../hooks/useMediaQuery";
-import { CONSTANTS } from "../../utils/constants";
+import useMediaQuery, { RESOLUTIONS } from "../../hooks/useMediaQuery";
 import Modal from "../../components/mobile-ui/Modal/Modal";
 
 import { getCurrentDate } from "../../utils/calculations";
@@ -38,7 +37,7 @@ const HomePage: FC = () => {
   const { todos } = useAppSelector((state: RootState) => state.todos);
   const dispatch = useAppDispatch();
 
-  const isMobile = useMediaQuery(CONSTANTS.DESKTOP_BREAKPOINT); //It is working perfectly
+  const isMobile = useMediaQuery(RESOLUTIONS.DESKTOP_BREAKPOINT); //It is working perfectly
 
   const dialogRef = useRef<ConfirmDialogRef>(null); //Imported type for ConfirmDialogRef
 

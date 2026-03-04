@@ -90,13 +90,14 @@ ol {
   list-style: none;
   width: 95%;
 }
+
 /* li {
   list-style: none;
 } */
 
-.settingsPage__sections {
+/* .settingsPage__sections {
   text-align: center;
-}
+} */
 
 .no-scroll {
   overflow: hidden;
@@ -151,8 +152,8 @@ button:focus-visible {
     margin-left: 8rem;
   }
 
-  .settingsPage__main {
+  /* .settingsPage__main {
     flex-direction: column;
     align-items: unset;
-  }
+  } */
 }

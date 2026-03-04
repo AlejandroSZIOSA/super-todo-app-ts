@@ -11,6 +11,8 @@ import {
 import SelectorItem, { type SelectorItemProps } from "./SelectorItem";
 import { setSettings } from "../../store/redux/settingsSlice";
 
+import styles from "./SelectorRoot.module.css";
+
 //fixed:created a key type for avoid type casting :)
 type SelectorKey = keyof Settings;
 
@@ -45,7 +47,11 @@ const SelectorRoot: SelectorRootComponent = ({
   };
 
   return (
-    <select value={settings[selectorIdentifier]} onChange={handleOnChange}>
+    <select
+      className={styles.selectorRoot}
+      value={settings[selectorIdentifier]}
+      onChange={handleOnChange}
+    >
       {children}
     </select>
   );

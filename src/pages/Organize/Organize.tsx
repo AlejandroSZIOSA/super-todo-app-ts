@@ -3,8 +3,7 @@ import type { Todo, ConfirmDialogData } from "../../types/shared";
 import type { RootState } from "../../store";
 import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
 import TodoForm from "../../components/desktop-ui/TodoForm";
-import { CONSTANTS } from "../../utils/constants";
-import useMediaQuery from "../../hooks/useMediaQuery";
+import useMediaQuery, { RESOLUTIONS } from "../../hooks/useMediaQuery";
 import Modal from "../../components/mobile-ui/Modal/Modal";
 import Header from "../../components/Header/Header";
 import Message from "../../components/Message";
@@ -37,7 +36,7 @@ const OrganizePage: FC = () => {
   const { todos } = useAppSelector((state: RootState) => state.todos);
   const dispatch = useAppDispatch(); // Correctly assign useAppDispatch
 
-  const isMobile = useMediaQuery(CONSTANTS.DESKTOP_BREAKPOINT); //It is working perfectly
+  const isMobile = useMediaQuery(RESOLUTIONS.DESKTOP_BREAKPOINT); //It is working perfectly
   const [openModal, setOpenModal] = useState(false);
 
   const dialogRef = useRef<ConfirmDialogRef>(null); //Imported type for ConfirmDialogRef

@@ -1,0 +1,36 @@
+/* Button */
+.selectBtn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: white;
+}
+
+/* Overlay */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Modal box */
+.modalBox {
+  width: 60%;
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+/* Options */
+.modalBox button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  background: none;
+  text-align: center;
+}

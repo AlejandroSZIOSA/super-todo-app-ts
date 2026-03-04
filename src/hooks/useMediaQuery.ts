@@ -14,3 +14,7 @@ const useMediaQuery = (query: string) => {
 };
 
 export default useMediaQuery;
+
+export const RESOLUTIONS = {
+  DESKTOP_BREAKPOINT: "(max-width: 1024px)",
+};
