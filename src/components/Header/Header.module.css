@@ -1,15 +1,10 @@
 .appTitleContainer {
-  text-align: center;
+  display: inline-flex;
+  justify-content: space-between;
+  text-align: left;
   /* padding: 1rem; */
   background-color: cornflowerblue;
   border-bottom: 1px solid #ddd;
-}
-
-.animationBtn {
-  position: absolute;
-  top: 2px;
-  right: 10px;
-  font-size: 0.8rem;
 }
 
 .childrenContainer {
