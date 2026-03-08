@@ -2,7 +2,7 @@ import { type FC } from "react";
 
 import styles from "./SelectModal.module.css";
 
-interface SelectRootModalItemProps {
+export interface SelectRootModalItemProps {
   value: string;
   onSelect?: (value: string) => void;
 }

@@ -42,13 +42,6 @@ export function handleChangePriority(
   });
 }
 
-/* export function handleSetNewSettings(dispatch: AppDispatch) {
-  dispatch({
-    type: "settings/setSettings",
-    payload: { ...todoData, priority: priority },
-  });
-} */
-
 export function handleRemoveTodo(dispatch: AppDispatch, id: number) {
   dispatch({ type: "todo-list/removeTodo", payload: id });
 }

@@ -5,28 +5,25 @@ import React, {
   Children,
   useEffect,
 } from "react";
-import styles from "./SelectModal.module.css";
-import SelectItemModal from "./SelectItemModal";
 
 import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
-
-import { setSettings } from "../../../store/redux/settingsSlice";
 
 import {
   saveSettings,
   type Settings,
 } from "../../../utils/localstorage/localstorage";
 
+import SelectItemModal, {
+  type SelectRootModalItemProps,
+} from "./SelectItemModal";
+
+import styles from "./SelectModal.module.css";
+
 type SelectorKey = keyof Settings;
 
 interface SelectRootModalProps {
   selectorKey: SelectorKey;
   children: ReactNode;
-}
-
-interface SelectRootModalItemProps {
-  value: string;
-  onSelect?: (value: string) => void;
 }
 
 const SelectRootModal: FC<SelectRootModalProps> & {
@@ -38,7 +35,7 @@ const SelectRootModal: FC<SelectRootModalProps> & {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(settings[selectorKey] as string);
 
-  //fixed: side effect problem
+  //fixed: side effect problem , change settings state
   useEffect(() => {
     const key = selectorKey;
     const newValue = value;
@@ -46,9 +43,14 @@ const SelectRootModal: FC<SelectRootModalProps> & {
       ...settings,
       [key]: newValue,
     };
-    dispatch(setSettings(newSettings));
+    /* dispatch(setSettings(newSettings)); */
+    dispatch({
+      type: "settings/setSettings",
+      payload: { ...settings, [key]: newValue },
+    });
+
     saveSettings(newSettings);
-  }, [selectorKey, value]);
+  }, [value]);
 
   const handleSelect = (selectedValue: string) => {
     setValue(selectedValue);
@@ -63,6 +65,8 @@ const SelectRootModal: FC<SelectRootModalProps> & {
       {open && (
         <div className={styles.modal}>
           <div className={styles.modalBox}>
+            {/*             check this part :)
+             */}
             {children &&
               Children.map(children, (child) => {
                 if (React.isValidElement<SelectRootModalItemProps>(child)) {
