@@ -35,7 +35,7 @@ const Header: FC<HeaderProps> = ({ children }) => {
   return (
     <header>
       <div className={styles.appTitleContainer}>
-        <h1>Task Organizer</h1>
+        <h1>Task Remainder</h1>
         <img src={flagContent} />
       </div>
       <div className={styles.childrenContainer}>{children}</div>
