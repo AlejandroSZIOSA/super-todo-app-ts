@@ -8,7 +8,7 @@ import { handleDeleteAllTodos } from "../../utils/crudsREDUX";
 import styles from "./Settings.module.css";
 
 import useMediaQuery, { RESOLUTIONS } from "../../hooks/useMediaQuery";
-import SelectModal from "../../components/mobile-ui/SelectModal/SelectModal";
+import SelectRootModal from "../../components/mobile-ui/SelectModal/SelectRootModal";
 
 const SettingsPage: FC = () => {
   const [isLockOn, setIsLockOn] = useState(true); //TODO: add lock me before feature, this is to manage the lock state, if the user click on the lock button, the lock state will be on, otherwise it will be off, this is to manage the lock style in the delete all events section.
@@ -24,9 +24,12 @@ const SettingsPage: FC = () => {
       <main className={styles.settingsPageMain}>
         <section className={styles.settingsPageSections}>
           <h3>Language</h3>
-
           {isMobile ? (
-            <SelectModal />
+            <SelectRootModal selectorKey="language">
+              <SelectRootModal.Item value="en" />
+              <SelectRootModal.Item value="sv" />
+              <SelectRootModal.Item value="es" />
+            </SelectRootModal>
           ) : (
             <SelectorRoot selectorIdentifier="language">
               <SelectorRoot.Item value="en">English</SelectorRoot.Item>
