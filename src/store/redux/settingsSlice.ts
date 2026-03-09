@@ -8,15 +8,15 @@ type Setting = {
   theme: Theme;
   daysCountdown: DaysCountdown;
 };
-
+// Load initial settings from localStorage, if available, otherwise use defaults
 const initialState: Setting = loadSettings();
 
 const settingsSlice = createSlice({
   name: "settings",
   initialState,
   reducers: {
-    setSettings(state, action: PayloadAction<Setting>) {
-      return { ...state, ...action.payload };
+    setSettings(_state, action: PayloadAction<Setting>) {
+      return action.payload; // full replacement, pure reducer
     },
   },
 });

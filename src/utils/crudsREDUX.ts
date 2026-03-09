@@ -1,6 +1,7 @@
 import { v4 as uuid } from "uuid"; //create unique ids
 import { type Todo } from "../types/shared";
 import type { AppDispatch } from "../store";
+import { saveSettings, type Settings } from "./localstorage/localstorage";
 
 export function getTodosFromDb(dispatch: AppDispatch, todosDb: Todo[]) {
   dispatch({
@@ -48,4 +49,15 @@ export function handleRemoveTodo(dispatch: AppDispatch, id: number) {
 
 export function handleDeleteAllTodos(dispatch: AppDispatch) {
   dispatch({ type: "todo-list/deleteAllTodos" });
+}
+
+export function handleChangeSettings(
+  dispatch: AppDispatch,
+  newSettings: Settings,
+) {
+  dispatch({
+    type: "settings/setSettings",
+    payload: newSettings,
+  });
+  saveSettings(newSettings);
 }

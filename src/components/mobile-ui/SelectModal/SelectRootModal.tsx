@@ -8,17 +8,14 @@ import React, {
 
 import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
 
-import {
-  saveSettings,
-  type Settings,
-} from "../../../utils/localstorage/localstorage";
+import { type Settings } from "../../../utils/localstorage/localstorage";
 
 import SelectItemModal, {
   type SelectRootModalItemProps,
 } from "./SelectItemModal";
 
 import styles from "./SelectModal.module.css";
-
+import { handleChangeSettings } from "../../../utils/crudsREDUX";
 type SelectorKey = keyof Settings;
 
 interface SelectRootModalProps {
@@ -39,17 +36,15 @@ const SelectRootModal: FC<SelectRootModalProps> & {
   useEffect(() => {
     const key = selectorKey;
     const newValue = value;
+
     const newSettings = {
       ...settings,
       [key]: newValue,
     };
-    /* dispatch(setSettings(newSettings)); */
-    dispatch({
-      type: "settings/setSettings",
-      payload: { ...settings, [key]: newValue },
-    });
 
-    saveSettings(newSettings);
+    //new settings global state
+    //new settings local storage
+    handleChangeSettings(dispatch, newSettings); // Update the settings in the Redux store
   }, [value]);
 
   const handleSelect = (selectedValue: string) => {

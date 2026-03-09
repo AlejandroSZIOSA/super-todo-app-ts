@@ -43,6 +43,7 @@ const HomePage: FC = () => {
 
   //fetch todos from db on component mount
   useEffect(() => {
+    //load todos from db
     const fetchTodos = async () => {
       const todosDb = await getAllTodosDb();
       getTodosFromDb(dispatch, todosDb);
