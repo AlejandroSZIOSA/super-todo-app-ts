@@ -10,6 +10,8 @@ import Message from "../../components/Message";
 import TodoItem from "../../components/desktop-ui/TodoItem/TodoItem";
 import Card from "../../components/mobile-ui/Card/Card";
 
+import CardEdit from "../../components/mobile-ui/CardEdit/CardEdit";
+
 import ConfirmDialog, {
   type ConfirmDialogRef,
 } from "../../components/ConfirmDialog/ConfirmDialog";
@@ -120,7 +122,7 @@ const OrganizePage: FC = () => {
   return (
     <>
       <Header>
-        <h2>Organize</h2>
+        <h2>Edit Task</h2>
       </Header>
       <main>
         {content}
@@ -129,9 +131,8 @@ const OrganizePage: FC = () => {
             {todos.map((todo, index) => (
               <li key={todo.id}>
                 {isMobile ? (
-                  <Card
+                  <CardEdit
                     todoData={todo}
-                    page="organize"
                     todoNumber={index}
                     onEdit={handleEditForm}
                     onRemove={(id) =>

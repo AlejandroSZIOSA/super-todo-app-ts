@@ -8,14 +8,14 @@ import { countRemainingDays } from "../../../utils/calculations";
 import { translations } from "../../../data/translations";
 
 import Accordion from "../Accordion/Accordion";
-import { handleToggleCompleteStatus } from "../../../utils/crudsREDUX";
+import { handleChangePriority } from "../../../utils/crudsREDUX";
 
-import styles from "./Card.module.css";
+import styles from "./CardEdit.module.css";
 
 import useMediaQuery, { RESOLUTIONS } from "../../../hooks/useMediaQuery";
 import SelectRootModal from "../SelectModal/SelectRootModal";
 
-interface CardProps {
+interface CardEditProps {
   todoData: Todo;
   todoNumber: number;
   onEdit?: (todoId: number) => void; //prop drilling x1 + call back
@@ -24,7 +24,12 @@ interface CardProps {
 
 let isWarningOn = false; //TODO: add warning me before feature, this is to manage the warning state, if the remaining days are less than the settings.daysCountdown, the warning will be on, otherwise it will be off, this is to manage the warning style in the card component.
 
-const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
+const CardEdit: FC<CardEditProps> = ({
+  todoData,
+  todoNumber,
+  onEdit,
+  onRemove,
+}) => {
   const isMobile = useMediaQuery(RESOLUTIONS.DESKTOP_BREAKPOINT);
   const { id, title, description, priority, deadline, isComplete } = todoData;
   const dispatch = useAppDispatch();
@@ -37,7 +42,9 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
   // isDone state from the store state directly.
   const [isDone, setIsDone] = useState<boolean>(false);
 
-  const [selectedPriority] = useState<Priority>(priority ?? "low");
+  const [selectedPriority, setSelectedPriority] = useState<Priority>(
+    priority ?? "low",
+  );
 
   //translations  en - swe as context param, this change the current language state
   const TRANSLATION = translations[settings.language];
@@ -52,51 +59,51 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
   isWarningOn =
     countRemainingDays(new Date(), deadline) <= settings.daysCountdown;
 
-  //jsx content variable
-
   return (
-    <div className={styles.cardHomeContainer}>
-      <div
-        className={`${styles.cardHomeHeader} ${isWarningOn ? styles.warningShow : styles.warningNotShow}`}
-      />
-
-      <div className={styles.cardHomeSubHeader}>
+    <div className={styles.cardEditContainer}>
+      <div className={styles.cardEditHeader}>
         <p>#{todoNumber}</p>
 
-        <p>{isDone ? "Done" : "Not Done"}</p>
-        <div className={styles.priorityContainer}>
+        <div className={styles.organizePriorityContainer}>
           <p>Priority </p>
-          <span
-            className={`${styles.prioritySignalColorContainer} ${selectedPriority === "high" ? styles.priorityHigh : selectedPriority === "medium" ? styles.priorityMedium : styles.priorityLow}     `}
-          />
+          <select
+            value={selectedPriority}
+            onChange={(e) => {
+              const newPriority = e.target.value as Priority;
+              setSelectedPriority(newPriority);
+              handleChangePriority(dispatch, todoData, newPriority);
+            }}
+          >
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
         </div>
       </div>
 
       <div>
         <Accordion title={title} description={description} isDone={isDone} />
-        <div className={styles.btnChangeStatusContainer}>
-          <button
-            className={styles.btnToggleComplete}
-            onClick={() =>
-              handleToggleCompleteStatus(dispatch, todoData, isDone)
-            }
-          >
-            CHANGE STATUS
-          </button>
-        </div>
         <p>Deadline : {deadline}</p>
       </div>
 
       {/* <p>Warning me Before: {settings.daysCountdown} days</p> */}
 
-      <div className={styles.cardHomeBtnsContainer}>
-        <p>Days remained : {countRemainingDays(new Date(), deadline)}</p>
-        <button id="btn-remove-todo" onClick={() => onRemove && onRemove(id)}>
-          {cardView_T.removeBtn}
-        </button>
+      <div className={styles.cardBtnsOrganizeContainer}>
+        <div>
+          <button onClick={() => onEdit && onEdit(id)}>Edit</button>
+        </div>
+
+        {/* TODO: add select component as modal for mobile */}
+
+        <div className={styles.organizeFooterContainer}>
+          <p>Days remained : {countRemainingDays(new Date(), deadline)}</p>
+          <button onClick={() => onRemove && onRemove(id)}>
+            {cardView_T.removeBtn}
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Card;
+export default CardEdit;

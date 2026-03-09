@@ -14,7 +14,7 @@ import SelectItemModal, {
   type SelectRootModalItemProps,
 } from "./SelectItemModal";
 
-import styles from "./SelectModal.module.css";
+import styles from "./SelectRootModal.module.css";
 import { handleChangeSettings } from "../../../utils/crudsREDUX";
 type SelectorKey = keyof Settings;
 

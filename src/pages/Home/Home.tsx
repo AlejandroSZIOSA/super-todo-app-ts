@@ -101,7 +101,7 @@ const HomePage: FC = () => {
   } else {
     content = (
       <aside>
-        <h3>Add Todo</h3>
+        <h3>Add New Task</h3>
         <TodoForm
           initialValues={{ deadline: getCurrentDate() }}
           /* fix problem with the modal */
@@ -120,7 +120,7 @@ const HomePage: FC = () => {
     <>
       <Header>
         {isMobile ? (
-          <button onClick={() => setIsModalOpen(true)}>Add Todo</button>
+          <button onClick={() => setIsModalOpen(true)}>Add Task</button>
         ) : (
           <h2>Home</h2>
         )}

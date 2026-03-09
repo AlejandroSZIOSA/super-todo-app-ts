@@ -1,6 +1,6 @@
 import { useState, type FC, useEffect } from "react";
 /* import { Item } from "../store/itemsSlice"; */
-import { type Todo } from "../../types/shared";
+import type { Todo, Priority } from "../../types/shared";
 import { getCurrentDate } from "../../utils/calculations";
 
 interface TodoFormProps {
@@ -45,7 +45,7 @@ const TodoForm: FC<TodoFormProps> = ({
       onSubmit({
         ...(initialValues.id ? { id: initialValues.id } : {}),
         ...formData,
-        priority: formData.priority ?? "low",
+        priority: formData.priority ?? "low", //changed
         isComplete: false,
       });
       setFormData({
@@ -109,6 +109,31 @@ const TodoForm: FC<TodoFormProps> = ({
             required
           />
         </div>
+
+        {operation === "create" && (
+          <>
+            <label htmlFor="priority">Priority</label>
+            <select
+              id="priority"
+              name="priority"
+              value={formData.priority}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  priority: e.target.value as Priority,
+                })
+              }
+              required
+            >
+              <option disabled>Choose priority</option>
+              <option value="low">low</option>
+              <option value="medium">medium</option>
+              <option value="high">high</option>
+            </select>
+            <br />
+          </>
+        )}
+
         <button id="btn-add-todo" type="submit">
           {submitBtnLabel}
         </button>

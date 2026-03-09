@@ -22,3 +22,5 @@ export type Theme = "default" | "ocean";
 
 //countdown days remainder
 export type DaysCountdown = 3 | 6 | 9;
+
+export type Priority = "low" | "medium" | "high";

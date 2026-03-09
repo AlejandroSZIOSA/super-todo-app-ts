@@ -70,7 +70,7 @@ const SettingsPage: FC = () => {
         </section>
 
         <section className={styles.settingsPageSections}>
-          <h3>Delete all events</h3>
+          <h3>Delete all Tasks</h3>
           <div>
             <button onClick={() => setIsLockOn(!isLockOn)}>
               {isLockOn ? "unLock" : "Lock"}

@@ -1,7 +1,5 @@
 import { type FC } from "react";
 
-import styles from "./SelectModal.module.css";
-
 export interface SelectRootModalItemProps {
   value: string;
   onSelect?: (value: string) => void;
@@ -10,7 +8,6 @@ export interface SelectRootModalItemProps {
 const SelectItemModal: FC<SelectRootModalItemProps> = ({ value, onSelect }) => {
   return (
     <button
-      className={styles.modalItem}
       onClick={() => {
         if (onSelect) {
           onSelect(value);

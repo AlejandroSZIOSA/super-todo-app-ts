@@ -1,4 +1,4 @@
-.cardHomeContainer {
+.cardEditContainer {
   width: auto;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
@@ -8,47 +8,23 @@
   transition: box-shadow 0.2s ease-in-out;
 }
 
-.cardHomeContainer p {
+.cardEditContainer p {
   text-align: center;
 }
-.cardHomeContainer:hover {
+.cardEditContainer:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.cardHomeContainer:active {
+.cardEditContainer:active {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
 }
 
-.cardHomeHeader {
-  display: flex;
-  justify-content: space-between;
-  /* align-items: center; */
-
-  padding: 25px 16px;
-  border-bottom: 1px solid #e5e7eb;
-
-  background-color: #f9fafb;
-  border-radius: 10px 10px 0 0;
-}
-
-.cardHomeSubHeader {
+.cardEditHeader {
   display: flex;
   justify-content: space-between;
   /* align-items: center; */
 
   padding: 12px 16px;
-}
-
-.warningContainer {
-  height: 2rem;
-}
-
-.warningShow {
-  background-color: rgb(0, 0, 0);
-}
-
-.warningNotShow {
-  background-color: rgb(246, 254, 26);
 }
 
 .priorityContainer {
@@ -57,25 +33,7 @@
   align-items: center;
 }
 
-.prioritySignalColorContainer {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-}
-
-.priorityHigh {
-  background-color: red;
-}
-
-.priorityMedium {
-  background-color: rgb(255, 165, 0);
-}
-
-.priorityLow {
-  background-color: rgb(0, 128, 0);
-}
-
-.btnChangeStatusContainer {
+.btnStatusContainer {
   display: flex;
   gap: 8px;
   justify-content: center;
@@ -90,9 +48,33 @@
   padding: 7px 11px;
 }
 
-.cardHomeBtnsContainer {
+.cardBtnsContainer {
   display: flex;
   gap: 8px;
   margin: 0.6rem;
   justify-content: space-between;
+}
+
+.cardBtnsOrganizeContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0.6rem;
+  align-items: center;
+  /*   justify-content: space-between;
+ */
+}
+
+.organizeBodyContainer {
+  display: flex;
+  gap: 8px;
+}
+
+.organizeFooterContainer {
+  display: flex;
+  gap: 80px;
+}
+
+.organizePriorityContainer {
+  display: flex;
 }
