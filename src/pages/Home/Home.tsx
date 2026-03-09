@@ -134,7 +134,6 @@ const HomePage: FC = () => {
                 {isMobile ? (
                   <Card
                     todoData={todo}
-                    page="home"
                     todoNumber={index}
                     onRemove={(id) =>
                       handleOpenDialog(id, todo.title, "remove")
