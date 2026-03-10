@@ -1,0 +1,12 @@
+.priorityContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.priorityContainer div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}

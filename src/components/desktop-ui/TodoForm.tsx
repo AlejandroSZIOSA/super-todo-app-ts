@@ -3,6 +3,10 @@ import { useState, type FC, useEffect } from "react";
 import type { Todo, Priority } from "../../types/shared";
 import { getCurrentDate } from "../../utils/calculations";
 
+import useMediaQuery, { RESOLUTIONS } from "../../hooks/useMediaQuery";
+
+import styles from "./TodoForm.module.css";
+
 interface TodoFormProps {
   initialValues: Partial<Todo>;
   onSubmit: (values: Omit<Todo, "id"> | Todo) => void;
@@ -22,6 +26,8 @@ const TodoForm: FC<TodoFormProps> = ({
     priority: initialValues.priority ?? "low",
     deadline: initialValues.deadline ?? getCurrentDate(),
   });
+
+  const isMobile = useMediaQuery(RESOLUTIONS.DESKTOP_BREAKPOINT); // Adjust the breakpoint as needed
 
   //fix problem send edited values
   useEffect(() => {
@@ -45,7 +51,7 @@ const TodoForm: FC<TodoFormProps> = ({
       onSubmit({
         ...(initialValues.id ? { id: initialValues.id } : {}),
         ...formData,
-        priority: formData.priority ?? "low", //changed
+        priority: formData.priority ?? "low",
         isComplete: false,
       });
       setFormData({
@@ -110,7 +116,7 @@ const TodoForm: FC<TodoFormProps> = ({
           />
         </div>
 
-        {operation === "create" && (
+        {!isMobile && (
           <>
             <label htmlFor="priority">Priority</label>
             <select
@@ -132,6 +138,66 @@ const TodoForm: FC<TodoFormProps> = ({
             </select>
             <br />
           </>
+        )}
+
+        {(operation === "create" || operation === "edit") && isMobile && (
+          <div className={styles.priorityContainer}>
+            <label>Priority</label>
+            <div>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name="priority"
+                    value="low"
+                    checked={formData.priority === "low"}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        priority: e.target.value as Priority,
+                      })
+                    }
+                  />
+                  Low
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name="priority"
+                    value="medium"
+                    checked={formData.priority === "medium"}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        priority: e.target.value as Priority,
+                      })
+                    }
+                  />
+                  Medium
+                </label>
+              </div>
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name="priority"
+                    value="high"
+                    checked={formData.priority === "high"}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        priority: e.target.value as Priority,
+                      })
+                    }
+                  />
+                  High
+                </label>
+              </div>
+            </div>
+            <br />
+          </div>
         )}
 
         <button id="btn-add-todo" type="submit">

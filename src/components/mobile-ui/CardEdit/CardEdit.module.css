@@ -33,36 +33,10 @@
   align-items: center;
 }
 
-.btnStatusContainer {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  margin: 12px 0;
-}
-
-.btnToggleComplete {
-  border: 2px solid #007bff;
-  color: #007bff;
-  background-color: rgb(194, 194, 194);
-  cursor: pointer;
-  padding: 7px 11px;
-}
-
-.cardBtnsContainer {
-  display: flex;
-  gap: 8px;
-  margin: 0.6rem;
-  justify-content: space-between;
-}
-
 .cardBtnsOrganizeContainer {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
   margin: 0.6rem;
-  align-items: center;
-  /*   justify-content: space-between;
- */
+  justify-content: space-between;
 }
 
 .organizeBodyContainer {

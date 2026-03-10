@@ -8,7 +8,6 @@ import Modal from "../../components/mobile-ui/Modal/Modal";
 import Header from "../../components/Header/Header";
 import Message from "../../components/Message";
 import TodoItem from "../../components/desktop-ui/TodoItem/TodoItem";
-import Card from "../../components/mobile-ui/Card/Card";
 
 import CardEdit from "../../components/mobile-ui/CardEdit/CardEdit";
 

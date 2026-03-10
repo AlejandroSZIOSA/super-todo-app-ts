@@ -20,7 +20,7 @@ const SettingsPage: FC = () => {
       <Header>
         <h2>Settings</h2>
       </Header>
-      <main className={styles.settingsPageMain}>
+      <main className={styles.settingsPageMainContainer}>
         <section className={styles.settingsPageSections}>
           <h3>Language</h3>
           {isMobile ? (

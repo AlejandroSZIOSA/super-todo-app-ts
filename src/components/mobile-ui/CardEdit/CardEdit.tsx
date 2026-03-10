@@ -63,10 +63,10 @@ const CardEdit: FC<CardEditProps> = ({
     <div className={styles.cardEditContainer}>
       <div className={styles.cardEditHeader}>
         <p>#{todoNumber}</p>
-
+        <p>status :{isComplete ? "Done" : "Not done"}</p>
         <div className={styles.organizePriorityContainer}>
-          <p>Priority </p>
-          <select
+          <p>Priority: {priority} </p>
+          {/* <select
             value={selectedPriority}
             onChange={(e) => {
               const newPriority = e.target.value as Priority;
@@ -77,7 +77,7 @@ const CardEdit: FC<CardEditProps> = ({
             <option value="low">Low</option>
             <option value="medium">Medium</option>
             <option value="high">High</option>
-          </select>
+          </select> */}
         </div>
       </div>
 
@@ -89,18 +89,13 @@ const CardEdit: FC<CardEditProps> = ({
       {/* <p>Warning me Before: {settings.daysCountdown} days</p> */}
 
       <div className={styles.cardBtnsOrganizeContainer}>
-        <div>
-          <button onClick={() => onEdit && onEdit(id)}>Edit</button>
-        </div>
+        <button onClick={() => onEdit && onEdit(id)}>Edit</button>
 
         {/* TODO: add select component as modal for mobile */}
-
-        <div className={styles.organizeFooterContainer}>
-          <p>Days remained : {countRemainingDays(new Date(), deadline)}</p>
-          <button onClick={() => onRemove && onRemove(id)}>
-            {cardView_T.removeBtn}
-          </button>
-        </div>
+        <p>Days remained : {countRemainingDays(new Date(), deadline)}</p>
+        <button onClick={() => onRemove && onRemove(id)}>
+          {cardView_T.removeBtn}
+        </button>
       </div>
     </div>
   );

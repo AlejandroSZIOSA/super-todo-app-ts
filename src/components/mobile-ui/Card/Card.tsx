@@ -12,9 +12,6 @@ import { handleToggleCompleteStatus } from "../../../utils/crudsREDUX";
 
 import styles from "./Card.module.css";
 
-import useMediaQuery, { RESOLUTIONS } from "../../../hooks/useMediaQuery";
-import SelectRootModal from "../SelectModal/SelectRootModal";
-
 interface CardProps {
   todoData: Todo;
   todoNumber: number;
@@ -25,7 +22,6 @@ interface CardProps {
 let isWarningOn = false; //TODO: add warning me before feature, this is to manage the warning state, if the remaining days are less than the settings.daysCountdown, the warning will be on, otherwise it will be off, this is to manage the warning style in the card component.
 
 const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
-  const isMobile = useMediaQuery(RESOLUTIONS.DESKTOP_BREAKPOINT);
   const { id, title, description, priority, deadline, isComplete } = todoData;
   const dispatch = useAppDispatch();
   const settings = useAppSelector((state: RootState) => state.settings);
@@ -84,13 +80,13 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
             CHANGE STATUS
           </button>
         </div>
-        <p>Deadline : {deadline}</p>
+        <p>Days remained : {countRemainingDays(new Date(), deadline)}</p>
       </div>
 
       {/* <p>Warning me Before: {settings.daysCountdown} days</p> */}
 
       <div className={styles.cardHomeBtnsContainer}>
-        <p>Days remained : {countRemainingDays(new Date(), deadline)}</p>
+        <p>Deadline : {deadline}</p>
         <button id="btn-remove-todo" onClick={() => onRemove && onRemove(id)}>
           {cardView_T.removeBtn}
         </button>
