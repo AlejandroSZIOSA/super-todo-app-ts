@@ -26,6 +26,8 @@ import {
   getTodosFromDb,
 } from "../../utils/crudsREDUX";
 
+import { translations } from "../../data/translations";
+
 const HomePage: FC = () => {
   const [dialogData, setDialogData] = useState<ConfirmDialogData>({
     id: null,
@@ -40,6 +42,11 @@ const HomePage: FC = () => {
   const isMobile = useMediaQuery(RESOLUTIONS.DESKTOP_BREAKPOINT); //It is working perfectly
 
   const dialogRef = useRef<ConfirmDialogRef>(null); //Imported type for ConfirmDialogRef
+
+  const settings = useAppSelector((state: RootState) => state.settings);
+  const TRANSLATION =
+    translations[settings.language as keyof typeof translations];
+  const { homePage_T } = TRANSLATION;
 
   //fetch todos from db on component mount
   useEffect(() => {
@@ -120,9 +127,11 @@ const HomePage: FC = () => {
     <>
       <Header>
         {isMobile ? (
-          <button onClick={() => setIsModalOpen(true)}>Add Task</button>
+          <button onClick={() => setIsModalOpen(true)}>
+            {!homePage_T ? "Add Task" : homePage_T.addBtn}
+          </button>
         ) : (
-          <h2>Home</h2>
+          <h2> {!homePage_T ? "Home" : homePage_T.subHeaderTitle}</h2>
         )}
       </Header>
       <main>

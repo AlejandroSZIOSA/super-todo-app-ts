@@ -36,7 +36,8 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
   const [selectedPriority] = useState<Priority>(priority ?? "low");
 
   //translations  en - swe as context param, this change the current language state
-  const TRANSLATION = translations[settings.language];
+  const TRANSLATION =
+    translations[settings.language as keyof typeof translations];
   const { cardView_T } = TRANSLATION;
 
   //sync isDone with isComplete from the store
@@ -88,7 +89,7 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
       <div className={styles.cardHomeBtnsContainer}>
         <p>Deadline : {deadline}</p>
         <button id="btn-remove-todo" onClick={() => onRemove && onRemove(id)}>
-          {cardView_T.removeBtn}
+          {!cardView_T ? "remove" : cardView_T.removeBtn}
         </button>
       </div>
     </div>
