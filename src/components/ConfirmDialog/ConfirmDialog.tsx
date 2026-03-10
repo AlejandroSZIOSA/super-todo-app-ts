@@ -25,15 +25,12 @@ const ConfirmDialog = forwardRef<ConfirmDialogRef, ConfirmDialogProps>(
     const handleConfirm = () => {
       onConfirm();
       dialogRef.current?.close();
-      document.body.classList.remove("no-scroll"); //fixed: scrolling when backdrop is active :)
+      /* document.body.classList.remove("no-scroll");  */
     };
 
     const handleCancel = () => {
-      /* if (onCancel) {
-        onCancel();
-      } */
       dialogRef.current?.close();
-      document.body.classList.remove("no-scroll"); //fixed: scrolling when backdrop is active :)
+      document.body.classList.remove("no-scroll");
     };
 
     let content: ReactNode;

@@ -51,6 +51,15 @@ const OrganizePage: FC = () => {
     fetchTodos();
   }, [dispatch]);
 
+  //fixed: problem with dialog backdrop and scroll, when open the dialog the body is blocked to scroll but when close the dialog the body is still blocked, so I added a useEffect to remove the class "no-scroll" when the dialog is closed
+  useEffect(() => {
+    if (dialogData.id) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+  }, [dialogData]);
+
   //callback FN set selected values todo item to the reusable form
   function handleEditForm(todoId: number) {
     setOpenModal(true);
@@ -70,7 +79,8 @@ const OrganizePage: FC = () => {
   ) => {
     setDialogData({ id: todoId, title: title, operation: operation });
     dialogRef.current?.onOpenDialog();
-    document.body.classList.add("no-scroll"); //fixed: scrolling when backdrop is active :)
+    /*     document.body.classList.add("no-scroll");
+     */
   };
 
   const confirmAction = () => {
@@ -78,7 +88,7 @@ const OrganizePage: FC = () => {
     if (dialogData.id) {
       handleRemoveTodo(dispatch, dialogData.id);
       setDialogData({ id: null, title: "", operation: "" });
-      document.body.classList.remove("no-scroll"); //fixed: scrolling when backdrop is active :)
+      /* document.body.classList.remove("no-scroll"); */
     }
   };
 
