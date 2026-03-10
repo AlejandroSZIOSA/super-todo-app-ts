@@ -46,7 +46,7 @@ const HomePage: FC = () => {
   const settings = useAppSelector((state: RootState) => state.settings);
   const TRANSLATION =
     translations[settings.language as keyof typeof translations];
-  const { homePage_T } = TRANSLATION;
+  const { homePage_T } = TRANSLATION ? TRANSLATION : { homePage_T: null };
 
   //fetch todos from db on component mount
   useEffect(() => {
@@ -131,7 +131,7 @@ const HomePage: FC = () => {
             {!homePage_T ? "Add Task" : homePage_T.addBtn}
           </button>
         ) : (
-          <h2> {!homePage_T ? "Home" : homePage_T.subHeaderTitle}</h2>
+          <h2>{!homePage_T ? "Home" : homePage_T.subHeaderTitle}</h2>
         )}
       </Header>
       <main>

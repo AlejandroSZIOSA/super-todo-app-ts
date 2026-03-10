@@ -1,19 +1,17 @@
-import { type FC, useState, useEffect } from "react";
-import type { Todo, Priority } from "../../../types/shared";
+import { type FC, useState } from "react";
+import type { Todo } from "../../../types/shared";
 
-import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
+import { useAppSelector } from "../../../hooks/reduxHooks";
 import { type RootState } from "../../../store";
 
 import { countRemainingDays } from "../../../utils/calculations";
 import { translations } from "../../../data/translations";
 
 import Accordion from "../Accordion/Accordion";
-import { handleChangePriority } from "../../../utils/crudsREDUX";
 
 import styles from "./CardEdit.module.css";
 
 import useMediaQuery, { RESOLUTIONS } from "../../../hooks/useMediaQuery";
-import SelectRootModal from "../SelectModal/SelectRootModal";
 
 interface CardEditProps {
   todoData: Todo;
@@ -32,7 +30,6 @@ const CardEdit: FC<CardEditProps> = ({
 }) => {
   const isMobile = useMediaQuery(RESOLUTIONS.DESKTOP_BREAKPOINT);
   const { id, title, description, priority, deadline, isComplete } = todoData;
-  const dispatch = useAppDispatch();
   const settings = useAppSelector((state: RootState) => state.settings);
   //TODO: Deriver is done status from the store, this is to
   // prevent the problem with the sync between the local state and the store state,
@@ -40,20 +37,12 @@ const CardEdit: FC<CardEditProps> = ({
   // on the button, the local state is updated but the store state is not updated yet, so the card component
   // is re-rendered with the old isComplete value from the store, this is to prevent that problem by deriving the
   // isDone state from the store state directly.
-  const [isDone, setIsDone] = useState<boolean>(false);
-
-  const [selectedPriority, setSelectedPriority] = useState<Priority>(
-    priority ?? "low",
-  );
+  const [isDone] = useState<boolean>(false);
 
   //translations  en - swe as context param, this change the current language state
-  const TRANSLATION = translations[settings.language];
-  const { cardView_T } = TRANSLATION;
-
-  //sync isDone with isComplete from the store
-  useEffect(() => {
-    setIsDone(isComplete);
-  }, [isComplete]);
+  const TRANSLATION =
+    translations[settings.language as keyof typeof translations];
+  const { cardView_T } = TRANSLATION ? TRANSLATION : { cardView_T: null };
 
   //derivering :)
   isWarningOn =
@@ -66,18 +55,6 @@ const CardEdit: FC<CardEditProps> = ({
         <p>status :{isComplete ? "Done" : "Not done"}</p>
         <div className={styles.organizePriorityContainer}>
           <p>Priority: {priority} </p>
-          {/* <select
-            value={selectedPriority}
-            onChange={(e) => {
-              const newPriority = e.target.value as Priority;
-              setSelectedPriority(newPriority);
-              handleChangePriority(dispatch, todoData, newPriority);
-            }}
-          >
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select> */}
         </div>
       </div>
 
@@ -94,7 +71,7 @@ const CardEdit: FC<CardEditProps> = ({
         {/* TODO: add select component as modal for mobile */}
         <p>Days remained : {countRemainingDays(new Date(), deadline)}</p>
         <button onClick={() => onRemove && onRemove(id)}>
-          {cardView_T.removeBtn}
+          {!cardView_T ? "Remove" : cardView_T.removeBtn}
         </button>
       </div>
     </div>

@@ -16,13 +16,12 @@ interface HeaderProps {
 
 //using constrains fix the problem with the children prop
 const Header: FC<HeaderProps> = ({ children }) => {
-  const settings = useAppSelector((state: RootState) => state.settings);
   const { language } = useAppSelector((state: RootState) => state.settings);
-
+  const settings = useAppSelector((state: RootState) => state.settings);
   //translations  en - swe as context param, this change the current language state
   const TRANSLATION =
     translations[settings.language as keyof typeof translations];
-  const { homePage_T } = TRANSLATION;
+  const { homePage_T } = TRANSLATION ? TRANSLATION : { homePage_T: null };
 
   let flagContent: string = ""; // Initialize flagContent with an empty string
   switch (language) {

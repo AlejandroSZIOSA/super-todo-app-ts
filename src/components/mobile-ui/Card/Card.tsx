@@ -38,7 +38,7 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
   //translations  en - swe as context param, this change the current language state
   const TRANSLATION =
     translations[settings.language as keyof typeof translations];
-  const { cardView_T } = TRANSLATION;
+  const { cardView_T } = TRANSLATION ? TRANSLATION : { cardView_T: null };
 
   //sync isDone with isComplete from the store
   useEffect(() => {

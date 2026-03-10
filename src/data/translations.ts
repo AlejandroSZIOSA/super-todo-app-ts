@@ -1,6 +1,6 @@
 //Record Record<K, V>
 interface TranslationTypes {
-  /*   en: {
+  /* en: {
     cardView_T: Record<string, string>;
   }; */
 
@@ -24,6 +24,7 @@ export const translations: TranslationTypes = {
       unCompleteBtn: "Undone",
     },
   }, */
+
   sv: {
     homePage_T: {
       appTitle: "Uppgifts Påminnare",
