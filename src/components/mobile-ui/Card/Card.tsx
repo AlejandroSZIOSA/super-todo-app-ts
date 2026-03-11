@@ -20,6 +20,7 @@ interface CardProps {
 }
 
 let isWarningOn = false; //TODO: add warning me before feature, this is to manage the warning state, if the remaining days are less than the settings.daysCountdown, the warning will be on, otherwise it will be off, this is to manage the warning style in the card component.
+let isExpired = false; //TODO: add expired status to the card component, this is to manage the expired style in the card component, if the remaining days are less than 0, the expired status will be true, otherwise it will be false.
 
 const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
   const { id, title, description, priority, deadline, isComplete } = todoData;
@@ -44,10 +45,10 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
     setIsDone(isComplete);
   }, [isComplete]);
 
-  //derivering :)
   isWarningOn =
     countRemainingDays(new Date(), deadline) <= settings.daysCountdown;
 
+  isExpired = countRemainingDays(new Date(), deadline) < 0;
   //jsx content variable
 
   return (
@@ -61,17 +62,21 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
 
         <p>
           <strong>
-            {isDone
+            {isExpired
               ? cardView_T
-                ? cardView_T.done
-                : "Done"
-              : cardView_T
-                ? cardView_T.notDone
-                : "Not Done"}
+                ? cardView_T.expired
+                : "Expired"
+              : isDone
+                ? cardView_T
+                  ? cardView_T.done
+                  : "Done"
+                : cardView_T
+                  ? cardView_T.notDone
+                  : "Not Done"}
           </strong>
         </p>
         <div className={styles.priorityContainer}>
-          <p>{cardView_T ? cardView_T.priority : "Priority"} </p>
+          {/*   <p>{cardView_T ? cardView_T.priority : "Priority"} </p> */}
           <span
             className={`${styles.prioritySignalColorContainer} ${selectedPriority === "high" ? styles.priorityHigh : selectedPriority === "medium" ? styles.priorityMedium : styles.priorityLow}     `}
           />
@@ -87,7 +92,7 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
               handleToggleCompleteStatus(dispatch, todoData, isDone)
             }
           >
-            {cardView_T ? cardView_T.changeStatusBtn : "CHANGE STATUS"}
+            {cardView_T ? cardView_T.changeStatusBtn : "Change status"}
           </button>
         </div>
         <p>

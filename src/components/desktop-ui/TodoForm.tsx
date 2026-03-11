@@ -1,4 +1,4 @@
-import { useState, type FC, useEffect } from "react";
+import { useState, type FC, useEffect, type ReactNode } from "react";
 /* import { Item } from "../store/itemsSlice"; */
 import type { Todo, Priority } from "../../types/shared";
 import { getCurrentDate } from "../../utils/calculations";
@@ -6,6 +6,10 @@ import { getCurrentDate } from "../../utils/calculations";
 import useMediaQuery, { RESOLUTIONS } from "../../hooks/useMediaQuery";
 
 import styles from "./TodoForm.module.css";
+
+import { useAppSelector } from "../../hooks/reduxHooks";
+import { type RootState } from "../../store";
+import { translations } from "../../data/translations";
 
 interface TodoFormProps {
   initialValues: Partial<Todo>;
@@ -29,6 +33,11 @@ const TodoForm: FC<TodoFormProps> = ({
 
   const isMobile = useMediaQuery(RESOLUTIONS.DESKTOP_BREAKPOINT); // Adjust the breakpoint as needed
 
+  //translations  en - swe as context param, this change the current language state
+  const settings = useAppSelector((state: RootState) => state.settings);
+  const TRANSLATION = translations[settings.language];
+  const { todoForm_T } = TRANSLATION;
+
   //fix problem send edited values
   useEffect(() => {
     //re-render the component when the initialValues change
@@ -42,6 +51,22 @@ const TodoForm: FC<TodoFormProps> = ({
       });
     }
   }, [initialValues, operation]);
+
+  let btnTextContent: ReactNode;
+
+  switch (submitBtnLabel) {
+    case "Add":
+      btnTextContent = todoForm_T ? todoForm_T.add : "Add";
+      break;
+    case "Edit":
+      btnTextContent = todoForm_T ? todoForm_T.edit : "Edit";
+      break;
+    case "Save":
+      btnTextContent = todoForm_T ? todoForm_T.edit : "Save";
+      break;
+    default:
+      btnTextContent = submitBtnLabel;
+  }
 
   //1-Pass the object after validate the form fields
   const handleSubmit = (e: React.FormEvent) => {
@@ -81,7 +106,9 @@ const TodoForm: FC<TodoFormProps> = ({
     <>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="title">Title</label>
+          <label htmlFor="title">
+            {todoForm_T ? todoForm_T.title : "Title"}
+          </label>
           <input
             id="title"
             value={formData.title}
@@ -92,7 +119,9 @@ const TodoForm: FC<TodoFormProps> = ({
           />
         </div>
         <div>
-          <label htmlFor="description">Description</label>
+          <label htmlFor="description">
+            {todoForm_T ? todoForm_T.description : "Description"}
+          </label>
           <textarea
             id="description"
             value={formData.description}
@@ -102,7 +131,9 @@ const TodoForm: FC<TodoFormProps> = ({
           />
         </div>
         <div>
-          <label htmlFor="deadline">Deadline</label>
+          <label htmlFor="deadline">
+            {todoForm_T ? todoForm_T.deadline : "Deadline"}
+          </label>
           <input
             type="date"
             id="deadline"
@@ -118,7 +149,9 @@ const TodoForm: FC<TodoFormProps> = ({
 
         {!isMobile && (
           <>
-            <label htmlFor="priority">Priority</label>
+            <label htmlFor="priority">
+              {todoForm_T ? todoForm_T.priority : "Priority"}
+            </label>
             <select
               id="priority"
               name="priority"
@@ -142,7 +175,7 @@ const TodoForm: FC<TodoFormProps> = ({
 
         {(operation === "create" || operation === "edit") && isMobile && (
           <div className={styles.priorityContainer}>
-            <label>Priority</label>
+            <label>{todoForm_T ? todoForm_T.priority : "Priority"}</label>
             <div>
               <div>
                 <label>
@@ -158,7 +191,7 @@ const TodoForm: FC<TodoFormProps> = ({
                       })
                     }
                   />
-                  Low
+                  {todoForm_T ? todoForm_T.low : "Low"}
                 </label>
               </div>
               <div>
@@ -175,7 +208,7 @@ const TodoForm: FC<TodoFormProps> = ({
                       })
                     }
                   />
-                  Medium
+                  {todoForm_T ? todoForm_T.medium : "Medium"}
                 </label>
               </div>
               <div>
@@ -192,17 +225,18 @@ const TodoForm: FC<TodoFormProps> = ({
                       })
                     }
                   />
-                  High
+                  {todoForm_T ? todoForm_T.high : "High"}
                 </label>
               </div>
             </div>
             <br />
           </div>
         )}
-
-        <button id="btn-add-todo" type="submit">
-          {submitBtnLabel}
-        </button>
+        <div className={styles.submitBtnContainer}>
+          <button id="btn-add-todo" type="submit">
+            {btnTextContent}
+          </button>
+        </div>
       </form>
     </>
   );

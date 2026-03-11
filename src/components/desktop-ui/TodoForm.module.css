@@ -10,3 +10,8 @@
   align-items: center;
   gap: 0.5rem;
 }
+
+.submitBtnContainer {
+  display: flex;
+  justify-content: right;
+}

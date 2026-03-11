@@ -22,6 +22,8 @@ interface CardEditProps {
 
 let isWarningOn = false; //TODO: add warning me before feature, this is to manage the warning state, if the remaining days are less than the settings.daysCountdown, the warning will be on, otherwise it will be off, this is to manage the warning style in the card component.
 
+let isExpired = false; //TODO: add expired status to the card component, this is to manage the expired style in the card component, if the remaining days are less than 0, the expired status will be true, otherwise it will be false.
+
 const CardEdit: FC<CardEditProps> = ({
   todoData,
   todoNumber,
@@ -43,9 +45,10 @@ const CardEdit: FC<CardEditProps> = ({
   const TRANSLATION = translations[settings.language];
   const { cardView_T } = TRANSLATION;
 
-  //derivering :)
   isWarningOn =
     countRemainingDays(new Date(), deadline) <= settings.daysCountdown;
+
+  isExpired = countRemainingDays(new Date(), deadline) < 0;
 
   return (
     <div className={styles.cardEditContainer}>

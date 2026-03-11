@@ -1,6 +1,6 @@
 .cardHomeContainer {
   width: auto;
-  border: 1px solid #e5e7eb;
+  border: 2px solid #000000;
   border-radius: 10px;
   background: white;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
@@ -58,8 +58,8 @@
 }
 
 .prioritySignalColorContainer {
-  width: 10px;
-  height: 10px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
 }
 
