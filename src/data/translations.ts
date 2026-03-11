@@ -1,8 +1,10 @@
 //Record Record<K, V>
+//english language is the default thats why is null
 interface TranslationTypes {
-  /* en: {
-    cardView_T: Record<string, string>;
-  }; */
+  en: {
+    homePage_T: null;
+    cardView_T: null;
+  };
 
   sv: {
     homePage_T: Record<string, string>;
@@ -16,14 +18,10 @@ interface TranslationTypes {
 }
 
 export const translations: TranslationTypes = {
-  /*   en: {
-    cardView_T: {
-      title: "Welcome",
-      removeBtn: "Remove",
-      completeBtn: "Done",
-      unCompleteBtn: "Undone",
-    },
-  }, */
+  en: {
+    homePage_T: null,
+    cardView_T: null,
+  },
 
   sv: {
     homePage_T: {
@@ -33,10 +31,16 @@ export const translations: TranslationTypes = {
     },
 
     cardView_T: {
-      title: "Välkommen",
-      removeBtn: "Radera",
-      completeBtn: "Klart",
-      unCompleteBtn: "Inte klart",
+      priority: "Prioritet",
+      done: "Klart",
+      notDone: "Inte klart",
+
+      changeStatusBtn: "Byt status",
+
+      daysRemaining: "Dagar kvar",
+      deadline: "Sista datum",
+
+      removeBtn: "Ta bort",
     },
   },
   es: {
@@ -47,10 +51,16 @@ export const translations: TranslationTypes = {
     },
 
     cardView_T: {
-      title: "Bienvenido",
+      priority: "Prioridad",
+      done: "Hecho",
+      notDone: "No hecho",
+
+      changeStatusBtn: "Cambiar estado",
+
+      daysRemaining: "Días restantes",
+      deadline: "Fecha límite",
+
       removeBtn: "Eliminar",
-      completeBtn: "Hecho",
-      unCompleteBtn: "incompleto",
     },
   },
 };

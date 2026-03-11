@@ -36,9 +36,8 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
   const [selectedPriority] = useState<Priority>(priority ?? "low");
 
   //translations  en - swe as context param, this change the current language state
-  const TRANSLATION =
-    translations[settings.language as keyof typeof translations];
-  const { cardView_T } = TRANSLATION ? TRANSLATION : { cardView_T: null };
+  const TRANSLATION = translations[settings.language];
+  const { cardView_T } = TRANSLATION;
 
   //sync isDone with isComplete from the store
   useEffect(() => {
@@ -60,9 +59,17 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
       <div className={styles.cardHomeSubHeader}>
         <p>#{todoNumber}</p>
 
-        <p>{isDone ? "Done" : "Not Done"}</p>
+        <p>
+          {isDone
+            ? cardView_T
+              ? cardView_T.done
+              : "Done"
+            : cardView_T
+              ? cardView_T.notDone
+              : "Not Done"}
+        </p>
         <div className={styles.priorityContainer}>
-          <p>Priority </p>
+          <p>{cardView_T ? cardView_T.priority : "Priority"} </p>
           <span
             className={`${styles.prioritySignalColorContainer} ${selectedPriority === "high" ? styles.priorityHigh : selectedPriority === "medium" ? styles.priorityMedium : styles.priorityLow}     `}
           />
@@ -78,16 +85,21 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
               handleToggleCompleteStatus(dispatch, todoData, isDone)
             }
           >
-            CHANGE STATUS
+            {cardView_T ? cardView_T.changeStatusBtn : "CHANGE STATUS"}
           </button>
         </div>
-        <p>Days remained : {countRemainingDays(new Date(), deadline)}</p>
+        <p>
+          {cardView_T ? cardView_T.daysRemaining : "Days remaining"} :{" "}
+          {countRemainingDays(new Date(), deadline)}
+        </p>
       </div>
 
       {/* <p>Warning me Before: {settings.daysCountdown} days</p> */}
 
       <div className={styles.cardHomeBtnsContainer}>
-        <p>Deadline : {deadline}</p>
+        <p>
+          {cardView_T ? cardView_T.deadline : "Deadline"} : {deadline}
+        </p>
         <button id="btn-remove-todo" onClick={() => onRemove && onRemove(id)}>
           {!cardView_T ? "remove" : cardView_T.removeBtn}
         </button>

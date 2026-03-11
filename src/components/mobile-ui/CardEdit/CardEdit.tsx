@@ -40,9 +40,8 @@ const CardEdit: FC<CardEditProps> = ({
   const [isDone] = useState<boolean>(false);
 
   //translations  en - swe as context param, this change the current language state
-  const TRANSLATION =
-    translations[settings.language as keyof typeof translations];
-  const { cardView_T } = TRANSLATION ? TRANSLATION : { cardView_T: null };
+  const TRANSLATION = translations[settings.language];
+  const { cardView_T } = TRANSLATION;
 
   //derivering :)
   isWarningOn =

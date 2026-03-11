@@ -21,7 +21,7 @@ const Header: FC<HeaderProps> = ({ children }) => {
   //translations  en - swe as context param, this change the current language state
   const TRANSLATION =
     translations[settings.language as keyof typeof translations];
-  const { homePage_T } = TRANSLATION ? TRANSLATION : { homePage_T: null };
+  const { homePage_T } = TRANSLATION;
 
   let flagContent: string = ""; // Initialize flagContent with an empty string
   switch (language) {

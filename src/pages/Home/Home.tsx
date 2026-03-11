@@ -44,9 +44,8 @@ const HomePage: FC = () => {
   const dialogRef = useRef<ConfirmDialogRef>(null); //Imported type for ConfirmDialogRef
 
   const settings = useAppSelector((state: RootState) => state.settings);
-  const TRANSLATION =
-    translations[settings.language as keyof typeof translations];
-  const { homePage_T } = TRANSLATION ? TRANSLATION : { homePage_T: null };
+  const TRANSLATION = translations[settings.language];
+  const { homePage_T } = TRANSLATION;
 
   //fetch todos from db on component mount
   useEffect(() => {
