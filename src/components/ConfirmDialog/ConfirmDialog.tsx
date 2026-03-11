@@ -1,6 +1,12 @@
 import { forwardRef, useImperativeHandle, useRef, type ReactNode } from "react";
 import styles from "./ConfirmDialog.module.css";
 
+import { type RootState } from "../../store";
+
+import { useAppSelector } from "../../hooks/reduxHooks";
+
+import { translations } from "../../data/translations";
+
 type ConfirmDialogProps = {
   operation: string;
   todoTitle: string;
@@ -16,6 +22,12 @@ export type ConfirmDialogRef = {
 const ConfirmDialog = forwardRef<ConfirmDialogRef, ConfirmDialogProps>(
   ({ operation, todoTitle, onConfirm }, ref) => {
     const dialogRef = useRef<HTMLDialogElement>(null);
+
+    const settings = useAppSelector((state: RootState) => state.settings);
+
+    //translations  en - swe as context param, this change the current language state
+    const TRANSLATION = translations[settings.language];
+    const { confirmDialog_T } = TRANSLATION;
 
     useImperativeHandle(ref, () => ({
       onOpenDialog: () => dialogRef.current?.showModal(),
@@ -37,8 +49,14 @@ const ConfirmDialog = forwardRef<ConfirmDialogRef, ConfirmDialogProps>(
     if (operation === "remove") {
       content = (
         <>
-          <h1>Confirm Remove</h1>
-          <p>Remove todo title: {todoTitle}?</p>
+          <h1>
+            {confirmDialog_T ? confirmDialog_T.confirmRemove : "Confirm Remove"}
+          </h1>
+          <p>
+            {confirmDialog_T
+              ? `${confirmDialog_T.removeTodoTitle} ${todoTitle}?`
+              : `task with title: ${todoTitle}?`}
+          </p>
         </>
       );
     }
@@ -51,7 +69,7 @@ const ConfirmDialog = forwardRef<ConfirmDialogRef, ConfirmDialogProps>(
             Cancel
           </button>
           <button onClick={handleConfirm} className={styles.buttonConfirm}>
-            Confirm
+            Accept
           </button>
         </div>
       </dialog>

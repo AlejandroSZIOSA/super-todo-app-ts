@@ -60,13 +60,15 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
         <p>#{todoNumber}</p>
 
         <p>
-          {isDone
-            ? cardView_T
-              ? cardView_T.done
-              : "Done"
-            : cardView_T
-              ? cardView_T.notDone
-              : "Not Done"}
+          <strong>
+            {isDone
+              ? cardView_T
+                ? cardView_T.done
+                : "Done"
+              : cardView_T
+                ? cardView_T.notDone
+                : "Not Done"}
+          </strong>
         </p>
         <div className={styles.priorityContainer}>
           <p>{cardView_T ? cardView_T.priority : "Priority"} </p>
@@ -80,7 +82,7 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
         <Accordion title={title} description={description} isDone={isDone} />
         <div className={styles.btnChangeStatusContainer}>
           <button
-            className={styles.btnToggleComplete}
+            className={`${styles.btnToggleStatus} ${isDone ? styles.isDone : styles.notDone}`}
             onClick={() =>
               handleToggleCompleteStatus(dispatch, todoData, isDone)
             }

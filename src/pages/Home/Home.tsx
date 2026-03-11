@@ -28,6 +28,8 @@ import {
 
 import { translations } from "../../data/translations";
 
+import styles from "./Home.module.css";
+
 const HomePage: FC = () => {
   const [dialogData, setDialogData] = useState<ConfirmDialogData>({
     id: null,
@@ -126,7 +128,10 @@ const HomePage: FC = () => {
     <>
       <Header>
         {isMobile ? (
-          <button onClick={() => setIsModalOpen(true)}>
+          <button
+            className={styles.addTaskButton}
+            onClick={() => setIsModalOpen(true)}
+          >
             {!homePage_T ? "Add Task" : homePage_T.addBtn}
           </button>
         ) : (

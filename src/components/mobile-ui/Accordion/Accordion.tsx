@@ -12,7 +12,10 @@ const Accordion: FC<AccordionProps> = ({ title, description, isDone }) => {
 
   return (
     <menu className={styles.menu}>
-      <h3 onClick={() => setIsOpen(!isOpen)}>
+      <h3
+        className={isDone ? styles.isDone : ""}
+        onClick={() => setIsOpen(!isOpen)}
+      >
         <span>{title}</span>
         {isDone ? (
           <span>{isOpen ? "(-)" : "(+)"}</span>
@@ -22,7 +25,7 @@ const Accordion: FC<AccordionProps> = ({ title, description, isDone }) => {
       </h3>
       {isOpen && (
         <div className={styles.content}>
-          <p>{description}</p>
+          <p className={isDone ? styles.isDone : ""}>{description}</p>
         </div>
       )}
     </menu>

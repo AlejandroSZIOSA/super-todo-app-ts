@@ -4,16 +4,19 @@ interface TranslationTypes {
   en: {
     homePage_T: null;
     cardView_T: null;
+    confirmDialog_T: null;
   };
 
   sv: {
     homePage_T: Record<string, string>;
     cardView_T: Record<string, string>;
+    confirmDialog_T: Record<string, string>;
   };
 
   es: {
     homePage_T: Record<string, string>;
     cardView_T: Record<string, string>;
+    confirmDialog_T: Record<string, string>;
   };
 }
 
@@ -21,6 +24,7 @@ export const translations: TranslationTypes = {
   en: {
     homePage_T: null,
     cardView_T: null,
+    confirmDialog_T: null,
   },
 
   sv: {
@@ -34,18 +38,20 @@ export const translations: TranslationTypes = {
       priority: "Prioritet",
       done: "Klart",
       notDone: "Inte klart",
-
       changeStatusBtn: "Byt status",
-
       daysRemaining: "Dagar kvar",
       deadline: "Sista datum",
-
       removeBtn: "Ta bort",
+    },
+
+    confirmDialog_T: {
+      confirmRemove: "Bekräfta borttagning",
+      removeTodoTitle: "uppgift med titel:",
     },
   },
   es: {
     homePage_T: {
-      appTitle: "Agenda",
+      appTitle: "Agenda de tareas",
       addBtn: "Agregar Tarea",
       subHeaderTitle: "Tus tareas",
     },
@@ -54,13 +60,15 @@ export const translations: TranslationTypes = {
       priority: "Prioridad",
       done: "Hecho",
       notDone: "No hecho",
-
       changeStatusBtn: "Cambiar estado",
-
       daysRemaining: "Días restantes",
       deadline: "Fecha límite",
-
       removeBtn: "Eliminar",
+    },
+
+    confirmDialog_T: {
+      confirmRemove: "Confirma eliminar",
+      removeTodoTitle: "tarea con título:",
     },
   },
 };
