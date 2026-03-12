@@ -1,3 +1,4 @@
+//Edit Page
 import { type FC, useState, type ReactNode, useRef, useEffect } from "react";
 import type { Todo, ConfirmDialogData } from "../../types/shared";
 import type { RootState } from "../../store";
@@ -22,6 +23,8 @@ import {
 } from "../../utils/crudsREDUX";
 import { getAllTodosDb } from "../../services/db/crudsDB";
 
+import { translations } from "../../data/translations";
+
 const OrganizePage: FC = () => {
   const [todoEdit, setTodoEdit] = useState<Omit<Todo, "id" | "isComplete">>({
     title: "",
@@ -41,6 +44,10 @@ const OrganizePage: FC = () => {
   const [openModal, setOpenModal] = useState(false);
 
   const dialogRef = useRef<ConfirmDialogRef>(null); //Imported type for ConfirmDialogRef
+
+  const settings = useAppSelector((state: RootState) => state.settings);
+  const TRANSLATION = translations[settings.language];
+  const { editPage_T } = TRANSLATION;
 
   //fetch todos from db on component mount
   useEffect(() => {
@@ -113,7 +120,7 @@ const OrganizePage: FC = () => {
   } else {
     content = (
       <aside>
-        <h3>Edit Todo</h3>
+        <h3>Edit Task</h3>
         <TodoForm
           initialValues={todoEdit}
           onSubmit={(values) => {
@@ -131,7 +138,7 @@ const OrganizePage: FC = () => {
   return (
     <>
       <Header>
-        <h2>Edit Task</h2>
+        <h2>{editPage_T ? editPage_T.editTask : "Edit Task"}</h2>
       </Header>
       <main>
         {content}

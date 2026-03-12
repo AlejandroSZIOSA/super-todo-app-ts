@@ -4,17 +4,27 @@ import styles from "./Accordion.module.css";
 type AccordionProps = {
   description?: string;
   isDone: boolean;
+  isExpired?: boolean;
   title: string;
 };
 
-const Accordion: FC<AccordionProps> = ({ title, description, isDone }) => {
+const Accordion: FC<AccordionProps> = ({
+  title,
+  description,
+  isDone,
+  isExpired,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <menu className={styles.menu}>
       <h3 onClick={() => setIsOpen(!isOpen)}>
-        <span className={isDone ? styles.isDone : ""}>{title}</span>
-        {isDone ? (
+        <span
+          className={isDone ? styles.isDone : isExpired ? styles.isDone : ""}
+        >
+          {title}
+        </span>
+        {isDone || isExpired ? (
           <span>{isOpen ? "(-)" : "(+)"}</span>
         ) : (
           <span>{isOpen ? "(-)" : "(+)"}</span>
@@ -22,7 +32,11 @@ const Accordion: FC<AccordionProps> = ({ title, description, isDone }) => {
       </h3>
       {isOpen && (
         <div className={styles.content}>
-          <p className={isDone ? styles.isDone : ""}>{description}</p>
+          <p
+            className={isDone ? styles.isDone : isExpired ? styles.isDone : ""}
+          >
+            {description}
+          </p>
         </div>
       )}
     </menu>

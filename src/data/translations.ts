@@ -6,6 +6,8 @@ interface TranslationTypes {
     cardView_T: null;
     confirmDialog_T: null;
     todoForm_T: null;
+    editPage_T: null;
+    cardEdit_T: null;
   };
 
   sv: {
@@ -13,6 +15,8 @@ interface TranslationTypes {
     cardView_T: Record<string, string>;
     confirmDialog_T: Record<string, string>;
     todoForm_T: Record<string, string>;
+    editPage_T: Record<string, string>;
+    cardEdit_T: Record<string, string>;
   };
 
   es: {
@@ -20,6 +24,8 @@ interface TranslationTypes {
     cardView_T: Record<string, string>;
     confirmDialog_T: Record<string, string>;
     todoForm_T: Record<string, string>;
+    editPage_T: Record<string, string>;
+    cardEdit_T: Record<string, string>;
   };
 }
 
@@ -29,6 +35,8 @@ export const translations: TranslationTypes = {
     cardView_T: null,
     confirmDialog_T: null,
     todoForm_T: null,
+    editPage_T: null,
+    cardEdit_T: null,
   },
 
   sv: {
@@ -66,6 +74,20 @@ export const translations: TranslationTypes = {
       edit: "Redigera",
       save: "Spara",
     },
+    editPage_T: {
+      editTask: "Redigera uppgift",
+    },
+    cardEdit_T: {
+      status: "Status",
+      done: "Klart",
+      notDone: "Inte klart",
+      expired: "Utgånget",
+      priority: "Prioritet",
+      deadline: "Sista datum",
+      daysRemaining: "Dagar kvar",
+      edit: "Redigera",
+      remove: "Ta bort",
+    },
   },
   es: {
     homePage_T: {
@@ -98,10 +120,24 @@ export const translations: TranslationTypes = {
       low: "Baja",
       medium: "Media",
       high: "Alta",
-
       add: "Agregar",
       edit: "Editar",
       save: "Guardar",
+    },
+
+    editPage_T: {
+      editTask: "Editar Tarea",
+    },
+    cardEdit_T: {
+      status: "Estado",
+      done: "Hecho",
+      notDone: "No hecho",
+      expired: "Expirado",
+      priority: "Prioridad",
+      deadline: "Fecha límite",
+      daysRemaining: "Días restantes",
+      edit: "Editar",
+      remove: "Eliminar",
     },
   },
 };
