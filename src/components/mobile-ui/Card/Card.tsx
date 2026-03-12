@@ -62,7 +62,7 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
 
         <p>
           <strong>
-            {isExpired
+            {isExpired && !isDone
               ? cardView_T
                 ? cardView_T.expired
                 : "Expired"
@@ -92,15 +92,16 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
         />
         <div className={styles.btnChangeStatusContainer}>
           <button
-            className={`${styles.btnToggleStatus} ${isDone ? styles.isDone : styles.notDone}`}
+            className={`${styles.btnToggleStatus} ${isDone ? styles.isDone : styles.notDone} ${isExpired && !isDone ? styles.isExpired : ""}`}
             onClick={() =>
               handleToggleCompleteStatus(dispatch, todoData, isDone)
             }
+            disabled={isExpired && !isDone}
           >
             {cardView_T ? cardView_T.changeStatusBtn : "Change status"}
           </button>
         </div>
-        <p>
+        <p className={styles.daysRemaining}>
           {cardView_T ? cardView_T.daysRemaining : "Days remaining"} :{" "}
           {countRemainingDays(new Date(), deadline)}
         </p>

@@ -54,22 +54,37 @@ const CardEdit: FC<CardEditProps> = ({
       <div className={styles.cardEditHeader}>
         <p>#{todoNumber}</p>
         <p>
-          {cardEdit_T ? cardEdit_T.status : "Status"}:
-          {isExpired
-            ? cardEdit_T
-              ? cardEdit_T.expired
-              : "Expired"
-            : isComplete
+          {" "}
+          <strong>
+            {isExpired
               ? cardEdit_T
-                ? cardEdit_T.done
-                : "Done"
-              : cardEdit_T
-                ? cardEdit_T.notDone
-                : "Not done"}
+                ? cardEdit_T.expired
+                : "Expired"
+              : isComplete
+                ? cardEdit_T
+                  ? cardEdit_T.done
+                  : "Done"
+                : cardEdit_T
+                  ? cardEdit_T.notDone
+                  : "Not done"}
+          </strong>
         </p>
         <div className={styles.organizePriorityContainer}>
           <p>
-            {cardEdit_T ? cardEdit_T.priority : "Priority"}: {priority}{" "}
+            {cardEdit_T ? cardEdit_T.priority : "Priority"}:{" "}
+            {priority === "low"
+              ? cardEdit_T
+                ? cardEdit_T.low
+                : "Low"
+              : priority === "medium"
+                ? cardEdit_T
+                  ? cardEdit_T.medium
+                  : "Medium"
+                : priority === "high"
+                  ? cardEdit_T
+                    ? cardEdit_T.high
+                    : "High"
+                  : "None"}{" "}
           </p>
         </div>
       </div>
@@ -82,7 +97,8 @@ const CardEdit: FC<CardEditProps> = ({
           isExpired={isExpired}
         />
         <p>
-          {cardEdit_T ? cardEdit_T.deadline : "Deadline"}: {deadline}
+          {cardEdit_T ? cardEdit_T.deadline : "Deadline"}:{" "}
+          <strong>{deadline}</strong>
         </p>
       </div>
 
@@ -95,8 +111,10 @@ const CardEdit: FC<CardEditProps> = ({
 
         {/* TODO: add select component as modal for mobile */}
         <p>
-          {cardEdit_T ? cardEdit_T.daysRemaining : "Days remained"}:{" "}
-          {countRemainingDays(new Date(), deadline)}
+          <strong>
+            {cardEdit_T ? cardEdit_T.daysRemaining : "Days remained"}:{" "}
+            {countRemainingDays(new Date(), deadline)}
+          </strong>
         </p>
         <button onClick={() => onRemove && onRemove(id)}>
           {cardEdit_T ? cardEdit_T.remove : "Remove"}

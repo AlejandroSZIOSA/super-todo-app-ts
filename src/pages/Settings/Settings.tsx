@@ -5,8 +5,11 @@ import Header from "../../components/Header/Header";
 import SelectorRoot from "../../components/selector/SelectorRoot";
 import SelectRootModal from "../../components/mobile-ui/SelectModal/SelectRootModal";
 
-import { useAppDispatch } from "../../hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { handleDeleteAllTodos } from "../../utils/crudsREDUX";
+
+import { type RootState } from "../../store";
+import { translations } from "../../data/translations";
 
 import styles from "./Settings.module.css";
 
@@ -15,19 +18,25 @@ const SettingsPage: FC = () => {
   const isMobile = useMediaQuery(RESOLUTIONS.DESKTOP_BREAKPOINT); //It is working perfectly
   const dispatch = useAppDispatch();
 
+  //translations  en - swe as context param, this change the current language state
+  const settings = useAppSelector((state: RootState) => state.settings);
+
+  const TRANSLATION = translations[settings.language];
+  const { settingsPage_T } = TRANSLATION;
+
   return (
     <>
       <Header>
-        <h2>Settings</h2>
+        <h2>{settingsPage_T ? settingsPage_T.settings : "Settings"}</h2>
       </Header>
       <main className={styles.settingsPageMainContainer}>
         <section className={styles.settingsPageSections}>
-          <h3>Language</h3>
+          <h3>{settingsPage_T ? settingsPage_T.language : "Language"} </h3>
           {isMobile ? (
             <SelectRootModal selectorKey="language">
-              <SelectRootModal.Item value="en" />
-              <SelectRootModal.Item value="sv" />
-              <SelectRootModal.Item value="es" />
+              <SelectRootModal.Item value="en">English</SelectRootModal.Item>
+              <SelectRootModal.Item value="sv">Swedish</SelectRootModal.Item>
+              <SelectRootModal.Item value="es">Spanish</SelectRootModal.Item>
             </SelectRootModal>
           ) : (
             <SelectorRoot selectorIdentifier="language">
@@ -38,13 +47,15 @@ const SettingsPage: FC = () => {
           )}
         </section>
         <section className={styles.settingsPageSections}>
-          <h3>Remaining days warning</h3>
+          <h3>
+            {settingsPage_T ? settingsPage_T.warnMeFrom : "Warn me from?"}
+          </h3>
 
           {isMobile ? (
             <SelectRootModal selectorKey="daysCountdown">
-              <SelectRootModal.Item value="3" />
-              <SelectRootModal.Item value="6" />
-              <SelectRootModal.Item value="9" />
+              <SelectRootModal.Item value="3">3 Days</SelectRootModal.Item>
+              <SelectRootModal.Item value="6">6 Days</SelectRootModal.Item>
+              <SelectRootModal.Item value="9">9 Days</SelectRootModal.Item>
             </SelectRootModal>
           ) : (
             <SelectorRoot selectorIdentifier="daysCountdown">
@@ -55,7 +66,9 @@ const SettingsPage: FC = () => {
           )}
         </section>
         <section className={styles.settingsPageSections}>
-          <h3>Select theme</h3>
+          <h3>
+            {settingsPage_T ? settingsPage_T.selectTheme : "Select theme"}{" "}
+          </h3>
           {isMobile ? (
             <SelectRootModal selectorKey="theme">
               <SelectRootModal.Item value="default" />
@@ -70,16 +83,26 @@ const SettingsPage: FC = () => {
         </section>
 
         <section className={styles.settingsPageSections}>
-          <h3>Delete all Tasks</h3>
-          <div>
+          <h3>
+            {settingsPage_T
+              ? settingsPage_T.deleteAllTasks
+              : "Delete all Tasks"}
+          </h3>
+          <div className={styles.btnContainer}>
             <button onClick={() => setIsLockOn(!isLockOn)}>
-              {isLockOn ? "unLock" : "Lock"}
+              {isLockOn
+                ? settingsPage_T
+                  ? settingsPage_T.unlock
+                  : "Unlock"
+                : settingsPage_T
+                  ? settingsPage_T.lock
+                  : "Lock"}
             </button>
             <button
               onClick={() => handleDeleteAllTodos(dispatch)}
               disabled={isLockOn}
             >
-              Delete
+              {settingsPage_T ? settingsPage_T.delete : "Delete"}
             </button>
           </div>
         </section>

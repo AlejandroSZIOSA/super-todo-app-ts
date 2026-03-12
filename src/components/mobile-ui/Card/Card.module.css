@@ -97,6 +97,15 @@
   background-color: rgb(255, 116, 85);
 }
 
+.isExpired {
+  background-color: rgb(0, 0, 0);
+}
+
+.daysRemaining {
+  text-align: center;
+  font-weight: 500;
+}
+
 .cardHomeBtnsContainer {
   display: flex;
   gap: 8px;

@@ -1,16 +1,31 @@
 .settingsPageMainContainer {
   position: absolute;
-  top: 30%;
+  top: 20%;
   right: 10%;
   left: 10%;
 }
 
 .settingsPageSections {
+  display: flex;
+  flex-direction: column;
   text-align: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.5rem;
 }
 
 .selectWrapper {
-  max-width: 300px;
+  max-width: 100px;
+}
+
+.btnContainer {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+}
+
+.btnContainer button {
+  padding: 12px;
 }
 
 @media (min-width: 1024px) {

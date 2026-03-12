@@ -8,6 +8,7 @@ interface TranslationTypes {
     todoForm_T: null;
     editPage_T: null;
     cardEdit_T: null;
+    settingsPage_T: null;
   };
 
   sv: {
@@ -17,6 +18,7 @@ interface TranslationTypes {
     todoForm_T: Record<string, string>;
     editPage_T: Record<string, string>;
     cardEdit_T: Record<string, string>;
+    settingsPage_T: Record<string, string>;
   };
 
   es: {
@@ -26,6 +28,7 @@ interface TranslationTypes {
     todoForm_T: Record<string, string>;
     editPage_T: Record<string, string>;
     cardEdit_T: Record<string, string>;
+    settingsPage_T: Record<string, string>;
   };
 }
 
@@ -37,6 +40,7 @@ export const translations: TranslationTypes = {
     todoForm_T: null,
     editPage_T: null,
     cardEdit_T: null,
+    settingsPage_T: null,
   },
 
   sv: {
@@ -83,10 +87,23 @@ export const translations: TranslationTypes = {
       notDone: "Inte klart",
       expired: "Utgånget",
       priority: "Prioritet",
+      low: "Låg",
+      medium: "Medel",
+      high: "Hög",
       deadline: "Sista datum",
       daysRemaining: "Dagar kvar",
       edit: "Redigera",
       remove: "Ta bort",
+    },
+    settingsPage_T: {
+      settings: "Inställningar",
+      language: "Språk",
+      warnMeFrom: "Varning från?",
+      selectTheme: "Välj tema",
+      deleteAllTasks: "Radera alla uppgifter",
+      lock: "Lås",
+      unlock: "Lås upp",
+      delete: "Radera",
     },
   },
   es: {
@@ -134,10 +151,23 @@ export const translations: TranslationTypes = {
       notDone: "No hecho",
       expired: "Expirado",
       priority: "Prioridad",
+      low: "Baja",
+      medium: "Media",
+      high: "Alta",
       deadline: "Fecha límite",
       daysRemaining: "Días restantes",
       edit: "Editar",
       remove: "Eliminar",
+    },
+    settingsPage_T: {
+      settings: "Configuraciones",
+      language: "Idioma",
+      warnMeFrom: "Advertencia desde?",
+      selectTheme: "Seleccionar tema",
+      deleteAllTasks: "Eliminar todas las tareas",
+      lock: "Bloquear",
+      unlock: "Desbloquear",
+      delete: "Eliminar",
     },
   },
 };
