@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { DaysCountdown, Theme, Language } from "../../types/shared";
 
-import { loadSettings } from "../../utils/localstorage/localstorage";
+import { loadSettings } from "../../services/localstorage/localstorage";
 
 type Setting = {
   language: Language;

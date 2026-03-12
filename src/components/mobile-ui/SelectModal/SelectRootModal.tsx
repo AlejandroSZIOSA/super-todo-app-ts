@@ -8,7 +8,7 @@ import React, {
 
 import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
 
-import { type Settings } from "../../../utils/localstorage/localstorage";
+import { type Settings } from "../../../services/localstorage/localstorage";
 
 import SelectItemModal, {
   type SelectRootModalItemProps,

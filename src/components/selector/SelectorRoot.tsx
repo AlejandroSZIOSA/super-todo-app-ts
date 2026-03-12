@@ -6,7 +6,7 @@ import { type RootState } from "../../store";
 import {
   saveSettings,
   type Settings,
-} from "../../utils/localstorage/localstorage";
+} from "../../services/localstorage/localstorage";
 
 import SelectorItem, { type SelectorItemProps } from "./SelectorItem";
 import { setSettings } from "../../store/redux/settingsSlice";

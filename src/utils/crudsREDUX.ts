@@ -1,7 +1,10 @@
 import { v4 as uuid } from "uuid"; //create unique ids
 import { type Todo } from "../types/shared";
 import type { AppDispatch } from "../store";
-import { saveSettings, type Settings } from "./localstorage/localstorage";
+import {
+  saveSettings,
+  type Settings,
+} from "../services/localstorage/localstorage";
 
 export function getTodosFromDb(dispatch: AppDispatch, todosDb: Todo[]) {
   dispatch({
