@@ -4,7 +4,7 @@ import styles from "./Accordion.module.css";
 type AccordionProps = {
   description?: string;
   isDone: boolean;
-  isExpired?: boolean;
+  isExpired: boolean;
   title: string;
 };
 

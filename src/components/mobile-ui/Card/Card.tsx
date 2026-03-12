@@ -84,7 +84,12 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
       </div>
 
       <div>
-        <Accordion title={title} description={description} isDone={isDone} />
+        <Accordion
+          title={title}
+          description={description}
+          isDone={isDone}
+          isExpired={isExpired}
+        />
         <div className={styles.btnChangeStatusContainer}>
           <button
             className={`${styles.btnToggleStatus} ${isDone ? styles.isDone : styles.notDone}`}
