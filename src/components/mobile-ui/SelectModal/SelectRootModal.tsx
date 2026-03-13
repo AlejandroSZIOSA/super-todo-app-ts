@@ -14,8 +14,10 @@ import SelectItemModal, {
   type SelectRootModalItemProps,
 } from "./SelectItemModal";
 
-import styles from "./SelectRootModal.module.css";
 import { handleChangeSettings } from "../../../utils/crudsREDUX";
+
+import styles from "./SelectRootModal.module.css";
+
 type SelectorKey = keyof Settings;
 
 interface SelectRootModalProps {
@@ -45,6 +47,8 @@ const SelectRootModal: FC<SelectRootModalProps> & {
     //new settings global state
     //new settings local storage
     handleChangeSettings(dispatch, newSettings); // Update the settings in the Redux store
+
+    //TODO:fix problem with dependencies
   }, [value]);
 
   const handleSelect = (selectedValue: string) => {
@@ -60,6 +64,7 @@ const SelectRootModal: FC<SelectRootModalProps> & {
       {open && (
         <div className={styles.modal}>
           <div className={styles.modalBox}>
+            <button onClick={() => setOpen(false)}>✕</button>
             {/*             check this part :)
              */}
             {children &&
