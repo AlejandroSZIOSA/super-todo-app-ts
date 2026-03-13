@@ -53,6 +53,7 @@ const SettingsPage: FC = () => {
 
           {isMobile ? (
             <SelectRootModal selectorKey="daysCountdown">
+              <SelectRootModal.Item value="2">2 Days</SelectRootModal.Item>
               <SelectRootModal.Item value="3">3 Days</SelectRootModal.Item>
               <SelectRootModal.Item value="6">6 Days</SelectRootModal.Item>
               <SelectRootModal.Item value="9">9 Days</SelectRootModal.Item>

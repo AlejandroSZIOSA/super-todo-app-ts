@@ -10,7 +10,7 @@ type ModalProps = {
 export default function Modal({ isOpen, onClose, children }: ModalProps) {
   if (!isOpen) {
     document.body.classList.remove("no-scroll"); //fixed: scrolling in mobile :)
-    return null;
+    return; //TODO: review this
   } else {
     document.body.classList.add("no-scroll"); //fixed: scrolling in mobile :)
   }

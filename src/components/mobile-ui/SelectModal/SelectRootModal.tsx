@@ -51,6 +51,15 @@ const SelectRootModal: FC<SelectRootModalProps> & {
     //TODO:fix problem with dependencies
   }, [value]);
 
+  //fixed: problem with body scroll when open the modal, when open the modal the body is blocked to scroll but when close the modal the body is still blocked, so I added a useEffect to remove the class "no-scroll" when the modal is closed
+  useEffect(() => {
+    if (open) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+  }, [open]);
+
   const handleSelect = (selectedValue: string) => {
     setValue(selectedValue);
     setOpen(false);
