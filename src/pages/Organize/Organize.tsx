@@ -3,7 +3,7 @@ import { type FC, useState, type ReactNode, useRef, useEffect } from "react";
 import type { Todo, ConfirmDialogData } from "../../types/shared";
 import type { RootState } from "../../store";
 import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
-import TodoForm from "../../components/desktop-ui/TodoForm";
+import TodoForm from "../../components/TodoForm/TodoForm";
 import useMediaQuery, { RESOLUTIONS } from "../../hooks/useMediaQuery";
 import Modal from "../../components/mobile-ui/Modal/Modal";
 import Header from "../../components/Header/Header";

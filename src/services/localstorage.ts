@@ -1,4 +1,4 @@
-import type { Language, Theme, DaysCountdown } from "../../types/shared";
+import type { Language, Theme, DaysCountdown } from "../types/shared";
 
 export type Settings = {
   language: Language;

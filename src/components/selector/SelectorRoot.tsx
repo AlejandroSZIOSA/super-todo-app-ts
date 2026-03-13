@@ -3,10 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 
 import { type RootState } from "../../store";
 
-import {
-  saveSettings,
-  type Settings,
-} from "../../services/localstorage/localstorage";
+import { saveSettings, type Settings } from "../../services/localstorage";
 
 import SelectorItem, { type SelectorItemProps } from "./SelectorItem";
 import { setSettings } from "../../store/redux/settingsSlice";

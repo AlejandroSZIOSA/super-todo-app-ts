@@ -3,7 +3,7 @@ import { type FC, useState, type ReactNode, useRef, useEffect } from "react";
 import viteLogo from "/vite.svg"; */
 import type { RootState } from "../../store";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import TodoForm from "../../components/desktop-ui/TodoForm";
+import TodoForm from "../../components/TodoForm/TodoForm";
 import useMediaQuery, { RESOLUTIONS } from "../../hooks/useMediaQuery";
 import Modal from "../../components/mobile-ui/Modal/Modal";
 
