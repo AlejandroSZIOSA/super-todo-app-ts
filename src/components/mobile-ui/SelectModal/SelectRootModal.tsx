@@ -73,7 +73,9 @@ const SelectRootModal: FC<SelectRootModalProps> & {
       {open && (
         <div className={styles.modal}>
           <div className={styles.modalBox}>
-            <button onClick={() => setOpen(false)}>✕</button>
+            <button className={styles.closeBtn} onClick={() => setOpen(false)}>
+              ✕
+            </button>
             {/*             check this part :)
              */}
             {children &&

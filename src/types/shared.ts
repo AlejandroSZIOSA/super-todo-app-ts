@@ -3,8 +3,8 @@ export type Todo = {
   title: string;
   description: string;
   isComplete: boolean;
-  priority?: "low" | "medium" | "high";
-  deadline?: string;
+  priority: "low" | "medium" | "high";
+  deadline: string;
 };
 
 //dialog types

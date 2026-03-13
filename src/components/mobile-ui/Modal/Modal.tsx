@@ -16,7 +16,7 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
   }
 
   return (
-    <div className={styles.backdrop} onClick={onClose}>
+    <div className={styles.backdrop}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <button className={styles.close} onClick={onClose}>
           ✕

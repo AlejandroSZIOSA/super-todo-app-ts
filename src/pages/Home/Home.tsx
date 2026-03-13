@@ -124,6 +124,34 @@ const HomePage: FC = () => {
     );
   }
 
+  // Sort todos by priority before rendering ... check this again :)
+  /* const sortedTodos = [...todos].sort((a, b) => {
+    const priorityOrder = { high: 1, medium: 2, low: 3 }; // Define priority order
+    return (
+      priorityOrder[a.priority as keyof typeof priorityOrder] -
+      priorityOrder[b.priority as keyof typeof priorityOrder]
+    );
+  }); */
+
+  // Sort todos by priority and deadline before rendering
+  const sortedTodos = [...todos].sort((a, b) => {
+    const priorityOrder = { high: 1, medium: 2, low: 3 }; // Define priority order
+
+    // Compare priorities
+    const priorityComparison =
+      priorityOrder[a.priority as keyof typeof priorityOrder] -
+      priorityOrder[b.priority as keyof typeof priorityOrder];
+
+    if (priorityComparison !== 0) {
+      return priorityComparison; // If priorities are different, sort by priority
+    }
+
+    // If priorities are the same, compare deadlines
+    const deadlineA = new Date(a.deadline).getTime();
+    const deadlineB = new Date(b.deadline).getTime();
+    return deadlineA - deadlineB; // Sort by nearest deadline
+  });
+
   return (
     <>
       <Header>
@@ -140,9 +168,9 @@ const HomePage: FC = () => {
       </Header>
       <main>
         {content}
-        {todos.length !== 0 ? (
+        {sortedTodos.length !== 0 ? (
           <ol>
-            {todos.map((todo, index) => (
+            {sortedTodos.map((todo, index) => (
               <li key={todo.id}>
                 {isMobile ? (
                   <Card
