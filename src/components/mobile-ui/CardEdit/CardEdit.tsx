@@ -7,6 +7,8 @@ import { type RootState } from "../../../store";
 import { countRemainingDays } from "../../../utils/calculations";
 import { translations } from "../../../data/translations";
 
+import { RemoveIcon, DeadLineIcon, EditIcon } from "../../../assets/icons";
+
 import Accordion from "../Accordion/Accordion";
 
 import styles from "./CardEdit.module.css";
@@ -97,6 +99,7 @@ const CardEdit: FC<CardEditProps> = ({
           isExpired={isExpired}
         />
         <p>
+          {/*  <DeadLineIcon /> */}
           {cardEdit_T ? cardEdit_T.deadline : "Deadline"}:{" "}
           <strong>{deadline}</strong>
         </p>
@@ -106,7 +109,8 @@ const CardEdit: FC<CardEditProps> = ({
 
       <div className={styles.cardBtnsOrganizeContainer}>
         <button onClick={() => onEdit && onEdit(id)}>
-          {cardEdit_T ? cardEdit_T.edit : "Edit"}
+          <EditIcon />
+          {/* {cardEdit_T ? cardEdit_T.edit : "Edit"} */}
         </button>
 
         {/* TODO: add select component as modal for mobile */}
@@ -117,7 +121,8 @@ const CardEdit: FC<CardEditProps> = ({
           </strong>
         </p>
         <button onClick={() => onRemove && onRemove(id)}>
-          {cardEdit_T ? cardEdit_T.remove : "Remove"}
+          <RemoveIcon />
+          {/* {cardEdit_T ? cardEdit_T.remove : "Remove"} */}
         </button>
       </div>
     </div>

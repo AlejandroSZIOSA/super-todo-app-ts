@@ -113,6 +113,15 @@
   justify-content: space-between;
 }
 
-.cardHomeBtnsContainer p {
+.deadLineContainer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
   font-weight: 500;
 }
+
+/* .cardHomeBtnsContainer p {
+  font-weight: 500;
+}
+ */

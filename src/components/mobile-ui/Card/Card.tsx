@@ -1,6 +1,8 @@
 import { type FC, useState, useEffect } from "react";
 import type { Todo, Priority } from "../../../types/shared";
 
+import { RemoveIcon, DeadLineIcon } from "../../../assets/icons";
+
 import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
 import { type RootState } from "../../../store";
 
@@ -110,11 +112,17 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
       {/* <p>Warning me Before: {settings.daysCountdown} days</p> */}
 
       <div className={styles.cardHomeBtnsContainer}>
-        <p>
+        {/*  <p>
           {cardView_T ? cardView_T.deadline : "Deadline"} : {deadline}
-        </p>
+        </p> */}
+        <div className={styles.deadLineContainer}>
+          <DeadLineIcon />
+          <span>{deadline}</span>
+        </div>
+
         <button id="btn-remove-todo" onClick={() => onRemove && onRemove(id)}>
-          {!cardView_T ? "remove" : cardView_T.removeBtn}
+          <RemoveIcon />
+          {/*  {!cardView_T ? "remove" : cardView_T.removeBtn} */}
         </button>
       </div>
     </div>
