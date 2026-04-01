@@ -3,27 +3,46 @@
   bottom: 0;
   left: 0;
   right: 0;
-
-  height: 64px;
-  background: rgba(0, 234, 243, 0.85);
+  height: 7vh;
+  background: #222831;
   backdrop-filter: blur(12px);
 
   display: flex;
   justify-content: space-around;
   align-items: center;
 
-  border-top: 1px solid #e5e7eb;
+  /*  border-top: 1px solid #e5e7eb; */
   z-index: 50;
 }
 
 .icon {
   width: 24px;
   height: 24px;
-  fill: #000000; /* Dinamic color for SVG icons */
+  fill: #dfd0b8; /* Dinamic color for SVG icons */
 }
 
 .label {
   display: none;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: gray;
+  text-decoration: none;
+}
+
+.active {
+  background-color: #2563eb;
+  color: white;
+}
+
+.active .icon {
+  fill: white;
+  color: #2563eb;
 }
 
 @media (min-width: 1024px) {

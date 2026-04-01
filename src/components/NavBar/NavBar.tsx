@@ -1,7 +1,5 @@
-import { type FC } from "react";
-
+import { type FC, useRef } from "react";
 import { NavLink } from "react-router-dom";
-
 import styles from "./NavBar.module.css";
 
 import type { ComponentType, SVGProps } from "react";
@@ -32,13 +30,23 @@ const navItems: NavItem[] = [
 ];
 
 const NavBar: FC = () => {
+  const linkRef = useRef<(HTMLAnchorElement | null)[]>([]);
+
+  const handleFocus = (i: number) => {
+    linkRef.current[i]?.focus();
+  };
+
   return (
     <nav className={styles.nav}>
       {/* Icon is a Component :) */}
-      {navItems.map(({ to, label, icon: Icon }) => (
+      {navItems.map(({ to, label, icon: Icon }, index) => (
         <NavLink
           key={to}
           to={to}
+          ref={(el) => {
+            linkRef.current[index] = el;
+          }}
+          onFocus={() => handleFocus(index)}
           className={({ isActive }) =>
             `${styles.link} ${isActive ? styles.active : ""}`
           }
