@@ -73,12 +73,12 @@ const SettingsPage: FC = () => {
           {isMobile ? (
             <SelectRootModal selectorKey="theme">
               <SelectRootModal.Item value="default" />
-              <SelectRootModal.Item value="ocean" />
+              {/*<SelectRootModal.Item value="ocean" />*/}
             </SelectRootModal>
           ) : (
             <SelectorRoot selectorIdentifier="theme">
               <SelectorRoot.Item value="default">Default</SelectorRoot.Item>
-              <SelectorRoot.Item value="ocean">Ocean</SelectorRoot.Item>
+              {/*<SelectorRoot.Item value="ocean">Ocean</SelectorRoot.Item>*/}
             </SelectorRoot>
           )}
         </section>

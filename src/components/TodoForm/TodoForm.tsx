@@ -1,4 +1,4 @@
-import { useState, type FC, useEffect, type ReactNode } from "react";
+import { useState, type FC, useEffect, type ReactNode, useRef } from "react";
 /* import { Item } from "../store/itemsSlice"; */
 import type { Todo, Priority } from "../../types/shared";
 import { getCurrentDate } from "../../utils/calculations";
@@ -31,6 +31,8 @@ const TodoForm: FC<TodoFormProps> = ({
     deadline: initialValues.deadline ?? getCurrentDate(),
   });
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const isMobile = useMediaQuery(RESOLUTIONS.DESKTOP_BREAKPOINT); // Adjust the breakpoint as needed
 
   //translations  en - swe as context param, this change the current language state
@@ -50,6 +52,7 @@ const TodoForm: FC<TodoFormProps> = ({
         deadline: deadline ?? "",
       });
     }
+    handleFocus();
   }, [initialValues, operation]);
 
   let btnTextContent: ReactNode;
@@ -86,6 +89,7 @@ const TodoForm: FC<TodoFormProps> = ({
         deadline: getCurrentDate(),
         priority: "low",
       });
+      handleFocus();
     } else if (operation === "edit") {
       onSubmit({
         ...(initialValues.id ? { id: initialValues.id } : {}),
@@ -99,7 +103,12 @@ const TodoForm: FC<TodoFormProps> = ({
         deadline: "",
         priority: "low",
       });
+      handleFocus();
     }
+  };
+
+  const handleFocus = () => {
+    inputRef.current?.focus();
   };
 
   return (
@@ -112,6 +121,8 @@ const TodoForm: FC<TodoFormProps> = ({
           <input
             id="title"
             value={formData.title}
+            maxLength={20}
+            ref={inputRef}
             onChange={(e) =>
               setFormData({ ...formData, title: e.target.value })
             }
@@ -125,6 +136,7 @@ const TodoForm: FC<TodoFormProps> = ({
           <textarea
             id="description"
             value={formData.description}
+            maxLength={100}
             onChange={(e) =>
               setFormData({ ...formData, description: e.target.value })
             }
