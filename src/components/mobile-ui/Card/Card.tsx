@@ -13,6 +13,7 @@ import Accordion from "../Accordion/Accordion";
 import { handleToggleCompleteStatus } from "../../../utils/crudsREDUX";
 
 import styles from "./Card.module.css";
+import PriorityMark from "../../PriorityMark/PriorityMark";
 
 interface CardProps {
   todoData: Todo;
@@ -58,10 +59,8 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
       <div
         className={`${styles.cardHomeHeader} ${isWarningOn ? styles.warningShow : styles.warningNotShow}`}
       />
-
       <div className={styles.cardHomeSubHeader}>
         <p>#{todoNumber}</p>
-
         <p>
           <strong>
             {isExpired && !isDone
@@ -77,14 +76,8 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
                   : "Not Done"}
           </strong>
         </p>
-        <div className={styles.priorityContainer}>
-          {/*   <p>{cardView_T ? cardView_T.priority : "Priority"} </p> */}
-          <span
-            className={`${styles.prioritySignalColorContainer} ${selectedPriority === "high" ? styles.priorityHigh : selectedPriority === "medium" ? styles.priorityMedium : styles.priorityLow}     `}
-          />
-        </div>
+        <PriorityMark variant={selectedPriority} />
       </div>
-
       <div>
         <Accordion
           title={title}
@@ -93,15 +86,17 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
           isExpired={isExpired}
         />
         <div className={styles.btnChangeStatusContainer}>
-          <button
-            className={`${styles.btnToggleStatus} ${isDone ? styles.isDone : styles.notDone} ${isExpired && !isDone ? styles.isExpired : ""}`}
-            onClick={() =>
-              handleToggleCompleteStatus(dispatch, todoData, isDone)
-            }
-            disabled={isExpired && !isDone}
-          >
-            {cardView_T ? cardView_T.changeStatusBtn : "Change status"}
-          </button>
+          {!isExpired && (
+            <button
+              className={`${styles.btnToggleStatus} ${isDone ? styles.isDone : styles.notDone} ${isExpired && !isDone ? styles.isExpired : ""}`}
+              onClick={() =>
+                handleToggleCompleteStatus(dispatch, todoData, isDone)
+              }
+              disabled={isExpired && !isDone}
+            >
+              {cardView_T ? cardView_T.changeStatusBtn : "Change status"}
+            </button>
+          )}
         </div>
         <p className={styles.daysRemaining}>
           {cardView_T ? cardView_T.daysRemaining : "Days remaining"} :{" "}
