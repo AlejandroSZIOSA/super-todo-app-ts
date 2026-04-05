@@ -140,6 +140,7 @@ const TodoForm: FC<TodoFormProps> = ({
             onChange={(e) =>
               setFormData({ ...formData, description: e.target.value })
             }
+            required
           />
         </div>
         <div>

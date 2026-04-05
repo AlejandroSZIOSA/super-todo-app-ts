@@ -22,9 +22,24 @@
 .cardEditHeader {
   display: flex;
   justify-content: space-between;
-  /* align-items: center; */
-
+  color: white;
   padding: 12px 16px;
+}
+
+.quite {
+  background-color: #3945b5;
+}
+
+.success {
+  background-color: #39b550;
+}
+
+.expired {
+  background-color: #000000;
+}
+
+.warningOn {
+  background-color: #000000;
 }
 
 .priorityContainer {

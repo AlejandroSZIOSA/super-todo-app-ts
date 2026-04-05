@@ -53,7 +53,9 @@ const CardEdit: FC<CardEditProps> = ({
 
   return (
     <div className={styles.cardEditContainer}>
-      <div className={styles.cardEditHeader}>
+      <div
+        className={`${styles.cardEditHeader} ${isExpired && styles.expired} ${isComplete && styles.success} ${isWarningOn ? styles.warningOn : styles.quite}`}
+      >
         <p>#{todoNumber}</p>
         <p>
           {" "}
