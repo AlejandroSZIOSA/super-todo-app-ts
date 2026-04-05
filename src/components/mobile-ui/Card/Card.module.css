@@ -1,8 +1,8 @@
 .cardHomeContainer {
   width: auto;
-  border: 2px solid #000000;
+  border: 2px solid #2b2a2a;
   border-radius: 10px;
-  background: white;
+  background: #feb05d;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   margin-bottom: 12px;
   transition: box-shadow 0.2s ease-in-out;
@@ -21,22 +21,28 @@
 
 .cardHomeHeader {
   display: flex;
-  justify-content: space-between;
-  /* align-items: center; */
-
-  padding: 25px 16px;
+  justify-content: center;
+  height: 7vh;
+  align-items: center;
   border-bottom: 1px solid #e5e7eb;
-
-  background-color: #f9fafb;
   border-radius: 10px 10px 0 0;
 }
 
 .cardHomeSubHeader {
   display: flex;
   justify-content: space-between;
-  /* align-items: center; */
-
   padding: 12px 16px;
+  color: #f5f2f2;
+}
+
+.lowPriority {
+  background: linear-gradient(
+    90deg,
+    #2d3d67 19%,
+    #5a7acd 48%,
+    #4a65a9 63%,
+    #2d3d67 84%
+  );
 }
 
 .warningContainer {
@@ -44,11 +50,77 @@
 }
 
 .warningShow {
-  background-color: rgb(0, 0, 0);
+  /* background-color: rgb(0, 0, 0); */
+  color: rgb(255, 0, 0);
+  background: linear-gradient(
+    90deg,
+    #1c1c1c 20%,
+    #666666 50%,
+    #4c4c4c 63%,
+    #000000 96%
+  );
 }
 
 .warningNotShow {
-  background-color: rgb(246, 254, 26);
+  /* background-color: rgb(246, 254, 26); */
+  background: linear-gradient(
+    90deg,
+    #2d3d67 19%,
+    #5a7acd 48%,
+    #4a65a9 63%,
+    #2d3d67 84%
+  );
+}
+
+.expired {
+  background: linear-gradient(
+    90deg,
+    #1c1c1c 20%,
+    #666666 50%,
+    #4c4c4c 63%,
+    #000000 96%
+  );
+}
+
+.success {
+  /* background-color: rgb(0, 215, 0); */
+  background: linear-gradient(90deg, #008d1a 13%, #9bc3a3 52%, #008d1a 100%);
+}
+
+.subHeaderWarningOn {
+  /* color: white; */
+  background: linear-gradient(
+    90deg,
+    #1c1c1c 20%,
+    #666666 50%,
+    #4c4c4c 63%,
+    #000000 96%
+  );
+}
+
+.subHeaderWarningOff {
+  background: linear-gradient(
+    90deg,
+    #2d3d67 19%,
+    #5a7acd 48%,
+    #4a65a9 63%,
+    #2d3d67 84%
+  );
+}
+
+.subHeaderSuccess {
+  /* color: white; */
+  background: linear-gradient(90deg, #008d1a 13%, #9bc3a3 52%, #008d1a 100%);
+}
+
+.subHeaderExpired {
+  background: linear-gradient(
+    90deg,
+    #1c1c1c 20%,
+    #666666 50%,
+    #4c4c4c 63%,
+    #000000 96%
+  );
 }
 
 .priorityContainer {
@@ -63,42 +135,42 @@
   border-radius: 50%;
 }
 
-.priorityHigh {
-  background-color: red;
-}
-
-.priorityMedium {
-  background-color: rgb(255, 165, 0);
-}
-
-.priorityLow {
-  background-color: rgb(0, 128, 0);
+.accordionOuterContainer {
+  padding: 10px 10px 0 10px;
 }
 
 .btnChangeStatusContainer {
   display: flex;
-  gap: 8px;
-  justify-content: center;
+  align-items: center; /* centra verticalmente */
+  justify-content: center; /* centra el elemento principal */
+  position: relative;
   margin: 12px 0;
 }
 
 .btnToggleStatus {
-  border: 2px solid #007bff;
-  color: #000000;
+  /* border: 2px solid #007bff; */
+  color: white;
   cursor: pointer;
-  padding: 7px 11px;
+  width: 144px;
+  height: 46px;
+  border-radius: 16px;
 }
 
-.isDone {
+.daysRemainingContainer {
+  position: absolute;
+  right: 0; /* centra el elemento hacia la derecha */
+}
+
+.done {
   background-color: rgb(0, 215, 0);
 }
 
 .notDone {
-  background-color: rgb(255, 116, 85);
+  background-color: #5a7acd;
 }
-
-.isExpired {
-  background-color: rgb(0, 0, 0);
+.notDoneAndWarning {
+  color: white;
+  background-color: #2b2a2a;
 }
 
 .daysRemaining {
@@ -120,8 +192,3 @@
   gap: 20px;
   font-weight: 500;
 }
-
-/* .cardHomeBtnsContainer p {
-  font-weight: 500;
-}
- */

@@ -15,6 +15,11 @@ export function countRemainingDays(
   // Convert the difference to days
   //ceil() fn to round up to the nearest whole number
   const remainingDays = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)); // milliseconds to days
+
+  /*   if (remainingDays < 0) {
+    return "for" + remainingDays;
+  } */
+
   return remainingDays;
 }
 

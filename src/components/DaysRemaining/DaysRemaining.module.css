@@ -1,0 +1,39 @@
+.daysRemainingContainer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin-right: 1.5rem;
+  /* background-color: aqua; */
+}
+
+.daysRemainingContainer p {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.timeIconContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 7px;
+}
+
+.expiredRemainingContainer {
+  display: flex;
+  align-items: center;
+}
+
+.expiredTimeIconContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.expiredTimeIconContainer p {
+  margin-left: 0.5rem;
+}
+
+.expiredRemainingContainer p {
+  margin-right: 0.5rem;
+}

@@ -14,6 +14,7 @@ import { handleToggleCompleteStatus } from "../../../utils/crudsREDUX";
 
 import styles from "./Card.module.css";
 import PriorityMark from "../../PriorityMark/PriorityMark";
+import DaysRemaining from "../../DaysRemaining/DaysRemaining";
 
 interface CardProps {
   todoData: Todo;
@@ -57,9 +58,18 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
   return (
     <div className={styles.cardHomeContainer}>
       <div
-        className={`${styles.cardHomeHeader} ${isWarningOn ? styles.warningShow : styles.warningNotShow}`}
-      />
-      <div className={styles.cardHomeSubHeader}>
+        className={`${styles.cardHomeHeader} ${isWarningOn && !isExpired && !isComplete && styles.warningShow} ${!isWarningOn && !isComplete && styles.warningNotShow} ${isExpired && styles.expired} ${isComplete && styles.success}`}
+      >
+        {isWarningOn && !isExpired && !isComplete && <div> 👀 Very soon </div>}
+        {!isWarningOn && !isComplete && (
+          <div style={{ color: "#EEFF00" }}> 🌾 Quite</div>
+        )}
+        {isExpired && <span> 🎈 </span>}
+        {isComplete && <div> Successful ✨✨✨✨✨</div>}
+      </div>
+      <div
+        className={`${styles.cardHomeSubHeader} ${isWarningOn && !isExpired && !isComplete && styles.subHeaderWarningOn} ${!isWarningOn && !isComplete && styles.subHeaderWarningOff} ${isExpired && styles.subHeaderExpired} ${isComplete && styles.subHeaderSuccess} }`}
+      >
         <p>#{todoNumber}</p>
         <p>
           <strong>
@@ -79,33 +89,46 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
         <PriorityMark variant={selectedPriority} />
       </div>
       <div>
-        <Accordion
-          title={title}
-          description={description}
-          isDone={isDone}
-          isExpired={isExpired}
-        />
+        <div className={styles.accordionOuterContainer}>
+          <Accordion
+            title={title}
+            description={description}
+            isDone={isDone}
+            isExpired={isExpired}
+          />
+        </div>
         <div className={styles.btnChangeStatusContainer}>
           {!isExpired && (
-            <button
-              className={`${styles.btnToggleStatus} ${isDone ? styles.isDone : styles.notDone} ${isExpired && !isDone ? styles.isExpired : ""}`}
-              onClick={() =>
-                handleToggleCompleteStatus(dispatch, todoData, isDone)
-              }
-              disabled={isExpired && !isDone}
-            >
-              {cardView_T ? cardView_T.changeStatusBtn : "Change status"}
-            </button>
+            <>
+              <button
+                className={`${styles.btnToggleStatus} ${isDone && styles.done} ${!isDone && styles.notDone} ${isWarningOn && !isComplete && styles.notDoneAndWarning}   ${isWarningOn && isComplete && styles.done}`}
+                onClick={() =>
+                  handleToggleCompleteStatus(dispatch, todoData, isDone)
+                }
+                disabled={isExpired && !isDone}
+              >
+                {cardView_T ? cardView_T.changeStatusBtn : "Change status"}
+              </button>
+
+              <div className={styles.daysRemainingContainer}>
+                <DaysRemaining
+                  counter={countRemainingDays(new Date(), deadline)}
+                  variant="default"
+                />
+              </div>
+            </>
+          )}
+          {isExpired && (
+            <DaysRemaining
+              counter={countRemainingDays(new Date(), deadline)}
+              variant="expired-success"
+            />
           )}
         </div>
-        <p className={styles.daysRemaining}>
-          {cardView_T ? cardView_T.daysRemaining : "Days remaining"} :{" "}
-          {countRemainingDays(new Date(), deadline)}
-        </p>
       </div>
 
       {/* <p>Warning me Before: {settings.daysCountdown} days</p> */}
-
+      <hr></hr>
       <div className={styles.cardHomeBtnsContainer}>
         {/*  <p>
           {cardView_T ? cardView_T.deadline : "Deadline"} : {deadline}
@@ -116,7 +139,7 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
         </div>
 
         <button id="btn-remove-todo" onClick={() => onRemove && onRemove(id)}>
-          <RemoveIcon />
+          <RemoveIcon width={23} height="auto" />
           {/*  {!cardView_T ? "remove" : cardView_T.removeBtn} */}
         </button>
       </div>
