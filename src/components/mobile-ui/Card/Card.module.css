@@ -22,16 +22,17 @@
 .cardHomeHeader {
   display: flex;
   justify-content: center;
-  height: 7vh;
+  height: 5vh;
   align-items: center;
-  border-bottom: 1px solid #e5e7eb;
+  /*   border-bottom: 1px solid #e5e7eb; */
   border-radius: 10px 10px 0 0;
 }
 
 .cardHomeSubHeader {
   display: flex;
   justify-content: space-between;
-  padding: 12px 16px;
+  padding: 8px 8px;
+  align-items: center;
   color: #f5f2f2;
 }
 
@@ -151,8 +152,8 @@
   /* border: 2px solid #007bff; */
   color: white;
   cursor: pointer;
-  width: 144px;
-  height: 46px;
+  width: 35vw;
+  height: 5vh;
   border-radius: 16px;
 }
 
