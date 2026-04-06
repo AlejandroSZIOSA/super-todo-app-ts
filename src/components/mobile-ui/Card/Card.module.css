@@ -159,7 +159,7 @@
   align-items: center; /* centra verticalmente */
   justify-content: center; /* centra el elemento principal */
   position: relative;
-  margin: 12px 0;
+  height: 3.5rem;
 }
 
 .btnToggleStatus {

@@ -46,11 +46,10 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
     setIsDone(isComplete);
   }, [isComplete]);
 
+  let daysRemaining = countRemainingDays(new Date(), deadline);
   let isWarningOn =
     countRemainingDays(new Date(), deadline) <= settings.daysCountdown;
-
   let isExpired = countRemainingDays(new Date(), deadline) < 0;
-  //jsx content variable
 
   return (
     <div className={styles.cardHomeContainer}>
@@ -70,8 +69,8 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
             <>🌾</> <span>Quite</span>
           </div>
         )}
-        {isExpired && !isComplete && <span> 🎈 </span>}
-        {isComplete && <div> Successful ✨</div>}
+        {isExpired && !isComplete && <> 🎈 </>}
+        {isComplete && <> 😃🎉✨</>}
       </div>
       <div
         className={`${styles.cardHomeSubHeader} ${isWarningOn && !isExpired && !isComplete && styles.subHeaderWarningOn} ${!isWarningOn && !isComplete && styles.subHeaderWarningOff} ${isExpired && !isComplete && styles.subHeaderExpired} ${isComplete && styles.subHeaderSuccess} ${isComplete && isExpired && styles.subHeaderSuccess}}`}
@@ -118,10 +117,7 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
               </button>
 
               <div className={styles.daysRemainingContainer}>
-                <DaysRemaining
-                  counter={countRemainingDays(new Date(), deadline)}
-                  variant="default"
-                />
+                <DaysRemaining counter={daysRemaining} variant="default" />
               </div>
             </>
           )}

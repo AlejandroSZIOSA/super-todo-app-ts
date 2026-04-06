@@ -1,16 +1,11 @@
 import { type FC } from "react";
 import type { Todo } from "../../../types/shared";
-
 import { useAppSelector } from "../../../hooks/reduxHooks";
 import { type RootState } from "../../../store";
-
 import { countRemainingDays } from "../../../utils/calculations";
 import { translations } from "../../../data/translations";
-
 import { RemoveIcon, EditIcon } from "../../../assets/icons";
-
 import Accordion from "../Accordion/Accordion";
-
 import styles from "./CardEdit.module.css";
 
 /* import useMediaQuery, { RESOLUTIONS } from "../../../hooks/useMediaQuery";
@@ -41,6 +36,8 @@ const CardEdit: FC<CardEditProps> = ({
   //translations  en - swe as context param, this change the current language state
   const TRANSLATION = translations[settings.language];
   const { cardEdit_T } = TRANSLATION;
+
+  let daysRemaining = countRemainingDays(new Date(), deadline);
 
   let isWarningOn =
     countRemainingDays(new Date(), deadline) <= settings.daysCountdown;
@@ -104,20 +101,20 @@ const CardEdit: FC<CardEditProps> = ({
                 !isExpired &&
                 !isToday &&
                 `Days remaining : 
-              ${countRemainingDays(new Date(), deadline)}`}
+              ${daysRemaining}`}
               {isExpired &&
                 !isComplete &&
                 `For : 
-              ${countRemainingDays(new Date(), deadline)} days`}
+              ${daysRemaining > 1 ? "days" : "day"}`}
               {isExpired &&
                 isComplete &&
                 `For : 
-              ${countRemainingDays(new Date(), deadline)} days`}
+              ${daysRemaining * -1} ${daysRemaining > 1 ? "days" : "day"}`}
               {isComplete &&
                 !isToday &&
                 !isExpired &&
                 `Days remaining: 
-              ${countRemainingDays(new Date(), deadline)}`}
+              ${daysRemaining}`}
             </strong>
           </p>
           <span
@@ -144,7 +141,6 @@ const CardEdit: FC<CardEditProps> = ({
       <div className={styles.buttonsContainer}>
         <button onClick={() => onEdit && onEdit(id)}>
           <EditIcon style={{ width: "26", height: "auto" }} />
-          {/* {cardEdit_T ? cardEdit_T.edit : "Edit"} */}
         </button>
 
         <p>
