@@ -7,14 +7,14 @@ import { type RootState } from "../../../store";
 import { countRemainingDays } from "../../../utils/calculations";
 import { translations } from "../../../data/translations";
 
-import { RemoveIcon, DeadLineIcon, EditIcon } from "../../../assets/icons";
+import { RemoveIcon, EditIcon } from "../../../assets/icons";
 
 import Accordion from "../Accordion/Accordion";
 
 import styles from "./CardEdit.module.css";
 
-import useMediaQuery, { RESOLUTIONS } from "../../../hooks/useMediaQuery";
-
+/* import useMediaQuery, { RESOLUTIONS } from "../../../hooks/useMediaQuery";
+ */
 interface CardEditProps {
   todoData: Todo;
   todoNumber: number;
@@ -22,17 +22,13 @@ interface CardEditProps {
   onRemove?: (todoId: number) => void;
 }
 
-let isWarningOn = false; //TODO: add warning me before feature, this is to manage the warning state, if the remaining days are less than the settings.daysCountdown, the warning will be on, otherwise it will be off, this is to manage the warning style in the card component.
-
-let isExpired = false; //TODO: add expired status to the card component, this is to manage the expired style in the card component, if the remaining days are less than 0, the expired status will be true, otherwise it will be false.
-
 const CardEdit: FC<CardEditProps> = ({
   todoData,
   todoNumber,
   onEdit,
   onRemove,
 }) => {
-  const isMobile = useMediaQuery(RESOLUTIONS.DESKTOP_BREAKPOINT);
+  /*   const isMobile = useMediaQuery(RESOLUTIONS.DESKTOP_BREAKPOINT); */
   const { id, title, description, priority, deadline, isComplete } = todoData;
   const settings = useAppSelector((state: RootState) => state.settings);
   //TODO: Deriver is done status from the store, this is to
@@ -46,31 +42,24 @@ const CardEdit: FC<CardEditProps> = ({
   const TRANSLATION = translations[settings.language];
   const { cardEdit_T } = TRANSLATION;
 
-  isWarningOn =
+  let isWarningOn =
     countRemainingDays(new Date(), deadline) <= settings.daysCountdown;
 
-  isExpired = countRemainingDays(new Date(), deadline) < 0;
+  let isExpired = countRemainingDays(new Date(), deadline) < 0;
+  let isToday = countRemainingDays(new Date(), deadline) === 0;
 
   return (
     <div className={styles.cardEditContainer}>
       <div
-        className={`${styles.cardEditHeader} ${isExpired && styles.expired} ${isComplete && styles.success} ${isWarningOn ? styles.warningOn : styles.quite}`}
+        className={`${styles.cardEditHeader} ${isExpired && !isComplete && styles.expired} ${isExpired && isComplete && styles.done} ${isComplete && !isExpired && styles.done} ${isWarningOn && !isComplete && styles.warningOn} ${!isWarningOn && !isComplete && styles.quite} `}
       >
         <p>#{todoNumber}</p>
         <p>
-          {" "}
           <strong>
-            {isExpired
-              ? cardEdit_T
-                ? cardEdit_T.expired
-                : "Expired"
-              : isComplete
-                ? cardEdit_T
-                  ? cardEdit_T.done
-                  : "Done"
-                : cardEdit_T
-                  ? cardEdit_T.notDone
-                  : "Not done"}
+            {isExpired && !isComplete && "Expired"}
+            {isExpired && isComplete && "Done"}
+            {isComplete && !isExpired && "Done"}
+            {!isComplete && !isExpired && "Not done"}
           </strong>
         </p>
         <div className={styles.organizePriorityContainer}>
@@ -92,39 +81,79 @@ const CardEdit: FC<CardEditProps> = ({
           </p>
         </div>
       </div>
-
       <div>
-        <Accordion
-          title={title}
-          description={description}
-          isDone={isComplete}
-          isExpired={isExpired}
-        />
-        <p>
-          {/*  <DeadLineIcon /> */}
-          {cardEdit_T ? cardEdit_T.deadline : "Deadline"}:{" "}
-          <strong>{deadline}</strong>
-        </p>
+        <div className={styles.accordionOuterContainer}>
+          <Accordion
+            title={title}
+            description={description}
+            isDone={isComplete}
+            isExpired={isExpired}
+            variant="edit"
+          />
+        </div>
+
+        <div className={`${styles.deadlineContainer} `}>
+          <p>
+            <strong
+              className={
+                isToday && !isComplete && !isExpired ? styles.textExpired : ""
+              }
+            >
+              {isToday && "Today"}
+              {!isComplete &&
+                !isExpired &&
+                !isToday &&
+                `Days remaining : 
+              ${countRemainingDays(new Date(), deadline)}`}
+              {isExpired &&
+                !isComplete &&
+                `For : 
+              ${countRemainingDays(new Date(), deadline)} days`}
+              {isExpired &&
+                isComplete &&
+                `For : 
+              ${countRemainingDays(new Date(), deadline)} days`}
+              {isComplete &&
+                !isToday &&
+                !isExpired &&
+                `Days remaining: 
+              ${countRemainingDays(new Date(), deadline)}`}
+            </strong>
+          </p>
+          <span
+            className={
+              isExpired && !isComplete
+                ? `${styles.deadlineMessage} ${styles.textExpired}`
+                : isComplete
+                  ? `${styles.deadlineMessage} ${styles.textSuccess}`
+                  : isWarningOn
+                    ? `${styles.deadlineMessage} ${styles.deadlineMessageLeft} ${styles.textExpired}`
+                    : `${styles.deadlineMessage} ${styles.deadlineMessageLeft}`
+            }
+          >
+            {isExpired && !isComplete && "Expired"}
+            {isExpired && isComplete && "Success"}
+            {isComplete && !isExpired && "Success"}
+            {!isComplete && !isExpired && !isWarningOn && "Quite"}
+            {isWarningOn && !isToday && !isExpired && "Very soon"}
+            {isWarningOn && isToday && !isComplete && "Very soon"}
+          </span>
+        </div>
       </div>
 
-      {/* <p>Warning me Before: {settings.daysCountdown} days</p> */}
-
-      <div className={styles.cardBtnsOrganizeContainer}>
+      <div className={styles.buttonsContainer}>
         <button onClick={() => onEdit && onEdit(id)}>
-          <EditIcon />
+          <EditIcon style={{ width: "26", height: "auto" }} />
           {/* {cardEdit_T ? cardEdit_T.edit : "Edit"} */}
         </button>
 
-        {/* TODO: add select component as modal for mobile */}
         <p>
-          <strong>
-            {cardEdit_T ? cardEdit_T.daysRemaining : "Days remained"}:{" "}
-            {countRemainingDays(new Date(), deadline)}
-          </strong>
+          {cardEdit_T ? cardEdit_T.deadline : "Deadline"}:{" "}
+          <strong>{deadline}</strong>
         </p>
+
         <button onClick={() => onRemove && onRemove(id)}>
-          <RemoveIcon />
-          {/* {cardEdit_T ? cardEdit_T.remove : "Remove"} */}
+          <RemoveIcon style={{ width: "26", height: "auto" }} />
         </button>
       </div>
     </div>

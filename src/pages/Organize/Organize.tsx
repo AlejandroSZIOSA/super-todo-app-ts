@@ -24,6 +24,7 @@ import {
 import { getAllTodosDb } from "../../services/db/crudsDB";
 
 import { translations } from "../../data/translations";
+import { sortedTodosFn } from "../../utils/calculations";
 
 const OrganizePage: FC = () => {
   const [todoEdit, setTodoEdit] = useState<Omit<Todo, "id" | "isComplete">>({
@@ -68,23 +69,8 @@ const OrganizePage: FC = () => {
     }
   }, [dialogData]);
 
-  // Sort todos by priority and deadline before rendering
-  const sortedTodos = [...todos].sort((a, b) => {
-    const priorityOrder = { high: 1, medium: 2, low: 3 }; // Define priority order
-
-    // Compare priorities
-    const priorityComparison =
-      priorityOrder[a.priority as keyof typeof priorityOrder] -
-      priorityOrder[b.priority as keyof typeof priorityOrder];
-    if (priorityComparison !== 0) {
-      return priorityComparison; // If priorities are different, sort by priority
-    }
-
-    // If priorities are the same, compare deadlines
-    const deadlineA = new Date(a.deadline).getTime();
-    const deadlineB = new Date(b.deadline).getTime();
-    return deadlineA - deadlineB; // Sort by nearest deadline
-  });
+  //filtered and sorted task by priority and deadline
+  const sortedTodos = sortedTodosFn(todos);
 
   //callback FN set selected values todo item to the reusable form
   function handleEditForm(todoId: number) {

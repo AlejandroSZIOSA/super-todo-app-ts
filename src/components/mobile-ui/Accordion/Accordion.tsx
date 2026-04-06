@@ -6,6 +6,7 @@ type AccordionProps = {
   isDone: boolean;
   isExpired: boolean;
   title: string;
+  variant: "edit" | "home";
 };
 
 const Accordion: FC<AccordionProps> = ({
@@ -13,11 +14,14 @@ const Accordion: FC<AccordionProps> = ({
   description,
   isDone,
   isExpired,
+  variant,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <menu className={styles.menu}>
+    <menu
+      className={`${styles.menu} ${variant === "home" ? styles.home : variant === "edit" ? styles.edit : ""}`}
+    >
       <p onClick={() => setIsOpen(!isOpen)}>
         <span
           className={isDone ? styles.isDone : isExpired ? styles.isDone : ""}
@@ -25,9 +29,13 @@ const Accordion: FC<AccordionProps> = ({
           {title}
         </span>
         {isDone || isExpired ? (
-          <span>{isOpen ? "(-)" : "(+)"}</span>
+          <span>
+            <strong>{isOpen ? " (-)" : " (+)"}</strong>
+          </span>
         ) : (
-          <span>{isOpen ? "(-)" : "(+)"}</span>
+          <span>
+            <strong>{isOpen ? " (-)" : " (+)"}</strong>
+          </span>
         )}
       </p>
       {isOpen && (

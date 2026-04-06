@@ -15,10 +15,10 @@ const DaysRemaining: FC<DaysRemainingProps> = ({ counter, variant }) => {
   }
   if (counter < 0) {
     const result = counter * -1;
-    content = "for " + result;
+    content = "For " + result;
   }
   if (counter > 0) {
-    content = "in " + counter;
+    content = "In " + counter;
   }
   return (
     <div
@@ -36,8 +36,8 @@ const DaysRemaining: FC<DaysRemainingProps> = ({ counter, variant }) => {
             : styles.expiredTimeIconContainer
         }
       >
-        <TimeIcon width={28} height="auto" />
-        <p>{counter !== 0 ? "Days" : "Today"}</p>
+        <TimeIcon style={{ width: "28", height: "auto" }} />
+        <p>{counter !== 0 ? "days" : "Today"}</p>
       </div>
     </div>
   );

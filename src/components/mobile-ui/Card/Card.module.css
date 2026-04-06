@@ -88,6 +88,20 @@
   background: linear-gradient(90deg, #008d1a 13%, #9bc3a3 52%, #008d1a 100%);
 }
 
+.warningFigureTextContainer {
+  display: flex;
+  align-items: center; /* centra verticalmente */
+  justify-content: center; /* centra el elemento principal */
+  position: relative;
+  width: 100%;
+}
+
+.warningFigureTextContainer span {
+  position: absolute;
+  right: 0; /* centra el elemento hacia la derecha */
+  margin-right: 2rem;
+}
+
 .subHeaderWarningOn {
   /* color: white; */
   background: linear-gradient(
@@ -137,7 +151,7 @@
 }
 
 .accordionOuterContainer {
-  padding: 10px 10px 0 10px;
+  padding: 0.5rem 0.5rem 0 0.5rem;
 }
 
 .btnChangeStatusContainer {
@@ -163,7 +177,7 @@
 }
 
 .done {
-  background-color: rgb(0, 215, 0);
+  background: linear-gradient(90deg, #008d1a 13%, #9bc3a3 52%, #008d1a 100%);
 }
 
 .notDone {

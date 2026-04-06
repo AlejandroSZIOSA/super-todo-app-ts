@@ -7,7 +7,8 @@ import TodoForm from "../../components/TodoForm/TodoForm";
 import useMediaQuery, { RESOLUTIONS } from "../../hooks/useMediaQuery";
 import Modal from "../../components/mobile-ui/Modal/Modal";
 
-import { getCurrentDate } from "../../utils/calculations";
+import { getCurrentDate, sortedTodosFn } from "../../utils/calculations";
+
 import Message from "../../components/Message";
 import Header from "../../components/Header/Header";
 import Card from "../../components/mobile-ui/Card/Card";
@@ -124,12 +125,9 @@ const HomePage: FC = () => {
     );
   }
 
-  // Sort todos by deadline before rendering
-  const sortedTodos = [...todos].sort((a, b) => {
-    const deadlineA = new Date(a.deadline).getTime();
-    const deadlineB = new Date(b.deadline).getTime();
-    return deadlineB - deadlineA; // Sort by nearest deadline
-  });
+  //filtered and sorted task by priority and deadline
+
+  const sortedTodos = sortedTodosFn(todos);
 
   return (
     <>
