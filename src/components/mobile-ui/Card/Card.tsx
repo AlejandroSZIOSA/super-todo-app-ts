@@ -75,7 +75,7 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
       <div
         className={`${styles.cardHomeSubHeader} ${isWarningOn && !isExpired && !isComplete && styles.subHeaderWarningOn} ${!isWarningOn && !isComplete && styles.subHeaderWarningOff} ${isExpired && !isComplete && styles.subHeaderExpired} ${isComplete && styles.subHeaderSuccess} ${isComplete && isExpired && styles.subHeaderSuccess}}`}
       >
-        <p>#{todoNumber}</p>
+        <p>ID-{id}</p>
         <p>
           <strong>
             {isExpired && !isDone

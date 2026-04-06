@@ -17,12 +17,7 @@ interface CardEditProps {
   onRemove?: (todoId: number) => void;
 }
 
-const CardEdit: FC<CardEditProps> = ({
-  todoData,
-  todoNumber,
-  onEdit,
-  onRemove,
-}) => {
+const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
   /*   const isMobile = useMediaQuery(RESOLUTIONS.DESKTOP_BREAKPOINT); */
   const { id, title, description, priority, deadline, isComplete } = todoData;
   const settings = useAppSelector((state: RootState) => state.settings);
@@ -38,10 +33,8 @@ const CardEdit: FC<CardEditProps> = ({
   const { cardEdit_T } = TRANSLATION;
 
   let daysRemaining = countRemainingDays(new Date(), deadline);
-
   let isWarningOn =
     countRemainingDays(new Date(), deadline) <= settings.daysCountdown;
-
   let isExpired = countRemainingDays(new Date(), deadline) < 0;
   let isToday = countRemainingDays(new Date(), deadline) === 0;
 
@@ -50,7 +43,7 @@ const CardEdit: FC<CardEditProps> = ({
       <div
         className={`${styles.cardEditHeader} ${isExpired && !isComplete && styles.expired} ${isExpired && isComplete && styles.done} ${isComplete && !isExpired && styles.done} ${isWarningOn && !isComplete && styles.warningOn} ${!isWarningOn && !isComplete && styles.quite} `}
       >
-        <p>#{todoNumber}</p>
+        <p>ID-{id}</p>
         <p>
           <strong>
             {isExpired && !isComplete && "Expired"}
@@ -88,7 +81,6 @@ const CardEdit: FC<CardEditProps> = ({
             variant="edit"
           />
         </div>
-
         <div className={`${styles.deadlineContainer} `}>
           <p>
             <strong

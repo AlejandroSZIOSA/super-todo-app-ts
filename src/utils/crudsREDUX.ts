@@ -1,8 +1,10 @@
-import { v4 as uuid } from "uuid"; //create unique ids
+import { v4 as uuid } from "uuid"; //create unique ids max 4 values length
 import { type Todo } from "../types/shared";
 import type { AppDispatch } from "../store";
 import { saveSettings, type Settings } from "../services/localstorage";
 
+//IMPORTANT: the data comes here to redux first then pass to the db services.
+//fixed:problem with a long id generated
 export function getTodosFromDb(dispatch: AppDispatch, todosDb: Todo[]) {
   dispatch({
     type: "todo-list/setTodosFromDb",
@@ -11,7 +13,10 @@ export function getTodosFromDb(dispatch: AppDispatch, todosDb: Todo[]) {
 }
 
 export function handleCreate(dispatch: AppDispatch, values: Omit<Todo, "id">) {
-  dispatch({ type: "todo-list/addTodo", payload: { id: uuid(), ...values } });
+  dispatch({
+    type: "todo-list/addTodo",
+    payload: { id: uuid().replace(/-/g, "").slice(0, 3), ...values },
+  });
 }
 
 export function handleOnEdit(dispatch: AppDispatch, values: Omit<Todo, "id">) {
