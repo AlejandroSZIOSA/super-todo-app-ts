@@ -112,146 +112,144 @@ const TodoForm: FC<TodoFormProps> = ({
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="title">
-            {todoForm_T ? todoForm_T.title : "Title"}
-          </label>
-          <input
-            id="title"
-            value={formData.title}
-            maxLength={20}
-            ref={inputRef}
-            onChange={(e) =>
-              setFormData({ ...formData, title: e.target.value })
-            }
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="description">
-            {todoForm_T ? todoForm_T.description : "Description"}
-          </label>
-          <textarea
-            id="description"
-            value={formData.description}
-            maxLength={100}
-            onChange={(e) =>
-              setFormData({ ...formData, description: e.target.value })
-            }
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="deadline">
-            {todoForm_T ? todoForm_T.deadline : "Deadline"}
-          </label>
-          <input
-            type="date"
-            id="deadline"
-            defaultValue={getCurrentDate()}
-            min={getCurrentDate()}
-            value={formData.deadline}
-            onChange={(e) =>
-              setFormData({ ...formData, deadline: e.target.value })
-            }
-            required
-          />
-        </div>
+    <form onSubmit={handleSubmit} className={styles.formContainer}>
+      <div className={styles.inputsTextContainer}>
+        <label htmlFor="title">{todoForm_T ? todoForm_T.title : "Title"}</label>
+        <input
+          id="title"
+          value={formData.title}
+          /* placeholder="title" */
+          maxLength={20}
+          ref={inputRef}
+          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+          required
+        />
+      </div>
+      <div className={styles.inputsTextContainer}>
+        <label htmlFor="description">
+          {todoForm_T ? todoForm_T.description : "Description"}
+        </label>
+        <textarea
+          id="description"
+          value={formData.description}
+          maxLength={100}
+          onChange={(e) =>
+            setFormData({ ...formData, description: e.target.value })
+          }
+          required
+        />
+      </div>
+      <div className={styles.deadlineContainer}>
+        <label htmlFor="deadline">
+          {todoForm_T ? todoForm_T.deadline : "Deadline"}
+        </label>
+        <input
+          type="date"
+          id="deadline"
+          defaultValue={getCurrentDate()}
+          min={getCurrentDate()}
+          value={formData.deadline}
+          onChange={(e) =>
+            setFormData({ ...formData, deadline: e.target.value })
+          }
+          required
+        />
+      </div>
 
-        {!isMobile && (
-          <>
-            <label htmlFor="priority">
-              {todoForm_T ? todoForm_T.priority : "Priority"}
-            </label>
-            <select
-              id="priority"
-              name="priority"
-              value={formData.priority}
-              onChange={(e) =>
-                setFormData({
-                  ...formData,
-                  priority: e.target.value as Priority,
-                })
-              }
-              required
-            >
-              <option disabled>Choose priority</option>
-              <option value="low">low</option>
-              <option value="medium">medium</option>
-              <option value="high">high</option>
-            </select>
-            <br />
-          </>
-        )}
+      {!isMobile && (
+        <>
+          <label htmlFor="priority">
+            {todoForm_T ? todoForm_T.priority : "Priority"}
+          </label>
+          <select
+            id="priority"
+            name="priority"
+            value={formData.priority}
+            onChange={(e) =>
+              setFormData({
+                ...formData,
+                priority: e.target.value as Priority,
+              })
+            }
+            required
+          >
+            <option disabled>Choose priority</option>
+            <option value="low">low</option>
+            <option value="medium">medium</option>
+            <option value="high">high</option>
+          </select>
+          <br />
+        </>
+      )}
 
-        {(operation === "create" || operation === "edit") && isMobile && (
-          <div className={styles.priorityContainer}>
-            <label>{todoForm_T ? todoForm_T.priority : "Priority"}</label>
+      {(operation === "create" || operation === "edit") && isMobile && (
+        <div className={styles.priorityContainer}>
+          <label>{todoForm_T ? todoForm_T.priority : "Priority"}</label>
+          <div>
             <div>
-              <div>
-                <label>
-                  <input
-                    type="radio"
-                    name="priority"
-                    value="low"
-                    checked={formData.priority === "low"}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        priority: e.target.value as Priority,
-                      })
-                    }
-                  />
-                  {todoForm_T ? todoForm_T.low : "Low"}
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input
-                    type="radio"
-                    name="priority"
-                    value="medium"
-                    checked={formData.priority === "medium"}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        priority: e.target.value as Priority,
-                      })
-                    }
-                  />
-                  {todoForm_T ? todoForm_T.medium : "Medium"}
-                </label>
-              </div>
-              <div>
-                <label>
-                  <input
-                    type="radio"
-                    name="priority"
-                    value="high"
-                    checked={formData.priority === "high"}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        priority: e.target.value as Priority,
-                      })
-                    }
-                  />
-                  {todoForm_T ? todoForm_T.high : "High"}
-                </label>
-              </div>
+              <label>
+                <input
+                  className={styles.priorityRadioContainers}
+                  type="radio"
+                  name="priority"
+                  value="low"
+                  checked={formData.priority === "low"}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      priority: e.target.value as Priority,
+                    })
+                  }
+                />
+                {todoForm_T ? todoForm_T.low : "Low"}
+              </label>
             </div>
-            <br />
+            <div>
+              <label>
+                <input
+                  className={styles.priorityRadioContainers}
+                  type="radio"
+                  name="priority"
+                  value="medium"
+                  checked={formData.priority === "medium"}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      priority: e.target.value as Priority,
+                    })
+                  }
+                />
+                {todoForm_T ? todoForm_T.medium : "Medium"}
+              </label>
+            </div>
+            <div>
+              <label>
+                <input
+                  className={styles.priorityRadioContainers}
+                  type="radio"
+                  name="priority"
+                  value="high"
+                  checked={formData.priority === "high"}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      priority: e.target.value as Priority,
+                    })
+                  }
+                />
+                {todoForm_T ? todoForm_T.high : "High"}
+              </label>
+            </div>
           </div>
-        )}
-        <div className={styles.submitBtnContainer}>
-          <button id="btn-add-todo" type="submit">
-            {btnTextContent}
-          </button>
+          <br />
         </div>
-      </form>
-    </>
+      )}
+      <div className={styles.submitBtnContainer}>
+        <button id="btn-add-todo" type="submit">
+          {btnTextContent}
+        </button>
+      </div>
+    </form>
   );
 };
 export default TodoForm;

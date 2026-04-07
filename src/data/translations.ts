@@ -127,7 +127,7 @@ export const translations: TranslationTypes = {
   es: {
     homePage_T: {
       appTitle: "Recordatorio de tareas",
-      addBtn: "Agregar Tarea",
+      addBtn: "Agregar",
       subHeaderTitle: "Tus tareas",
     },
 

@@ -91,7 +91,11 @@ const HomePage: FC = () => {
   if (isMobile) {
     content = (
       <>
-        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <Modal
+          isOpen={isModalOpen}
+          label="Add task"
+          onClose={() => setIsModalOpen(false)}
+        >
           <TodoForm
             initialValues={{ deadline: getCurrentDate() }}
             /* fix problem with the modal */
@@ -135,7 +139,7 @@ const HomePage: FC = () => {
             className={styles.addTaskButton}
             onClick={() => setIsModalOpen(true)}
           >
-            {!homePage_T ? "Add Task" : homePage_T.addBtn}
+            {!homePage_T ? "Add" : homePage_T.addBtn}
           </button>
         ) : (
           <h2>{!homePage_T ? "Home" : homePage_T.subHeaderTitle}</h2>

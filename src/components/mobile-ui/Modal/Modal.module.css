@@ -1,7 +1,8 @@
+/* TODO:usar portals next time */
 .backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,20 +10,29 @@
 }
 
 .modal {
-  background: white;
+  background: #dfd0b8;
   border-radius: 8px;
-  padding: 1.5rem;
-  min-width: 300px;
-  max-width: 90%;
+  padding: 0 1rem 1rem 1rem;
+  min-width: 340px;
+  /* max-width: 95%; */
+  width: 90%;
+}
+
+.labelContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
+  padding: 1rem 0;
 }
 
 .close {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 15%;
+  right: 0;
   border: none;
   background: transparent;
   font-size: 1.2rem;
+  /*   font-weight: 900; */
   cursor: pointer;
 }

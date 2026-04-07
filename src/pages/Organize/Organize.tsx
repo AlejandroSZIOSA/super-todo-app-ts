@@ -109,7 +109,11 @@ const OrganizePage: FC = () => {
   if (isMobile) {
     content = (
       <>
-        <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
+        <Modal
+          label="Edit Task"
+          isOpen={openModal}
+          onClose={() => setOpenModal(false)}
+        >
           <TodoForm
             initialValues={todoEdit}
             onSubmit={(values) => {

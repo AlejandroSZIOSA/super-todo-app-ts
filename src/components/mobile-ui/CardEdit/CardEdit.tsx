@@ -8,8 +8,6 @@ import { RemoveIcon, EditIcon } from "../../../assets/icons";
 import Accordion from "../Accordion/Accordion";
 import styles from "./CardEdit.module.css";
 
-/* import useMediaQuery, { RESOLUTIONS } from "../../../hooks/useMediaQuery";
- */
 interface CardEditProps {
   todoData: Todo;
   todoNumber: number;

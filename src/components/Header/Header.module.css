@@ -14,8 +14,8 @@
 }
 
 .appTitleContainer img {
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: "auto";
   margin-right: 1rem;
 }
 
