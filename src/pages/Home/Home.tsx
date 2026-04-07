@@ -1,6 +1,4 @@
 import { type FC, useState, type ReactNode, useRef, useEffect } from "react";
-/* import reactLogo from "../assets/react.svg";
-import viteLogo from "/vite.svg"; */
 import type { RootState } from "../../store";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import TodoForm from "../../components/TodoForm/TodoForm";
@@ -147,12 +145,11 @@ const HomePage: FC = () => {
         {content}
         {sortedTodos.length !== 0 ? (
           <ol>
-            {sortedTodos.map((todo, index) => (
+            {sortedTodos.map((todo) => (
               <li key={todo.id}>
                 {isMobile ? (
                   <Card
                     todoData={todo}
-                    todoNumber={index}
                     onRemove={(id) =>
                       handleOpenDialog(id, todo.title, "remove")
                     }

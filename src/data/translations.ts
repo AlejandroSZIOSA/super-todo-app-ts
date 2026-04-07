@@ -9,6 +9,7 @@ interface TranslationTypes {
     editPage_T: null;
     cardEdit_T: null;
     settingsPage_T: null;
+    daysRemainingFig_T: null;
   };
 
   sv: {
@@ -19,6 +20,7 @@ interface TranslationTypes {
     editPage_T: Record<string, string>;
     cardEdit_T: Record<string, string>;
     settingsPage_T: Record<string, string>;
+    daysRemainingFig_T: Record<string, string>;
   };
 
   es: {
@@ -29,6 +31,7 @@ interface TranslationTypes {
     editPage_T: Record<string, string>;
     cardEdit_T: Record<string, string>;
     settingsPage_T: Record<string, string>;
+    daysRemainingFig_T: Record<string, string>;
   };
 }
 
@@ -41,6 +44,7 @@ export const translations: TranslationTypes = {
     editPage_T: null,
     cardEdit_T: null,
     settingsPage_T: null,
+    daysRemainingFig_T: null,
   },
 
   sv: {
@@ -51,6 +55,8 @@ export const translations: TranslationTypes = {
     },
 
     cardView_T: {
+      verySoon: "Väldigt snart",
+      quite: " Lugnt",
       priority: "Prioritet",
       done: "Klart",
       notDone: "Inte klart",
@@ -82,10 +88,15 @@ export const translations: TranslationTypes = {
       editTask: "Redigera uppgift",
     },
     cardEdit_T: {
+      success: "Succé",
+      quite: "Lugnt",
+      expired: "Utgånget",
+      verySoon: "Väldigt snart",
+      today: "Idag",
       status: "Status",
       done: "Klart",
       notDone: "Inte klart",
-      expired: "Utgånget",
+
       priority: "Prioritet",
       low: "Låg",
       medium: "Medel",
@@ -105,18 +116,27 @@ export const translations: TranslationTypes = {
       unlock: "Lås upp",
       delete: "Radera",
     },
+    daysRemainingFig_T: {
+      today: "Idag",
+      for: "För",
+      in: "Om",
+      day: "dag",
+      days: "dagar",
+    },
   },
   es: {
     homePage_T: {
-      appTitle: "Agenda de tareas",
+      appTitle: "Recordatorio de tareas",
       addBtn: "Agregar Tarea",
       subHeaderTitle: "Tus tareas",
     },
 
     cardView_T: {
+      verySoon: "Muy pronto",
+      quite: "Tranquilo",
       priority: "Prioridad",
       done: "Hecho",
-      notDone: "No hecho",
+      notDone: "No Listo",
       expired: "Expirado",
       changeStatusBtn: "Cambiar estado",
       daysRemaining: "Días restantes",
@@ -146,10 +166,14 @@ export const translations: TranslationTypes = {
       editTask: "Editar Tarea",
     },
     cardEdit_T: {
+      success: "Éxito",
+      quite: "Tranquilo",
+      expired: "Expirado",
+      verySoon: "Muy pronto",
+      today: "Hoy",
       status: "Estado",
       done: "Hecho",
-      notDone: "No hecho",
-      expired: "Expirado",
+      notDone: "No listo",
       priority: "Prioridad",
       low: "Baja",
       medium: "Media",
@@ -168,6 +192,13 @@ export const translations: TranslationTypes = {
       lock: "Bloquear",
       unlock: "Desbloquear",
       delete: "Eliminar",
+    },
+    daysRemainingFig_T: {
+      today: "Hoy",
+      for: "Hace",
+      in: "En",
+      day: "día",
+      days: "días",
     },
   },
 };

@@ -30,7 +30,7 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
 
   //translations  en - swe as context param, this change the current language state
   const TRANSLATION = translations[settings.language];
-  const { cardEdit_T } = TRANSLATION;
+  const { cardEdit_T, daysRemainingFig_T } = TRANSLATION;
 
   let daysRemaining = countRemainingDays(new Date(), deadline);
   let isWarningOn =
@@ -46,10 +46,16 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
         <p>ID-{id}</p>
         <p>
           <strong>
-            {isExpired && !isComplete && "Expired"}
-            {isExpired && isComplete && "Done"}
-            {isComplete && !isExpired && "Done"}
-            {!isComplete && !isExpired && "Not done"}
+            {isExpired &&
+              !isComplete &&
+              (cardEdit_T ? cardEdit_T.expired : "Expired")}
+            {isExpired && isComplete && (cardEdit_T ? cardEdit_T.done : "Done")}
+            {isComplete &&
+              !isExpired &&
+              (cardEdit_T ? cardEdit_T.done : "Done")}
+            {!isComplete &&
+              !isExpired &&
+              (cardEdit_T ? cardEdit_T.notDone : "Not Done")}
           </strong>
         </p>
         <div className={styles.organizePriorityContainer}>
@@ -88,24 +94,24 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
                 isToday && !isComplete && !isExpired ? styles.textExpired : ""
               }
             >
-              {isToday && "Today"}
+              {isToday && (cardEdit_T ? cardEdit_T.today : "Today")}
               {!isComplete &&
                 !isExpired &&
                 !isToday &&
-                `Days remaining : 
+                `${cardEdit_T ? cardEdit_T.daysRemaining : "Days remaining"} : 
               ${daysRemaining}`}
               {isExpired &&
                 !isComplete &&
-                `For : 
-              ${daysRemaining > 1 ? "days" : "day"}`}
+                `${daysRemainingFig_T ? daysRemainingFig_T.for : "For"} : ${daysRemaining * -1}
+              ${daysRemaining > 1 ? `${daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}` : `${daysRemainingFig_T ? daysRemainingFig_T.day : "Day"}`}`}
               {isExpired &&
                 isComplete &&
-                `For : 
-              ${daysRemaining * -1} ${daysRemaining > 1 ? "days" : "day"}`}
+                `${daysRemainingFig_T ? daysRemainingFig_T.for : "For"} : 
+              ${daysRemaining * -1} ${daysRemaining > 1 ? `${daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}` : `${daysRemainingFig_T ? daysRemainingFig_T.day : "Day"}`}`}
               {isComplete &&
                 !isToday &&
                 !isExpired &&
-                `Days remaining: 
+                `${cardEdit_T ? cardEdit_T.daysRemaining : "Days remaining"} :
               ${daysRemaining}`}
             </strong>
           </p>
@@ -120,12 +126,27 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
                     : `${styles.deadlineMessage} ${styles.deadlineMessageLeft}`
             }
           >
-            {isExpired && !isComplete && "Expired"}
-            {isExpired && isComplete && "Success"}
-            {isComplete && !isExpired && "Success"}
-            {!isComplete && !isExpired && !isWarningOn && "Quite"}
-            {isWarningOn && !isToday && !isExpired && "Very soon"}
-            {isWarningOn && isToday && !isComplete && "Very soon"}
+            {isExpired &&
+              !isComplete &&
+              (cardEdit_T ? cardEdit_T.expired : "Expired")}
+            {isExpired &&
+              isComplete &&
+              (cardEdit_T ? cardEdit_T.success : "Success")}
+            {isComplete &&
+              !isExpired &&
+              (cardEdit_T ? cardEdit_T.success : "Success")}
+            {!isComplete &&
+              !isExpired &&
+              !isWarningOn &&
+              (cardEdit_T ? cardEdit_T.quite : "Quite")}
+            {isWarningOn &&
+              !isToday &&
+              !isExpired &&
+              (cardEdit_T ? cardEdit_T.verySoon : "Very soon")}
+            {isWarningOn &&
+              isToday &&
+              !isComplete &&
+              (cardEdit_T ? cardEdit_T.verySoon : "Very soon")}
           </span>
         </div>
       </div>

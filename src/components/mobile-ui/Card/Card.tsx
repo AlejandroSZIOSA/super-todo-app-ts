@@ -14,16 +14,16 @@ import { handleToggleCompleteStatus } from "../../../utils/crudsREDUX";
 
 import styles from "./Card.module.css";
 import PriorityMark from "../../PriorityMark/PriorityMark";
-import DaysRemaining from "../../DaysRemaining/DaysRemaining";
+import DaysRemainingFigure from "../../DaysRemainingFigure/DaysRemainingFigure";
 
 interface CardProps {
   todoData: Todo;
-  todoNumber: number;
+
   onEdit?: (todoId: number) => void; //prop drilling x1 + call back
   onRemove?: (todoId: number) => void;
 }
 
-const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
+const Card: FC<CardProps> = ({ todoData, onRemove }) => {
   const { id, title, description, priority, deadline, isComplete } = todoData;
   const dispatch = useAppDispatch();
   const settings = useAppSelector((state: RootState) => state.settings);
@@ -58,7 +58,8 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
       >
         {isWarningOn && !isExpired && !isComplete && (
           <div className={styles.warningFigureTextContainer}>
-            <>👀</> <span>Very soon</span>
+            <>👀</>
+            <span>{cardView_T ? cardView_T.verySoon : "Very soon"}</span>
           </div>
         )}
         {!isWarningOn && !isComplete && (
@@ -66,7 +67,7 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
             style={{ color: "#EEFF00" }}
             className={styles.warningFigureTextContainer}
           >
-            <>🌾</> <span>Quite</span>
+            <>🌾</> <span>{cardView_T ? cardView_T.quite : "Quite"}</span>
           </div>
         )}
         {isExpired && !isComplete && <> 🎈 </>}
@@ -77,7 +78,7 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
       >
         <p>ID-{id}</p>
         <p>
-          <strong>
+          <strong style={{ marginRight: "40px" }}>
             {isExpired && !isDone
               ? cardView_T
                 ? cardView_T.expired
@@ -117,12 +118,15 @@ const Card: FC<CardProps> = ({ todoData, todoNumber, onRemove }) => {
               </button>
 
               <div className={styles.daysRemainingContainer}>
-                <DaysRemaining counter={daysRemaining} variant="default" />
+                <DaysRemainingFigure
+                  counter={daysRemaining}
+                  variant="default"
+                />
               </div>
             </>
           )}
           {isExpired && (
-            <DaysRemaining
+            <DaysRemainingFigure
               counter={countRemainingDays(new Date(), deadline)}
               variant="expired-success"
             />

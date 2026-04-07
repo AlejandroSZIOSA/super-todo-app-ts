@@ -49,9 +49,9 @@ const ConfirmDialog = forwardRef<ConfirmDialogRef, ConfirmDialogProps>(
     if (operation === "remove") {
       content = (
         <>
-          <h1>
+          <h2>
             {confirmDialog_T ? confirmDialog_T.confirmRemove : "Confirm Remove"}
-          </h1>
+          </h2>
           <p>
             {confirmDialog_T
               ? `${confirmDialog_T.removeTodoTitle} ${todoTitle}?`
