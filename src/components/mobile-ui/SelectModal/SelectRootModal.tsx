@@ -1,13 +1,5 @@
-import React, {
-  useState,
-  type FC,
-  type ReactNode,
-  Children,
-  useEffect,
-} from "react";
-
+import React, { useState, type FC, type ReactNode, Children } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
-
 import { type Settings } from "../../../services/localstorage";
 
 import SelectItemModal, {
@@ -34,34 +26,14 @@ const SelectRootModal: FC<SelectRootModalProps> & {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(settings[selectorKey] as string);
 
-  //fixed: side effect problem , change settings state
-  useEffect(() => {
-    const key = selectorKey;
-    const newValue = value;
-
+  const handleSelect = (selectedValue: string) => {
+    //fixed:Problem with useEffect
+    setValue(selectedValue);
     const newSettings = {
       ...settings,
-      [key]: newValue,
+      [selectorKey]: selectedValue,
     };
-
-    //new settings global state
-    //new settings local storage
-    handleChangeSettings(dispatch, newSettings); // Update the settings in the Redux store
-
-    //TODO:fix the problem with dependencies
-  }, [value]);
-
-  //fixed: problem with body scroll when open the modal, when open the modal the body is blocked to scroll but when close the modal the body is still blocked, so I added a useEffect to remove the class "no-scroll" when the modal is closed
-  useEffect(() => {
-    if (open) {
-      document.body.classList.add("no-scroll");
-    } else {
-      document.body.classList.remove("no-scroll");
-    }
-  }, [open]);
-
-  const handleSelect = (selectedValue: string) => {
-    setValue(selectedValue);
+    handleChangeSettings(dispatch, newSettings);
     setOpen(false);
   };
 
