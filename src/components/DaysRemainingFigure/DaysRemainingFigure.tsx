@@ -23,7 +23,7 @@ const DaysRemainingFigure: FC<DaysRemainingFigureProps> = ({
   let footerContent: ReactNode;
 
   if (counter < 0) {
-    const result = counter * -1;
+    const result = counter * -1 + 1;
     if (daysRemainingFig_T) {
       headerContent = daysRemainingFig_T.for + " " + result;
       footerContent =
@@ -33,7 +33,12 @@ const DaysRemainingFigure: FC<DaysRemainingFigureProps> = ({
       footerContent = result === 1 ? "day" : "days";
     }
   }
-  if (counter > 0) {
+
+  if (counter === 0) {
+    footerContent = "Yesterday";
+  }
+
+  if (counter > 1) {
     if (daysRemainingFig_T) {
       headerContent = daysRemainingFig_T.in + " " + counter;
       footerContent =
@@ -44,7 +49,7 @@ const DaysRemainingFigure: FC<DaysRemainingFigureProps> = ({
     }
   }
 
-  if (counter === 0) {
+  if (counter === 1) {
     footerContent = daysRemainingFig_T ? daysRemainingFig_T.today : "Today";
   }
   return (
