@@ -1,0 +1,124 @@
+.cardEditContainer {
+  width: auto;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  background: #f5f2f2;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 12px;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.cardEditContainer p {
+  text-align: center;
+}
+.cardEditContainer:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cardEditContainer:active {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.cardEditHeader {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 10px 10px 0 0;
+  color: white;
+  padding: 12px 16px;
+}
+
+.quite {
+  background: linear-gradient(
+    90deg,
+    #2d3d67 19%,
+    #5a7acd 48%,
+    #4a65a9 63%,
+    #2d3d67 84%
+  );
+}
+
+.done {
+  background: linear-gradient(90deg, #008d1a 13%, #9bc3a3 52%, #008d1a 100%);
+}
+
+.expired {
+  background: linear-gradient(
+    90deg,
+    #1c1c1c 20%,
+    #666666 50%,
+    #4c4c4c 63%,
+    #000000 96%
+  );
+}
+
+.warningOn {
+  background: linear-gradient(
+    90deg,
+    #1c1c1c 20%,
+    #666666 50%,
+    #4c4c4c 63%,
+    #000000 96%
+  );
+}
+
+.priorityContainer {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.deadlineContainer {
+  display: flex;
+  align-items: center; /* centra verticalmente */
+  justify-content: center; /* centra el elemento principal */
+  position: relative;
+  margin: 0.5rem 0;
+}
+
+.textSuccess {
+  color: #008d1a;
+}
+
+.textExpired {
+  color: #ff0000;
+}
+
+.deadlineMessage {
+  position: absolute;
+  right: 0; /* centra el elemento hacia la derecha */
+  margin-right: 1rem;
+}
+
+.deadlineMessageLeft {
+  left: 0; /* centra el elemento hacia la derecha */
+  margin-left: 1rem;
+}
+
+.accordionOuterContainer {
+  padding: 0.5rem 0.5rem 0 0.5rem;
+}
+
+.buttonsContainer {
+  display: flex;
+  align-items: center;
+  margin: 0.6rem;
+  justify-content: space-between;
+}
+
+.buttonsContainer button {
+  display: contents;
+}
+
+.organizeBodyContainer {
+  display: flex;
+  gap: 8px;
+}
+
+.organizeFooterContainer {
+  display: flex;
+  gap: 80px;
+}
+
+.organizePriorityContainer {
+  display: flex;
+}

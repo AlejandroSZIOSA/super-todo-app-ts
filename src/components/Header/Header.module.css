@@ -1,0 +1,30 @@
+.appTitleContainer {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #dfd0b8; /* cornflowerblue */
+  height: 7vh;
+}
+
+.appTitleContainer h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-left: 1rem;
+}
+
+.appTitleContainer img {
+  width: 35px;
+  height: "auto";
+  margin-right: 1rem;
+}
+
+.childrenContainer {
+  padding: 0.3rem 0;
+}
+
+/* @media (min-width: 1024px) {
+  .childrenContainer {
+    display: none;
+  }
+} */

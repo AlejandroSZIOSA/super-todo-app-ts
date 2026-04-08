@@ -1,0 +1,110 @@
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 7vh;
+  background: #222831;
+  backdrop-filter: blur(12px);
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  /*  border-top: 1px solid #e5e7eb; */
+  z-index: 50;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  fill: #dfd0b8; /* Dinamic color for SVG icons */
+}
+
+.label {
+  display: none;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: gray;
+  text-decoration: none;
+}
+
+.active {
+  background-color: #f35529;
+  color: white;
+}
+
+.active .icon {
+  fill: white;
+  color: #2563eb;
+}
+
+@media (min-width: 1024px) {
+  .nav {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: auto;
+
+    width: 80px;
+    height: 100vh;
+
+    flex-direction: column;
+    justify-content: center;
+
+    border-top: none;
+    border-right: 1px solid #e5e7eb;
+  }
+
+  .link {
+    align-items: center;
+    justify-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: 16px 0;
+    font-size: 11px;
+  }
+
+  .label {
+    display: block;
+  }
+}
+
+/* Hide on desktop */
+/* @media (min-width: 768px) {
+  .nav {
+    display: none;
+  }
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  font-size: 12px;
+  color: #9ca3af;
+  text-decoration: none;
+
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.link span {
+  margin-top: 2px;
+}
+
+.link:hover {
+  color: #4f46e5;
+}
+
+.active {
+  color: #4f46e5;
+  transform: translateY(-2px);
+}
+ */

@@ -1,0 +1,9 @@
+.todoItemContainer {
+  display: flex;
+  flex-direction: row;
+  margin-left: 2rem;
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}

@@ -1,0 +1,208 @@
+.cardHomeContainer {
+  width: auto;
+  border: 2px solid #2b2a2a;
+  border-radius: 10px;
+  background: #feb05d;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 12px;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.cardHomeContainer p {
+  text-align: center;
+}
+.cardHomeContainer:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cardHomeContainer:active {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.cardHomeHeader {
+  display: flex;
+  justify-content: center;
+  height: 5vh;
+  align-items: center;
+  /*   border-bottom: 1px solid #e5e7eb; */
+  border-radius: 10px 10px 0 0;
+}
+
+.cardHomeSubHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 15px;
+  align-items: center;
+  color: #f5f2f2;
+}
+
+.lowPriority {
+  background: linear-gradient(
+    90deg,
+    #2d3d67 19%,
+    #5a7acd 48%,
+    #4a65a9 63%,
+    #2d3d67 84%
+  );
+}
+
+.warningContainer {
+  height: 2rem;
+}
+
+.warningShow {
+  color: rgb(255, 0, 0);
+  background: linear-gradient(
+    90deg,
+    #1c1c1c 20%,
+    #666666 50%,
+    #4c4c4c 63%,
+    #000000 96%
+  );
+}
+
+.warningNotShow {
+  background: linear-gradient(
+    90deg,
+    #2d3d67 19%,
+    #5a7acd 48%,
+    #4a65a9 63%,
+    #2d3d67 84%
+  );
+}
+
+.expired {
+  background: linear-gradient(
+    90deg,
+    #1c1c1c 20%,
+    #666666 50%,
+    #4c4c4c 63%,
+    #000000 96%
+  );
+}
+
+.success {
+  background: linear-gradient(90deg, #008d1a 13%, #9bc3a3 52%, #008d1a 100%);
+}
+
+.warningFigureTextContainer {
+  display: flex;
+  align-items: center; /* centra verticalmente */
+  justify-content: center; /* centra el elemento principal */
+  position: relative;
+  width: 100%;
+}
+
+.warningFigureTextContainer span {
+  position: absolute;
+  right: 0; /* centra el elemento hacia la derecha */
+  margin-right: 2rem;
+}
+
+.subHeaderWarningOn {
+  background: linear-gradient(
+    90deg,
+    #1c1c1c 20%,
+    #666666 50%,
+    #4c4c4c 63%,
+    #000000 96%
+  );
+}
+
+.subHeaderWarningOff {
+  background: linear-gradient(
+    90deg,
+    #2d3d67 19%,
+    #5a7acd 48%,
+    #4a65a9 63%,
+    #2d3d67 84%
+  );
+}
+
+.subHeaderSuccess {
+  background: linear-gradient(90deg, #008d1a 13%, #9bc3a3 52%, #008d1a 100%);
+}
+
+.subHeaderExpired {
+  background: linear-gradient(
+    90deg,
+    #1c1c1c 20%,
+    #666666 50%,
+    #4c4c4c 63%,
+    #000000 96%
+  );
+}
+
+.priorityContainer {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.prioritySignalColorContainer {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.accordionOuterContainer {
+  padding: 0.5rem 0.5rem 0 0.5rem;
+}
+
+.btnChangeStatusContainer {
+  display: flex;
+  align-items: center; /* centra verticalmente */
+  justify-content: center; /* centra el elemento principal */
+  position: relative;
+  height: 3.5rem;
+}
+
+.btnToggleStatus {
+  /* border: 2px solid #007bff; */
+  color: white;
+  cursor: pointer;
+  width: 35vw;
+  height: 5vh;
+  border-radius: 16px;
+}
+
+.daysRemainingContainer {
+  position: absolute;
+  right: 0; /* centra el elemento hacia la derecha */
+}
+
+.done {
+  background: linear-gradient(90deg, #008d1a 13%, #9bc3a3 52%, #008d1a 100%);
+}
+
+.notDone {
+  background-color: #5a7acd;
+}
+.notDoneAndWarning {
+  color: white;
+  background-color: #2b2a2a;
+}
+
+.daysRemaining {
+  text-align: center;
+  font-weight: 500;
+}
+
+.cardHomeBtnsContainer {
+  display: flex;
+  gap: 8px;
+  margin: 0.6rem;
+  justify-content: space-between;
+}
+
+.deadLineContainer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  font-weight: 500;
+}
+
+.btnRemove {
+  display: contents;
+}
