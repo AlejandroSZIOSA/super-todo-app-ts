@@ -140,6 +140,7 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
               (cardEdit_T ? cardEdit_T.quite : "Quite")}
             {isWarningOn &&
               !isToday &&
+              !isComplete &&
               !isExpired &&
               (cardEdit_T ? cardEdit_T.verySoon : "Very soon")}
             {isWarningOn &&
