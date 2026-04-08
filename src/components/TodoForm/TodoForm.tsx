@@ -32,7 +32,6 @@ const TodoForm: FC<TodoFormProps> = ({
   });
 
   const inputRef = useRef<HTMLInputElement>(null);
-
   const isMobile = useMediaQuery(RESOLUTIONS.DESKTOP_BREAKPOINT); // Adjust the breakpoint as needed
 
   //translations  en - swe as context param, this change the current language state
@@ -40,7 +39,7 @@ const TodoForm: FC<TodoFormProps> = ({
   const TRANSLATION = translations[settings.language];
   const { todoForm_T } = TRANSLATION;
 
-  //fix problem send edited values
+  //fixed: problem send edited values
   useEffect(() => {
     //re-render the component when the initialValues change
     if (operation === "edit") {
@@ -108,7 +107,11 @@ const TodoForm: FC<TodoFormProps> = ({
   };
 
   const handleFocus = () => {
-    inputRef.current?.focus();
+    //fix with guards
+    if (!inputRef.current) {
+      return;
+    }
+    inputRef.current.focus();
   };
 
   return (
@@ -146,7 +149,6 @@ const TodoForm: FC<TodoFormProps> = ({
         <input
           type="date"
           id="deadline"
-          defaultValue={getCurrentDate()}
           min={getCurrentDate()}
           value={formData.deadline}
           onChange={(e) =>

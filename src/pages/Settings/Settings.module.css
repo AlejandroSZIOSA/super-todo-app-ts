@@ -19,14 +19,17 @@
   max-width: 100px;
 }
 
-.btnContainer {
+.btnsDeleteContainer {
   display: flex;
   gap: 30px;
   justify-content: center;
 }
 
-.btnContainer button {
+.btnsDeleteContainer button {
   padding: 12px;
+  border-radius: 8px;
+  background-color: #d9d9d9;
+  border: 1px solid #ccc;
 }
 
 @media (min-width: 1024px) {

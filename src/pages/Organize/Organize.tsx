@@ -9,7 +9,6 @@ import Modal from "../../components/mobile-ui/Modal/Modal";
 import Header from "../../components/Header/Header";
 import Message from "../../components/Message";
 import TodoItem from "../../components/desktop-ui/TodoItem/TodoItem";
-
 import CardEdit from "../../components/mobile-ui/CardEdit/CardEdit";
 
 import ConfirmDialog, {
@@ -84,6 +83,7 @@ const OrganizePage: FC = () => {
     }
   }
 
+  //TODO: Use portals in dialog and modal next time
   const handleOpenDialog = (
     todoId: number,
     title: string,
@@ -110,7 +110,7 @@ const OrganizePage: FC = () => {
     content = (
       <>
         <Modal
-          label="Edit Task"
+          label={editPage_T ? editPage_T.editTask : "Edit Task"}
           isOpen={openModal}
           onClose={() => setOpenModal(false)}
         >

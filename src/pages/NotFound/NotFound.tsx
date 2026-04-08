@@ -1,8 +1,18 @@
-const NotFoundPage = () => {
+import React from "react";
+import styles from "./NotFound.module.css";
+import { useNavigate } from "react-router-dom";
+import Header from "../../components/Header/Header";
+
+const NotFoundPage: React.FC = () => {
+  const navigate = useNavigate();
   return (
-    <div>
-      <h1> Page Not Found</h1>
-    </div>
+    <>
+      <Header />
+      <div className={styles.notFoundPageContainer}>
+        <h1> Page Not Found</h1>
+        <button onClick={() => navigate("/")}>Home</button>
+      </div>
+    </>
   );
 };
 

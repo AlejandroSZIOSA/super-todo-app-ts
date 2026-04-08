@@ -49,6 +49,7 @@ export const translations: TranslationTypes = {
 
   sv: {
     homePage_T: {
+      addTask: "Lägg till uppgift",
       appTitle: "Uppgifts Påminnare",
       addBtn: "Lägg till",
       subHeaderTitle: "Dina uppgifter",
@@ -126,6 +127,7 @@ export const translations: TranslationTypes = {
   },
   es: {
     homePage_T: {
+      addTask: "Agregar tarea",
       appTitle: "Recordatorio de tareas",
       addBtn: "Agregar",
       subHeaderTitle: "Tus tareas",

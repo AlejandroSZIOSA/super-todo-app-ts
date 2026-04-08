@@ -7,6 +7,7 @@ import { translations } from "../../../data/translations";
 import { RemoveIcon, EditIcon } from "../../../assets/icons";
 import Accordion from "../Accordion/Accordion";
 import styles from "./CardEdit.module.css";
+import { ICONS_WIDTH } from "../../../utils/constants";
 
 interface CardEditProps {
   todoData: Todo;
@@ -30,11 +31,11 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
   const TRANSLATION = translations[settings.language];
   const { cardEdit_T, daysRemainingFig_T } = TRANSLATION;
 
-  let daysRemaining = countRemainingDays(new Date(), deadline);
-  let isWarningOn =
+  const daysRemaining = countRemainingDays(new Date(), deadline);
+  const isWarningOn =
     countRemainingDays(new Date(), deadline) <= settings.daysCountdown;
-  let isExpired = countRemainingDays(new Date(), deadline) < 0;
-  let isToday = countRemainingDays(new Date(), deadline) === 0;
+  const isExpired = countRemainingDays(new Date(), deadline) < 0;
+  const isToday = countRemainingDays(new Date(), deadline) === 0;
 
   return (
     <div className={styles.cardEditContainer}>
@@ -151,7 +152,7 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
 
       <div className={styles.buttonsContainer}>
         <button onClick={() => onEdit && onEdit(id)}>
-          <EditIcon style={{ width: "26", height: "auto" }} />
+          <EditIcon style={{ width: ICONS_WIDTH, height: "auto" }} />
         </button>
 
         <p>
@@ -160,7 +161,7 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
         </p>
 
         <button onClick={() => onRemove && onRemove(id)}>
-          <RemoveIcon style={{ width: "26", height: "auto" }} />
+          <RemoveIcon style={{ width: ICONS_WIDTH, height: "auto" }} />
         </button>
       </div>
     </div>

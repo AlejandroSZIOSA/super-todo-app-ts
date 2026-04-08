@@ -48,7 +48,7 @@ const SelectRootModal: FC<SelectRootModalProps> & {
     //new settings local storage
     handleChangeSettings(dispatch, newSettings); // Update the settings in the Redux store
 
-    //TODO:fix problem with dependencies
+    //TODO:fix the problem with dependencies
   }, [value]);
 
   //fixed: problem with body scroll when open the modal, when open the modal the body is blocked to scroll but when close the modal the body is still blocked, so I added a useEffect to remove the class "no-scroll" when the modal is closed

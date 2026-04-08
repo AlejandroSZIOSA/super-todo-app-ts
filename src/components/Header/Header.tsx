@@ -44,7 +44,7 @@ const Header: FC<HeaderProps> = ({ children }) => {
         <h1>{!homePage_T ? "Task Remainder" : homePage_T.appTitle}</h1>
         <img src={flagContent} />
       </div>
-      <div className={styles.childrenContainer}>{children}</div>
+      {children && <div className={styles.childrenContainer}>{children}</div>}
     </header>
   );
 };

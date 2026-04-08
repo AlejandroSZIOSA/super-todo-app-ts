@@ -13,7 +13,7 @@
   background: #dfd0b8;
   border-radius: 8px;
   padding: 0 1rem 1rem 1rem;
-  min-width: 340px;
+  min-width: 330px;
   /* max-width: 95%; */
   width: 90%;
 }
@@ -23,7 +23,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  padding: 1rem 0;
+  padding-top: 0.8rem;
 }
 
 .close {

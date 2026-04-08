@@ -93,7 +93,7 @@ const HomePage: FC = () => {
       <>
         <Modal
           isOpen={isModalOpen}
-          label="Add task"
+          label={homePage_T ? homePage_T.addTask : "Add Task"}
           onClose={() => setIsModalOpen(false)}
         >
           <TodoForm

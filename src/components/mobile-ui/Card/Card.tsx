@@ -1,5 +1,6 @@
 import { type FC, useState, useEffect } from "react";
 import type { Todo, Priority } from "../../../types/shared";
+import { ICONS_WIDTH } from "../../../utils/constants";
 
 import { RemoveIcon, DeadLineIcon } from "../../../assets/icons";
 
@@ -46,10 +47,10 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
     setIsDone(isComplete);
   }, [isComplete]);
 
-  let daysRemaining = countRemainingDays(new Date(), deadline);
-  let isWarningOn =
+  const daysRemaining = countRemainingDays(new Date(), deadline);
+  const isWarningOn =
     countRemainingDays(new Date(), deadline) <= settings.daysCountdown;
-  let isExpired = countRemainingDays(new Date(), deadline) < 0;
+  const isExpired = countRemainingDays(new Date(), deadline) < 0;
 
   return (
     <div className={styles.cardHomeContainer}>
@@ -141,8 +142,12 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
           <span>{deadline}</span>
         </div>
 
-        <button id="btn-remove-todo" onClick={() => onRemove && onRemove(id)}>
-          <RemoveIcon style={{ width: "26", height: "auto" }} />
+        <button
+          id="btn-remove-todo"
+          className={styles.btnRemove}
+          onClick={() => onRemove && onRemove(id)}
+        >
+          <RemoveIcon style={{ width: ICONS_WIDTH, height: "auto" }} />
         </button>
       </div>
     </div>

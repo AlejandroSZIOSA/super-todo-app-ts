@@ -24,6 +24,7 @@ const SettingsPage: FC = () => {
   const TRANSLATION = translations[settings.language];
   const { settingsPage_T } = TRANSLATION;
 
+  //Note: Using compound components pattern :)
   return (
     <>
       <Header>
@@ -50,7 +51,6 @@ const SettingsPage: FC = () => {
           <h3>
             {settingsPage_T ? settingsPage_T.warnMeFrom : "Warn me from?"}
           </h3>
-
           {isMobile ? (
             <SelectRootModal selectorKey="daysCountdown">
               <SelectRootModal.Item value="2">2 Days</SelectRootModal.Item>
@@ -82,14 +82,13 @@ const SettingsPage: FC = () => {
             </SelectorRoot>
           )}
         </section>
-
         <section className={styles.settingsPageSections}>
           <h3>
             {settingsPage_T
               ? settingsPage_T.deleteAllTasks
               : "Delete all Tasks"}
           </h3>
-          <div className={styles.btnContainer}>
+          <div className={styles.btnsDeleteContainer}>
             <button onClick={() => setIsLockOn(!isLockOn)}>
               {isLockOn
                 ? settingsPage_T
