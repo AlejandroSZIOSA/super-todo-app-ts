@@ -149,7 +149,7 @@ const TodoForm: FC<TodoFormProps> = ({
         <input
           type="date"
           id="deadline"
-          min={getCurrentDate()}
+          /*   min={getCurrentDate()} */
           value={formData.deadline}
           onChange={(e) =>
             setFormData({ ...formData, deadline: e.target.value })

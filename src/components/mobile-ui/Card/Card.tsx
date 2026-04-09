@@ -72,7 +72,7 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
           </div>
         )}
         {isExpired && !isComplete && <> 🎈 </>}
-        {isComplete && <> 😃🎉✨</>}
+        {isComplete && isExpired && <> 😃🎉✨</>}
       </div>
       <div
         className={`${styles.cardHomeSubHeader} ${isWarningOn && !isExpired && !isComplete && styles.subHeaderWarningOn} ${!isWarningOn && !isComplete && styles.subHeaderWarningOff} ${isExpired && !isComplete && styles.subHeaderExpired} ${isComplete && styles.subHeaderSuccess} ${isComplete && isExpired && styles.subHeaderSuccess}}`}
