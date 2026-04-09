@@ -22,7 +22,7 @@ const SettingsPage: FC = () => {
   const settings = useAppSelector((state: RootState) => state.settings);
 
   const TRANSLATION = translations[settings.language];
-  const { settingsPage_T } = TRANSLATION;
+  const { settingsPage_T, daysRemainingFig_T } = TRANSLATION;
 
   //Note: Using compound components pattern :)
   return (
@@ -35,9 +35,15 @@ const SettingsPage: FC = () => {
           <h3>{settingsPage_T ? settingsPage_T.language : "Language"} </h3>
           {isMobile ? (
             <SelectRootModal selectorKey="language">
-              <SelectRootModal.Item value="en">English</SelectRootModal.Item>
-              <SelectRootModal.Item value="sv">Swedish</SelectRootModal.Item>
-              <SelectRootModal.Item value="es">Spanish</SelectRootModal.Item>
+              <SelectRootModal.Item value="en">
+                {settingsPage_T ? settingsPage_T.english : "English"}
+              </SelectRootModal.Item>
+              <SelectRootModal.Item value="sv">
+                {settingsPage_T ? settingsPage_T.swedish : "Swedish"}
+              </SelectRootModal.Item>
+              <SelectRootModal.Item value="es">
+                {settingsPage_T ? settingsPage_T.spanish : "Spanish"}
+              </SelectRootModal.Item>
             </SelectRootModal>
           ) : (
             <SelectorRoot selectorIdentifier="language">
@@ -53,10 +59,24 @@ const SettingsPage: FC = () => {
           </h3>
           {isMobile ? (
             <SelectRootModal selectorKey="daysCountdown">
-              <SelectRootModal.Item value="2">2 Days</SelectRootModal.Item>
-              <SelectRootModal.Item value="3">3 Days</SelectRootModal.Item>
-              <SelectRootModal.Item value="6">6 Days</SelectRootModal.Item>
-              <SelectRootModal.Item value="9">9 Days</SelectRootModal.Item>
+              <SelectRootModal.Item value="2">
+                2 {daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}
+              </SelectRootModal.Item>
+              <SelectRootModal.Item value="3">
+                3 {daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}
+              </SelectRootModal.Item>
+              <SelectRootModal.Item value="4">
+                4 {daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}
+              </SelectRootModal.Item>
+              <SelectRootModal.Item value="6">
+                6 {daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}
+              </SelectRootModal.Item>
+              <SelectRootModal.Item value="9">
+                9 {daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}
+              </SelectRootModal.Item>
+              <SelectRootModal.Item value="14">
+                14 {daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}
+              </SelectRootModal.Item>
             </SelectRootModal>
           ) : (
             <SelectorRoot selectorIdentifier="daysCountdown">
@@ -86,7 +106,7 @@ const SettingsPage: FC = () => {
           <h3>
             {settingsPage_T
               ? settingsPage_T.deleteAllTasks
-              : "Delete all Tasks"}
+              : "Delete all Tasks ?"}
           </h3>
           <div className={styles.btnsDeleteContainer}>
             <button onClick={() => setIsLockOn(!isLockOn)}>
