@@ -94,6 +94,8 @@ export const translations: TranslationTypes = {
       expired: "Utgånget",
       verySoon: "Väldigt snart",
       today: "Idag",
+      yesterday: "Igår",
+      tomorrow: "Imorgon",
       status: "Status",
       done: "Klart",
       notDone: "Inte klart",
@@ -118,6 +120,8 @@ export const translations: TranslationTypes = {
       delete: "Radera",
     },
     daysRemainingFig_T: {
+      yesterday: "Igår",
+      tomorrow: "Imorgon",
       today: "Idag",
       for: "För",
       in: "Om",
@@ -134,6 +138,9 @@ export const translations: TranslationTypes = {
     },
 
     cardView_T: {
+      today: "Hoy",
+      yesterday: "Ayer",
+      tomorrow: "Mañana",
       verySoon: "Muy pronto",
       quite: "Tranquilo",
       priority: "Prioridad",
@@ -173,6 +180,9 @@ export const translations: TranslationTypes = {
       expired: "Expirado",
       verySoon: "Muy pronto",
       today: "Hoy",
+      yesterday: "Ayer",
+      tomorrow: "Mañana",
+
       status: "Estado",
       done: "Hecho",
       notDone: "No listo",
@@ -197,6 +207,8 @@ export const translations: TranslationTypes = {
     },
     daysRemainingFig_T: {
       today: "Hoy",
+      yesterday: "Ayer",
+      tomorrow: "Mañana",
       for: "Hace",
       in: "En",
       day: "día",
