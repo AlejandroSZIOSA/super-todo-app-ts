@@ -26,6 +26,13 @@ export function countRemainingDays(
 
 export const getCurrentDate = () => new Date().toISOString().split("T")[0];
 
+//tests
+export const getDateMinusDays = (days: number = 2) => {
+  const date = new Date();
+  date.setDate(date.getDate() - days);
+  return date.toISOString().split("T")[0];
+};
+
 // This function is used to sort the todos by priority and deadline, it is used in the Home page to sort the todos before rendering them, it is also used in the CardEdit component to sort the todos before rendering them in the accordion component.
 export const sortedTodosFn = (todos: Todo[]): Todo[] =>
   [...todos].sort((a, b) => {

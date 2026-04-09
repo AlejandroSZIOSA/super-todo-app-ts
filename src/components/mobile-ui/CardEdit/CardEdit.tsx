@@ -20,12 +20,6 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
   /*   const isMobile = useMediaQuery(RESOLUTIONS.DESKTOP_BREAKPOINT); */
   const { id, title, description, priority, deadline, isComplete } = todoData;
   const settings = useAppSelector((state: RootState) => state.settings);
-  //TODO: Deriver is done status from the store, this is to
-  // prevent the problem with the sync between the local state and the store state,
-  // this is to prevent the problem with the toggle complete status button, when the user click
-  // on the button, the local state is updated but the store state is not updated yet, so the card component
-  // is re-rendered with the old isComplete value from the store, this is to prevent that problem by deriving the
-  // isDone state from the store state directly.
 
   //translations  en - swe as context param, this change the current language state
   const TRANSLATION = translations[settings.language];
@@ -37,7 +31,9 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
   const isExpired = countRemainingDays(new Date(), deadline) < 0;
   const isToday = countRemainingDays(new Date(), deadline) === 0;
   const isYesterday = countRemainingDays(new Date(), deadline) === -1;
+  const isTomorrow = countRemainingDays(new Date(), deadline) === 1;
 
+  //TODO:Fix this component using if else statements
   return (
     <div className={styles.cardEditContainer}>
       <div
@@ -95,27 +91,32 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
               }
             >
               {isToday && (cardEdit_T ? cardEdit_T.today : "Today")}
-              {isYesterday && "Yesterday"}
+              {isYesterday && (cardEdit_T ? cardEdit_T.yesterday : "Yesterday")}
+              {isTomorrow && (cardEdit_T ? cardEdit_T.tomorrow : "Tomorrow")}
               {!isComplete &&
                 !isExpired &&
                 !isToday &&
+                !isTomorrow &&
                 `${cardEdit_T ? cardEdit_T.daysRemaining : "Days remaining"} : 
               ${daysRemaining}`}
               {isExpired &&
                 !isComplete &&
                 !isToday &&
                 !isYesterday &&
+                !isTomorrow &&
                 `${daysRemainingFig_T ? daysRemainingFig_T.for : "For"} : ${daysRemaining * -1}
               ${daysRemaining > 1 ? `${daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}` : `${daysRemainingFig_T ? daysRemainingFig_T.day : "Day"}`}`}
               {isExpired &&
                 isComplete &&
                 !isToday &&
                 !isYesterday &&
+                !isTomorrow &&
                 `${daysRemainingFig_T ? daysRemainingFig_T.for : "For"} : 
               ${daysRemaining * -1} ${daysRemaining > 1 ? `${daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}` : `${daysRemainingFig_T ? daysRemainingFig_T.day : "Day"}`}`}
               {isComplete &&
                 !isToday &&
                 !isYesterday &&
+                !isTomorrow &&
                 !isExpired &&
                 `${cardEdit_T ? cardEdit_T.daysRemaining : "Days remaining"} :
               ${daysRemaining}`}

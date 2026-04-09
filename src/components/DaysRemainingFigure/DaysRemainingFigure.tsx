@@ -11,6 +11,7 @@ interface DaysRemainingFigureProps {
   variant: "expired-success" | "default";
 }
 
+//TODO:Do this component better
 const DaysRemainingFigure: FC<DaysRemainingFigureProps> = ({
   counter,
   variant,
@@ -26,26 +27,32 @@ const DaysRemainingFigure: FC<DaysRemainingFigureProps> = ({
     const result = counter * -1;
     if (daysRemainingFig_T) {
       headerContent = daysRemainingFig_T.for + " " + result;
-      footerContent =
-        result === 1 ? daysRemainingFig_T.day : daysRemainingFig_T.days;
+      footerContent = daysRemainingFig_T.days;
     } else {
       headerContent = "For " + result;
-      footerContent = result === 1 ? "day" : "days";
+      footerContent = "days";
     }
   }
 
   if (counter === -1) {
-    footerContent = "Yesterday";
+    footerContent = daysRemainingFig_T
+      ? daysRemainingFig_T.yesterday
+      : "Yesterday";
+  }
+
+  if (counter === 1) {
+    footerContent = daysRemainingFig_T
+      ? daysRemainingFig_T.tomorrow
+      : "Tomorrow";
   }
 
   if (counter > 1) {
     if (daysRemainingFig_T) {
       headerContent = daysRemainingFig_T.in + " " + counter;
-      footerContent =
-        counter === 1 ? daysRemainingFig_T.day : daysRemainingFig_T.days;
+      footerContent = daysRemainingFig_T.days;
     } else {
       headerContent = "In " + counter;
-      footerContent = counter === 1 ? "day" : "days";
+      footerContent = "days";
     }
   }
 
