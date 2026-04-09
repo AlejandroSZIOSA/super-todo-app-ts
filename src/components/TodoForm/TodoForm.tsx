@@ -121,8 +121,10 @@ const TodoForm: FC<TodoFormProps> = ({
         <input
           id="title"
           value={formData.title}
-          /* placeholder="title" */
-          maxLength={20}
+          placeholder={
+            todoForm_T ? todoForm_T.title.toLocaleLowerCase() : "title"
+          }
+          maxLength={28}
           ref={inputRef}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
           required
@@ -135,7 +137,12 @@ const TodoForm: FC<TodoFormProps> = ({
         <textarea
           id="description"
           value={formData.description}
-          maxLength={100}
+          placeholder={
+            todoForm_T
+              ? todoForm_T.description.toLocaleLowerCase()
+              : "description"
+          }
+          maxLength={120}
           onChange={(e) =>
             setFormData({ ...formData, description: e.target.value })
           }
