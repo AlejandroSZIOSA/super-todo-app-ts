@@ -22,7 +22,7 @@ const DaysRemainingFigure: FC<DaysRemainingFigureProps> = ({
   let headerContent: ReactNode;
   let footerContent: ReactNode;
 
-  if (counter < 0) {
+  if (counter < -1) {
     const result = counter * -1;
     if (daysRemainingFig_T) {
       headerContent = daysRemainingFig_T.for + " " + result;
@@ -34,7 +34,7 @@ const DaysRemainingFigure: FC<DaysRemainingFigureProps> = ({
     }
   }
 
-  if (counter === 1) {
+  if (counter === -1) {
     footerContent = "Yesterday";
   }
 
