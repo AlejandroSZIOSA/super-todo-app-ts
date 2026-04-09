@@ -8,9 +8,6 @@
   transition: box-shadow 0.2s ease-in-out;
 }
 
-.cardHomeContainer p {
-  text-align: center;
-}
 .cardHomeContainer:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
@@ -24,7 +21,6 @@
   justify-content: center;
   height: 5vh;
   align-items: center;
-  /*   border-bottom: 1px solid #e5e7eb; */
   border-radius: 10px 10px 0 0;
 }
 
