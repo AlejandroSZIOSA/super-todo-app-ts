@@ -36,6 +36,7 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
     countRemainingDays(new Date(), deadline) <= settings.daysCountdown;
   const isExpired = countRemainingDays(new Date(), deadline) < 0;
   const isToday = countRemainingDays(new Date(), deadline) === 0;
+  const isYesterday = countRemainingDays(new Date(), deadline) === -1;
 
   return (
     <div className={styles.cardEditContainer}>
@@ -94,6 +95,7 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
               }
             >
               {isToday && (cardEdit_T ? cardEdit_T.today : "Today")}
+              {isYesterday && "Yesterday"}
               {!isComplete &&
                 !isExpired &&
                 !isToday &&
@@ -101,14 +103,19 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
               ${daysRemaining}`}
               {isExpired &&
                 !isComplete &&
+                !isToday &&
+                !isYesterday &&
                 `${daysRemainingFig_T ? daysRemainingFig_T.for : "For"} : ${daysRemaining * -1}
               ${daysRemaining > 1 ? `${daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}` : `${daysRemainingFig_T ? daysRemainingFig_T.day : "Day"}`}`}
               {isExpired &&
                 isComplete &&
+                !isToday &&
+                !isYesterday &&
                 `${daysRemainingFig_T ? daysRemainingFig_T.for : "For"} : 
               ${daysRemaining * -1} ${daysRemaining > 1 ? `${daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}` : `${daysRemainingFig_T ? daysRemainingFig_T.day : "Day"}`}`}
               {isComplete &&
                 !isToday &&
+                !isYesterday &&
                 !isExpired &&
                 `${cardEdit_T ? cardEdit_T.daysRemaining : "Days remaining"} :
               ${daysRemaining}`}
@@ -146,6 +153,7 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
             {isWarningOn &&
               isToday &&
               !isComplete &&
+              !isExpired &&
               (cardEdit_T ? cardEdit_T.verySoon : "Very soon")}
           </span>
         </div>
