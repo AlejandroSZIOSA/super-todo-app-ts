@@ -46,7 +46,9 @@ const NavBar: FC = () => {
           }
         >
           <Icon className={styles.icon} />
-          <span className={styles.label}>{label}</span>
+          <span className={styles.label}>
+            <p>{label}</p>
+          </span>
         </NavLink>
       ))}
     </nav>

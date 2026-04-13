@@ -10,7 +10,6 @@ import { getCurrentDate, sortedTodosFn } from "../../utils/calculations";
 import Message from "../../components/Message";
 import Header from "../../components/Header/Header";
 import Card from "../../components/mobile-ui/Card/Card";
-import TodoItem from "../../components/desktop-ui/TodoItem/TodoItem";
 
 import ConfirmDialog, {
   type ConfirmDialogRef,
@@ -112,17 +111,22 @@ const HomePage: FC = () => {
   } else {
     content = (
       <aside>
-        <h3>Add New Task</h3>
-        <TodoForm
-          initialValues={{ deadline: getCurrentDate() }}
-          /* fix problem with the modal */
-          onSubmit={(values) => {
-            handleCreate(dispatch, values);
-            setIsModalOpen(false);
-          }}
-          operation="create"
-          submitBtnLabel="Add"
-        />
+        <div>
+          <section>
+            <h3>Add New Task</h3>
+            <TodoForm
+              initialValues={{ deadline: getCurrentDate() }}
+              /* fix problem with the modal */
+              onSubmit={(values) => {
+                handleCreate(dispatch, values);
+                setIsModalOpen(false);
+              }}
+              operation="create"
+              submitBtnLabel="Add"
+            />
+          </section>
+          <div> App logo</div>
+        </div>
       </aside>
     );
   }
@@ -148,7 +152,7 @@ const HomePage: FC = () => {
       <main>
         {content}
         {sortedTodos.length !== 0 ? (
-          <ol className={styles.cardsContainer}>
+          <ol>
             {sortedTodos.map((todo) => (
               <li key={todo.id}>
                 <Card

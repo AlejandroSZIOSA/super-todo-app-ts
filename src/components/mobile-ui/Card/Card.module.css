@@ -205,7 +205,7 @@
 
 @media (min-width: 1024px) {
   .cardHomeContainer {
-    width: auto;
+    width: 95%;
   }
 
   .btnToggleStatus {

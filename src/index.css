@@ -104,7 +104,7 @@ ol {
   }
 
   h2 {
-    font-size: 1.175rem;
+    font-size: 1.75rem;
   }
 
   h3 {
@@ -112,6 +112,23 @@ ol {
   }
 
   p {
+    font-size: 1.125rem;
+  }
+
+  label {
+    font-size: 1.25rem;
+  }
+
+  ol {
+    margin-left: 1rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 3 columns */
+    grid-template-rows: repeat(3, 1fr); /* 3 rows */
+    gap: 0.5rem; /* optional spacing */
+  }
+
+  select {
+    padding: 10px;
     font-size: 1.125rem;
   }
 }

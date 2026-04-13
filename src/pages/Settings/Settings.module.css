@@ -33,7 +33,7 @@
 }
 
 @media (min-width: 1024px) {
-  .settingsPageMain {
+  .settingsPageMainContainer {
     flex-direction: column;
     align-items: unset;
   }

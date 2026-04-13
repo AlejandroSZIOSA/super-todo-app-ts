@@ -80,3 +80,12 @@
 .formContainer input:focus {
   outline: 2px solid #f35529;
 }
+
+@media (min-width: 1024px) {
+  .inputsTextContainer textarea {
+    height: 8rem;
+    font-size: 1.125rem;
+    /*   font-size: x-large;
+ */
+  }
+}

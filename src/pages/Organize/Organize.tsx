@@ -155,25 +155,12 @@ const OrganizePage: FC = () => {
           <ol>
             {sortedTodos.map((todo, index) => (
               <li key={todo.id}>
-                {isMobile ? (
-                  <CardEdit
-                    todoData={todo}
-                    todoNumber={index}
-                    onEdit={handleEditForm}
-                    onRemove={(id) =>
-                      handleOpenDialog(id, todo.title, "remove")
-                    }
-                  />
-                ) : (
-                  <TodoItem
-                    todoData={todo}
-                    page="organize"
-                    onEdit={handleEditForm}
-                    onRemove={(id) =>
-                      handleOpenDialog(id, todo.title, "remove")
-                    }
-                  />
-                )}
+                <CardEdit
+                  todoData={todo}
+                  todoNumber={index}
+                  onEdit={handleEditForm}
+                  onRemove={(id) => handleOpenDialog(id, todo.title, "remove")}
+                />
               </li>
             ))}
           </ol>
