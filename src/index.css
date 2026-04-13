@@ -14,6 +14,8 @@
   padding-bottom: 64px; /* navigation bottom */
 }
 
+/* Global styles for the app
+ */
 * {
   box-sizing: border-box;
   padding: 0;
@@ -91,12 +93,8 @@ ol {
   main {
     display: flex;
     flex-direction: row;
-    /* justify-content: space-around; */
     align-items: baseline;
-  }
-
-  aside {
-    margin-left: 8rem;
+    margin: 0;
   }
 
   h1 {

@@ -27,6 +27,7 @@ import {
 import { translations } from "../../data/translations";
 
 import styles from "./Home.module.css";
+import AsidePanel from "../../components/desktop-ui/AsidePanelOperations/AsidePanel";
 
 const HomePage: FC = () => {
   const [dialogData, setDialogData] = useState<ConfirmDialogData>({
@@ -110,24 +111,18 @@ const HomePage: FC = () => {
     );
   } else {
     content = (
-      <aside>
-        <div>
-          <section>
-            <h3>Add New Task</h3>
-            <TodoForm
-              initialValues={{ deadline: getCurrentDate() }}
-              /* fix problem with the modal */
-              onSubmit={(values) => {
-                handleCreate(dispatch, values);
-                setIsModalOpen(false);
-              }}
-              operation="create"
-              submitBtnLabel="Add"
-            />
-          </section>
-          <div> App logo</div>
-        </div>
-      </aside>
+      <AsidePanel title={homePage_T ? homePage_T.addTask : "Add Task"}>
+        <TodoForm
+          initialValues={{ deadline: getCurrentDate() }}
+          /* fix problem with the modal */
+          onSubmit={(values) => {
+            handleCreate(dispatch, values);
+            setIsModalOpen(false);
+          }}
+          operation="create"
+          submitBtnLabel="Add"
+        />
+      </AsidePanel>
     );
   }
 

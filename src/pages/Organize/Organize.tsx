@@ -24,6 +24,7 @@ import { getAllTodosDb } from "../../services/db/crudsDB";
 
 import { translations } from "../../data/translations";
 import { sortedTodosFn } from "../../utils/calculations";
+import AsidePanel from "../../components/desktop-ui/AsidePanelOperations/AsidePanel";
 
 const OrganizePage: FC = () => {
   const [todoEdit, setTodoEdit] = useState<Omit<Todo, "id" | "isComplete">>({
@@ -128,8 +129,7 @@ const OrganizePage: FC = () => {
     );
   } else {
     content = (
-      <aside>
-        <h3>Edit Task</h3>
+      <AsidePanel title={editPage_T ? editPage_T.editTask : "Edit Task"}>
         <TodoForm
           initialValues={todoEdit}
           onSubmit={(values) => {
@@ -139,8 +139,7 @@ const OrganizePage: FC = () => {
           operation="edit"
           submitBtnLabel="Save"
         />
-        <div> App logo</div>
-      </aside>
+      </AsidePanel>
     );
   }
 
