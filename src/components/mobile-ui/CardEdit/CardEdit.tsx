@@ -25,13 +25,13 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
   const TRANSLATION = translations[settings.language];
   const { cardEdit_T, daysRemainingFig_T } = TRANSLATION;
 
-  const daysRemaining = countRemainingDays(new Date(), deadline);
+  const daysRemaining = countRemainingDays(new Date(), deadline) - 1;
   const isWarningOn =
     countRemainingDays(new Date(), deadline) <= settings.daysCountdown;
   const isExpired = countRemainingDays(new Date(), deadline) <= 0;
-  const isToday = countRemainingDays(new Date(), deadline) === 0;
+  const isToday = countRemainingDays(new Date(), deadline) === 1;
   const isYesterday = countRemainingDays(new Date(), deadline) === -1;
-  const isTomorrow = countRemainingDays(new Date(), deadline) === 1;
+  const isTomorrow = countRemainingDays(new Date(), deadline) === 2;
 
   //TODO:Fix this component using if else statements
   return (

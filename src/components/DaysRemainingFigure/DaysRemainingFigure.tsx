@@ -34,6 +34,10 @@ const DaysRemainingFigure: FC<DaysRemainingFigureProps> = ({
     }
   }
 
+  if (counter === 0) {
+    footerContent = daysRemainingFig_T ? daysRemainingFig_T.today : "Today";
+  }
+
   if (counter === -1) {
     footerContent = daysRemainingFig_T
       ? daysRemainingFig_T.yesterday
@@ -56,9 +60,6 @@ const DaysRemainingFigure: FC<DaysRemainingFigureProps> = ({
     }
   }
 
-  if (counter === 0) {
-    footerContent = daysRemainingFig_T ? daysRemainingFig_T.today : "Today";
-  }
   return (
     <div
       className={
