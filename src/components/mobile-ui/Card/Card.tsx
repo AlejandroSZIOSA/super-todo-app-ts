@@ -50,7 +50,7 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
   const daysRemaining = countRemainingDays(new Date(), deadline);
   const isWarningOn =
     countRemainingDays(new Date(), deadline) <= settings.daysCountdown;
-  const isExpired = countRemainingDays(new Date(), deadline) < 0;
+  const isExpired = countRemainingDays(new Date(), deadline) <= 0;
   /* const isExpired = true; */
 
   return (
