@@ -51,11 +51,15 @@ main {
 }
 
 h1 {
-  font-size: 1.8rem;
+  font-size: 1.7rem;
 }
 
 h2 {
   font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.25rem;
 }
 
 p {
@@ -95,8 +99,19 @@ ol {
     margin-left: 8rem;
   }
 
-  /* .settingsPage__main {
-    flex-direction: column;
-    align-items: unset;
-  } */
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  h2 {
+    font-size: 1.175rem;
+  }
+
+  h3 {
+    font-size: 1.375rem;
+  }
+
+  p {
+    font-size: 1.125rem;
+  }
 }

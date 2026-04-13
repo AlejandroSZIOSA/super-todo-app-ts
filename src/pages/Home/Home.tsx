@@ -148,25 +148,13 @@ const HomePage: FC = () => {
       <main>
         {content}
         {sortedTodos.length !== 0 ? (
-          <ol>
+          <ol className={styles.cardsContainer}>
             {sortedTodos.map((todo) => (
               <li key={todo.id}>
-                {isMobile ? (
-                  <Card
-                    todoData={todo}
-                    onRemove={(id) =>
-                      handleOpenDialog(id, todo.title, "remove")
-                    }
-                  />
-                ) : (
-                  <TodoItem
-                    todoData={todo}
-                    page="home"
-                    onRemove={(id) =>
-                      handleOpenDialog(id, todo.title, "remove")
-                    }
-                  />
-                )}
+                <Card
+                  todoData={todo}
+                  onRemove={(id) => handleOpenDialog(id, todo.title, "remove")}
+                />
               </li>
             ))}
           </ol>

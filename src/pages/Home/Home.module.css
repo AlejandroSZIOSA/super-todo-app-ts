@@ -6,3 +6,17 @@
   width: 6rem;
   height: 3rem;
 }
+
+.cardsContainer {
+  list-style: none;
+  width: 95%;
+}
+
+@media (min-width: 1024px) {
+  .cardsContainer {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 3 columns */
+    grid-template-rows: repeat(3, 1fr); /* 3 rows */
+    gap: 1rem; /* optional spacing */
+  }
+}
