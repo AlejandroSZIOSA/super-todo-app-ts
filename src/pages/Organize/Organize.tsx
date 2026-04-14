@@ -8,7 +8,6 @@ import useMediaQuery, { RESOLUTIONS } from "../../hooks/useMediaQuery";
 import Modal from "../../components/mobile-ui/Modal/Modal";
 import Header from "../../components/Header/Header";
 import Message from "../../components/Message";
-import TodoItem from "../../components/desktop-ui/TodoItem/TodoItem";
 import CardEdit from "../../components/mobile-ui/CardEdit/CardEdit";
 
 import ConfirmDialog, {
@@ -51,7 +50,7 @@ const OrganizePage: FC = () => {
   const TRANSLATION = translations[settings.language];
   const { editPage_T } = TRANSLATION;
 
-  //fetch todos from db on component mount
+  //fetch todos from db on component mount and after update the component
   useEffect(() => {
     const fetchTodos = async () => {
       const todosDb = await getAllTodosDb();
