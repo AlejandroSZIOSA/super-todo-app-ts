@@ -10,16 +10,16 @@ const useGetTasksFromDb = (dispatchData: ReturnType<typeof useAppDispatch>) => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const tasksDb = await getAllTodosDb();
-        getTodosFromDb(dispatchData, tasksDb);
+        const tasks = await getAllTodosDb();
+        getTodosFromDb(dispatchData, tasks);
       } catch (error: unknown) {
         if (error instanceof Error) {
           console.error(error.message);
         }
         setError("Failed to load tasks. Please try again.");
-      } /* finally {
+      } finally {
         setIsLoading(false);
-      } */
+      }
     };
     fetchTasks();
   }, [dispatchData]);

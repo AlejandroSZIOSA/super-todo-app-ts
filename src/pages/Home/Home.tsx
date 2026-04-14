@@ -139,9 +139,11 @@ const HomePage: FC = () => {
         ) : (
           <>
             <h2>{!homePage_T ? "Home" : homePage_T.subHeaderTitle}</h2>
-            <div className={styles.loaderContainerDesktop}>
-              <BarLoader />
-            </div>
+            {isLoading && !error && (
+              <div className={styles.loaderContainerDesktop}>
+                <BarLoader />
+              </div>
+            )}
           </>
         )}
       </Header>
