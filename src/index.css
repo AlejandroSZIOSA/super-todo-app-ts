@@ -26,9 +26,8 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  /* background-color: #5d5d5d; */
 
-  /*   create a patern background using radial-gradient; */
+  /*   create a pattern background using radial-gradient; */
   background-color: #948979;
   background-image: radial-gradient(#5d5d5d 1px, transparent 2px);
   background-size: 3px 3px;
@@ -97,6 +96,10 @@ ol {
 @media (min-width: 1024px) {
   body {
     background-size: 4px 4px;
+  }
+
+  header {
+    height: 6rem;
   }
 
   main {

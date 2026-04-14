@@ -20,6 +20,16 @@ export async function getTodoDb(id: number) {
 export async function getAllTodosDb() {
   const db = await dbPromise;
   return db.getAll("todos");
+
+  //TODO IMPORTANT: Remove after testing
+  /* const db = await dbPromise;
+
+  return new Promise((resolve) => {
+    setTimeout(async () => {
+      const todos = await db.getAll("todos");
+      resolve(todos);
+    }, 3000);
+  }); */
 }
 
 /* Get Completed */

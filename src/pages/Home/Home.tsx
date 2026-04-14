@@ -29,12 +29,18 @@ import { translations } from "../../data/translations";
 import styles from "./Home.module.css";
 import AsidePanel from "../../components/desktop-ui/AsidePanelOperations/AsidePanel";
 
+import Spinner from "../../components/Spinner/Spinner";
+
 const HomePage: FC = () => {
   const [dialogData, setDialogData] = useState<ConfirmDialogData>({
     id: null,
     title: "",
     operation: "",
   });
+
+  const [isLoading, setIsLoading] = useState(true); // State to manage loading status
+  const [error, setError] = useState<string | null>(null); // State to manage error messages
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { todos } = useAppSelector((state: RootState) => state.todos);
@@ -55,7 +61,15 @@ const HomePage: FC = () => {
       const todosDb = await getAllTodosDb();
       getTodosFromDb(dispatch, todosDb);
     };
-    fetchTodos();
+
+    try {
+      fetchTodos().then(() => setIsLoading(false)); // Set loading to false after fetching
+    } catch (err) {
+      setIsLoading(false); // Set loading to false if there's an error
+      setError("Failed to load tasks. Please try again.");
+    }
+    /*     fetchTodos();
+     */
   }, [dispatch]);
 
   //manage no-scroll class on body
@@ -146,7 +160,12 @@ const HomePage: FC = () => {
       </Header>
       <main>
         {content}
-        {sortedTodos.length !== 0 ? (
+        {isLoading && !error && <Spinner />}
+        {error && !isLoading && <Message message={error} />}
+
+        {sortedTodos.length === 0 && !isLoading ? (
+          <Message message="Empty List." />
+        ) : (
           <ol>
             {sortedTodos.map((todo) => (
               <li key={todo.id}>
@@ -157,9 +176,8 @@ const HomePage: FC = () => {
               </li>
             ))}
           </ol>
-        ) : (
-          <Message message="Empty List." />
         )}
+
         <ConfirmDialog
           ref={dialogRef}
           todoTitle={dialogData.title}
