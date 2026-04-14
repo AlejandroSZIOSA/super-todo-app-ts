@@ -110,7 +110,7 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
                 !isToday &&
                 !isYesterday &&
                 !isTomorrow &&
-                `${daysRemainingFig_T ? daysRemainingFig_T.for : "For"} : ${daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}`}
+                `${daysRemainingFig_T ? daysRemainingFig_T.for : "For"} : ${daysRemaining * -1} ${daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}`}
               {isComplete &&
                 !isToday &&
                 !isYesterday &&
