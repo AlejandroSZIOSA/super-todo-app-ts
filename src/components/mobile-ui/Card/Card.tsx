@@ -60,8 +60,8 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
       >
         {isWarningOn && !isExpired && !isComplete && (
           <div className={styles.warningFigureTextContainer}>
-            <>👀</>
-            <span>{cardView_T ? cardView_T.verySoon : "Very soon"}</span>
+            <div className={styles.warningFigures}>👀</div>
+            <span>{cardView_T ? cardView_T.verySoon : "Soon"}</span>
           </div>
         )}
         {!isWarningOn && !isComplete && (
@@ -69,11 +69,14 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
             style={{ color: "#EEFF00" }}
             className={styles.warningFigureTextContainer}
           >
-            <>🌾</> <span>{cardView_T ? cardView_T.quite : "Quite"}</span>
+            <div className={styles.warningFigures}>🌾</div>{" "}
+            <span>{cardView_T ? cardView_T.quite : "Quite"}</span>
           </div>
         )}
-        {isExpired && !isComplete && <> 🎈 </>}
-        {isComplete && <> 😃🎉✨</>}
+        {isExpired && !isComplete && (
+          <div className={styles.warningFigures}> 🎈 </div>
+        )}
+        {isComplete && <div className={styles.warningFigures}> 😃🎉✨</div>}
       </div>
       <div
         className={`${styles.cardHomeSubHeader} ${isWarningOn && !isExpired && !isComplete && styles.subHeaderWarningOn} ${!isWarningOn && !isComplete && styles.subHeaderWarningOff} ${isExpired && !isComplete && styles.subHeaderExpired} ${isComplete && styles.subHeaderSuccess} ${isComplete && isExpired && styles.subHeaderSuccess}}`}

@@ -89,6 +89,10 @@
   width: 100%;
 }
 
+.warningFigures {
+  font-size: 1.2rem;
+}
+
 .warningFigureTextContainer span {
   position: absolute;
   right: 0; /* centra el elemento hacia la derecha */
