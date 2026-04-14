@@ -25,13 +25,13 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
   const TRANSLATION = translations[settings.language];
   const { cardEdit_T, daysRemainingFig_T } = TRANSLATION;
 
-  const daysRemaining = countRemainingDays(new Date(), deadline) - 1;
+  const daysRemaining = countRemainingDays(new Date(), deadline);
   const isWarningOn =
     countRemainingDays(new Date(), deadline) <= settings.daysCountdown;
-  const isExpired = countRemainingDays(new Date(), deadline) <= 0;
-  const isToday = countRemainingDays(new Date(), deadline) === 1;
+  const isExpired = countRemainingDays(new Date(), deadline) < 0;
+  const isToday = countRemainingDays(new Date(), deadline) === 0;
   const isYesterday = countRemainingDays(new Date(), deadline) === -1;
-  const isTomorrow = countRemainingDays(new Date(), deadline) === 2;
+  const isTomorrow = countRemainingDays(new Date(), deadline) === 1;
 
   //TODO:Fix this component using if else statements
   return (
@@ -104,15 +104,13 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
                 !isToday &&
                 !isYesterday &&
                 !isTomorrow &&
-                `${daysRemainingFig_T ? daysRemainingFig_T.for : "For"} : ${daysRemaining * -1}
-              ${daysRemaining > 1 ? `${daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}` : `${daysRemainingFig_T ? daysRemainingFig_T.day : "Day"}`}`}
+                `${daysRemainingFig_T ? daysRemainingFig_T.for : "For"} : ${daysRemaining * -1} ${daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}`}
               {isExpired &&
                 isComplete &&
                 !isToday &&
                 !isYesterday &&
                 !isTomorrow &&
-                `${daysRemainingFig_T ? daysRemainingFig_T.for : "For"} : 
-              ${daysRemaining * -1} ${daysRemaining > 1 ? `${daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}` : `${daysRemainingFig_T ? daysRemainingFig_T.day : "Day"}`}`}
+                `${daysRemainingFig_T ? daysRemainingFig_T.for : "For"} : ${daysRemaining * -1} ${daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}`}
               {isComplete &&
                 !isToday &&
                 !isYesterday &&
