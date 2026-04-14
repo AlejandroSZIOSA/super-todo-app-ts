@@ -26,7 +26,12 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  background-color: #5d5d5d;
+  /* background-color: #5d5d5d; */
+
+  /*   create a patern background using radial-gradient; */
+  background-color: #948979;
+  background-image: radial-gradient(#5d5d5d 1px, transparent 2px);
+  background-size: 3px 3px;
 }
 
 header {
@@ -90,6 +95,10 @@ ol {
 }
 
 @media (min-width: 1024px) {
+  body {
+    background-size: 4px 4px;
+  }
+
   main {
     display: flex;
     flex-direction: row;
@@ -119,10 +128,16 @@ ol {
 
   ol {
     margin-left: 1rem;
+    margin-top: 0.5rem;
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 3 columns */
-    grid-template-rows: repeat(3, 1fr); /* 3 rows */
-    gap: 0.5rem; /* optional spacing */
+    grid-template-columns: repeat(5, 1fr);
+    align-items: start;
+  }
+
+  li {
+    display: flex;
+    justify-content: center;
+    align-self: start;
   }
 
   select {

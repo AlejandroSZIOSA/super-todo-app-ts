@@ -2,20 +2,13 @@
   margin-left: 7rem;
   background-color: #948979;
   padding: 1rem;
-  border-right: 2px solid #000000;
-  border-bottom: 2px solid #000000;
+  box-shadow: 4px 4px 10px #000000; /* using shadows */
 }
-/* .asidePanelInnerContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-} */
 
 .formOuterContainer {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  /* background-color: darkkhaki; */
 }
 
 .logoContainer {

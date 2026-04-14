@@ -119,3 +119,9 @@
 .organizePriorityContainer {
   display: flex;
 }
+
+@media (min-width: 1024px) {
+  .cardEditContainer {
+    width: 97%;
+  }
+}
