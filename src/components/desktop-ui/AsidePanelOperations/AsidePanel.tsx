@@ -9,12 +9,15 @@ interface AsidePanelProps {
 const AsidePanel: FC<AsidePanelProps> = ({ children, title }) => {
   return (
     <aside className={styles.asidePanelRootContainer}>
-      <div className={styles.asidePanelInnerContainer}>
-        <div className={styles.formOuterContainer}>
-          <h3>{title}</h3>
-          {children}
-        </div>
-        <div> image</div>
+      <div className={styles.formOuterContainer}>
+        <h3>{title}</h3>
+        {children}
+      </div>
+      <div className={styles.logoContainer}>
+        <span>
+          <h3>alias</h3>
+        </span>
+        <div className={styles.innerLogoContainer}></div>
       </div>
     </aside>
   );

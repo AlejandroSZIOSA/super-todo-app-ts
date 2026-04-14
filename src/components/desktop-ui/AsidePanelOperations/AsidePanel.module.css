@@ -1,17 +1,44 @@
 .asidePanelRootContainer {
   margin-left: 7rem;
-  background-color: #f0e68c;
-  padding: 20px;
+  background-color: #948979;
+  padding: 1rem;
+  border-right: 2px solid #000000;
+  border-bottom: 2px solid #000000;
 }
-.asidePanelInnerContainer {
+/* .asidePanelInnerContainer {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-}
+} */
 
 .formOuterContainer {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  background-color: darkkhaki;
+  /* background-color: darkkhaki; */
+}
+
+.logoContainer {
+  position: relative;
+  display: inline-block;
+  background-color: #f35529;
+  width: 300px;
+  height: 300px;
+}
+
+.innerLogoContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* center the inner container */
+  width: 100px;
+  height: 100px;
+  background-color: #006d2a;
+}
+
+.logoContainer span {
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  transform: rotate(30deg);
 }
