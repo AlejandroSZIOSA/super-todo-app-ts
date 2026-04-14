@@ -29,7 +29,6 @@ import { translations } from "../../data/translations";
 import styles from "./Home.module.css";
 import AsidePanel from "../../components/desktop-ui/AsidePanelOperations/AsidePanel";
 
-import Spinner from "../../components/Spinner/Spinner";
 import BarLoader from "../../components/BarLoader/BarLoader";
 
 const HomePage: FC = () => {

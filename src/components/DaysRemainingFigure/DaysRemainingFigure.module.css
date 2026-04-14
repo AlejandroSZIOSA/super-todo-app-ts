@@ -37,14 +37,3 @@
 .expiredRemainingContainer p {
   margin-right: 0.5rem;
 }
-
-@media (min-width: 1024px) {
-  .daysRemainingContainer {
-    margin-right: 0.5rem;
-    /* background-color: aqua; */
-  }
-
-  .timeIconContainer {
-    margin-left: 5px;
-  }
-}
