@@ -19,11 +19,8 @@
 }
 
 .childrenContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 0.3rem 0;
 }
-
-/* @media (min-width: 1024px) {
-  .childrenContainer {
-    display: none;
-  }
-} */

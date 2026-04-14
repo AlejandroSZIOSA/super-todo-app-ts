@@ -8,20 +8,20 @@ const useGetTasksFromDb = (dispatchData: ReturnType<typeof useAppDispatch>) => {
   const [error, setError] = useState<string | null>(null); // State to manage error messages
 
   useEffect(() => {
-    //load todos from db
-    const fetchTodos = async () => {
-      const todosDb = await getAllTodosDb();
-      getTodosFromDb(dispatchData, todosDb);
+    const fetchTasks = async () => {
+      try {
+        const tasksDb = await getAllTodosDb();
+        getTodosFromDb(dispatchData, tasksDb);
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          console.error(error.message);
+        }
+        setError("Failed to load tasks. Please try again.");
+      } /* finally {
+        setIsLoading(false);
+      } */
     };
-
-    try {
-      fetchTodos().then(() => setIsLoading(false)); // Set loading to false after fetching
-    } catch (err) {
-      setIsLoading(false); // Set loading to false if there's an error
-      setError("Failed to load tasks. Please try again.");
-    }
-    /*     fetchTodos();
-     */
+    fetchTasks();
   }, [dispatchData]);
 
   return { isLoading, error };

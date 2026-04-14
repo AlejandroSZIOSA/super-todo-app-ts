@@ -1,4 +1,11 @@
-import { type FC, useState, type ReactNode, useRef, useEffect } from "react";
+import {
+  type FC,
+  useState,
+  type ReactNode,
+  useRef,
+  useEffect,
+  useMemo,
+} from "react";
 import type { RootState } from "../../store";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import TodoForm from "../../components/TodoForm/TodoForm";
@@ -15,14 +22,8 @@ import ConfirmDialog, {
   type ConfirmDialogRef,
 } from "../../components/ConfirmDialog/ConfirmDialog";
 
-import { getAllTodosDb } from "../../services/db/crudsDB";
-
 import { type ConfirmDialogData } from "../../types/shared";
-import {
-  handleCreate,
-  handleRemoveTodo,
-  getTodosFromDb,
-} from "../../utils/crudsREDUX";
+import { handleCreate, handleRemoveTodo } from "../../utils/crudsREDUX";
 
 import { translations } from "../../data/translations";
 
@@ -31,15 +32,13 @@ import AsidePanel from "../../components/desktop-ui/AsidePanelOperations/AsidePa
 
 import BarLoader from "../../components/BarLoader/BarLoader";
 
+import useGetTasksFromDb from "../../hooks/useGetTasksFromDb";
 const HomePage: FC = () => {
   const [dialogData, setDialogData] = useState<ConfirmDialogData>({
     id: null,
     title: "",
     operation: "",
   });
-
-  const [isLoading, setIsLoading] = useState(true); // State to manage loading status
-  const [error, setError] = useState<string | null>(null); // State to manage error messages
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -54,23 +53,7 @@ const HomePage: FC = () => {
   const TRANSLATION = translations[settings.language];
   const { homePage_T } = TRANSLATION;
 
-  //fetch todos from db on component mount
-  useEffect(() => {
-    //load todos from db
-    const fetchTodos = async () => {
-      const todosDb = await getAllTodosDb();
-      getTodosFromDb(dispatch, todosDb);
-    };
-
-    try {
-      fetchTodos().then(() => setIsLoading(false)); // Set loading to false after fetching
-    } catch (err) {
-      setIsLoading(false); // Set loading to false if there's an error
-      setError("Failed to load tasks. Please try again.");
-    }
-    /*     fetchTodos();
-     */
-  }, [dispatch]);
+  const { isLoading, error } = useGetTasksFromDb(dispatch); // Custom hook to fetch tasks from the database and manage loading and error states
 
   //manage no-scroll class on body
   //fixed: problem with side effect when the dialog is open and the user scrolls, the dialog closes but the scroll lock remains, this is to remove the scroll lock when the dialog is closed by any means.
@@ -140,9 +123,8 @@ const HomePage: FC = () => {
     );
   }
 
-  //filtered and sorted task by priority and deadline
-
-  const sortedTodos = sortedTodosFn(todos);
+  //filtered and sorted task by priority and deadline , and useMemo to optimize the performance by memoizing the sorted todos, so it will only re-calculate when the todos array changes, this is to prevent unnecessary re-renders and calculations when the component re-renders for other reasons.
+  const sortedTodos = useMemo(() => sortedTodosFn(todos), [todos]);
 
   return (
     <>
@@ -155,13 +137,22 @@ const HomePage: FC = () => {
             {!homePage_T ? "Add" : homePage_T.addBtn}
           </button>
         ) : (
-          <h2>{!homePage_T ? "Home" : homePage_T.subHeaderTitle}</h2>
+          <>
+            <h2>{!homePage_T ? "Home" : homePage_T.subHeaderTitle}</h2>
+            <div className={styles.loaderContainerDesktop}>
+              <BarLoader />
+            </div>
+          </>
         )}
       </Header>
       <main>
         {content}
-        {isLoading && !error && <BarLoader />}
-        {error && !isLoading && <Message message={error} />}
+        {isMobile && isLoading && !error && (
+          <div className={styles.loaderContainer}>
+            <BarLoader />
+          </div>
+        )}
+        {error && <Message message={error} />}
 
         {sortedTodos.length === 0 && !isLoading && (
           <Message message="Empty List." />

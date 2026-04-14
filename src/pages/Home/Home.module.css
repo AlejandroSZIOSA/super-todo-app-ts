@@ -11,3 +11,15 @@
   list-style: none;
   width: 95%;
 }
+
+.loaderContainer {
+  margin-bottom: 1rem;
+}
+
+.homeSubHeaderContainer {
+  /* margin: 1rem 0; */
+}
+
+.loaderContainerDesktop {
+  margin: 0 auto;
+}
