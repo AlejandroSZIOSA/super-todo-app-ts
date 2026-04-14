@@ -22,7 +22,7 @@ export async function getAllTodosDb() {
   return db.getAll("todos");
 
   //TODO IMPORTANT: Remove after testing
-  /* const db = await dbPromise;
+  /*   const db = await dbPromise;
 
   return new Promise((resolve) => {
     setTimeout(async () => {

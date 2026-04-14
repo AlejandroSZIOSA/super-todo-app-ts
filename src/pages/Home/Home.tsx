@@ -30,6 +30,7 @@ import styles from "./Home.module.css";
 import AsidePanel from "../../components/desktop-ui/AsidePanelOperations/AsidePanel";
 
 import Spinner from "../../components/Spinner/Spinner";
+import BarLoader from "../../components/BarLoader/BarLoader";
 
 const HomePage: FC = () => {
   const [dialogData, setDialogData] = useState<ConfirmDialogData>({
@@ -160,12 +161,14 @@ const HomePage: FC = () => {
       </Header>
       <main>
         {content}
-        {isLoading && !error && <Spinner />}
+        {isLoading && !error && <BarLoader />}
         {error && !isLoading && <Message message={error} />}
 
-        {sortedTodos.length === 0 && !isLoading ? (
+        {sortedTodos.length === 0 && !isLoading && (
           <Message message="Empty List." />
-        ) : (
+        )}
+
+        {sortedTodos.length > 0 && (
           <ol>
             {sortedTodos.map((todo) => (
               <li key={todo.id}>
@@ -177,7 +180,6 @@ const HomePage: FC = () => {
             ))}
           </ol>
         )}
-
         <ConfirmDialog
           ref={dialogRef}
           todoTitle={dialogData.title}
