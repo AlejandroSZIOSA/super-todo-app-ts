@@ -12,6 +12,9 @@
   color: #333;
   margin-left: 1rem;
 }
+.appTitleContainer h1 span {
+  margin-left: 0.5rem;
+}
 
 .appTitleContainer img {
   width: 35px;
