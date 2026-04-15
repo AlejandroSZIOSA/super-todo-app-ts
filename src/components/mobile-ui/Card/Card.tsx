@@ -1,6 +1,6 @@
 import { type FC, useState, useEffect } from "react";
 import type { Todo, Priority } from "../../../types/shared";
-import { ICONS_WIDTH } from "../../../utils/constants";
+import { ICONS_CARDS_WIDTH } from "../../../utils/constants";
 
 import { RemoveIcon, DeadLineIcon } from "../../../assets/icons";
 
@@ -27,8 +27,11 @@ interface CardProps {
 const Card: FC<CardProps> = ({ todoData, onRemove }) => {
   const { id, title, description, priority, deadline, isComplete } = todoData;
   const dispatch = useAppDispatch();
-  const settings = useAppSelector((state: RootState) => state.settings);
-  //TODO: Deriver is done status from the store, this is to
+  const { language, daysCountdown } = useAppSelector(
+    (state: RootState) => state.settings,
+  );
+  /*   const { language, daysCountdown } = settings;
+   */ //TODO: Deriver is done status from the store, this is to
   // prevent the problem with the sync between the local state and the store state,
   // this is to prevent the problem with the toggle complete status button, when the user click
   // on the button, the local state is updated but the store state is not updated yet, so the card component
@@ -39,7 +42,7 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
   const [selectedPriority] = useState<Priority>(priority ?? "low");
 
   //translations  en - swe as context param, this change the current language state
-  const TRANSLATION = translations[settings.language];
+  const TRANSLATION = translations[language];
   const { cardView_T } = TRANSLATION;
 
   //sync isDone with isComplete from the store
@@ -48,8 +51,7 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
   }, [isComplete]);
 
   const daysRemaining = countRemainingDays(new Date(), deadline);
-  const isWarningOn =
-    countRemainingDays(new Date(), deadline) <= settings.daysCountdown;
+  const isWarningOn = countRemainingDays(new Date(), deadline) <= daysCountdown;
   const isExpired = countRemainingDays(new Date(), deadline) < 0;
   /* const isExpired = true; */
 
@@ -151,7 +153,7 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
           className={styles.btnRemove}
           onClick={() => onRemove && onRemove(id)}
         >
-          <RemoveIcon style={{ width: ICONS_WIDTH, height: "auto" }} />
+          <RemoveIcon style={{ width: ICONS_CARDS_WIDTH, height: "auto" }} />
         </button>
       </div>
     </div>

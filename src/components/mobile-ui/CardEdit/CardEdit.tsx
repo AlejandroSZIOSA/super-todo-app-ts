@@ -7,7 +7,7 @@ import { translations } from "../../../data/translations";
 import { RemoveIcon, EditIcon } from "../../../assets/icons";
 import Accordion from "../Accordion/Accordion";
 import styles from "./CardEdit.module.css";
-import { ICONS_WIDTH } from "../../../utils/constants";
+import { ICONS_CARDS_WIDTH } from "../../../utils/constants";
 
 interface CardEditProps {
   todoData: Todo;
@@ -17,23 +17,25 @@ interface CardEditProps {
 }
 
 const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
-  /*   const isMobile = useMediaQuery(RESOLUTIONS.DESKTOP_BREAKPOINT); */
   const { id, title, description, priority, deadline, isComplete } = todoData;
-  const settings = useAppSelector((state: RootState) => state.settings);
+  const { language, daysCountdown } = useAppSelector(
+    (state: RootState) => state.settings,
+  );
 
   //translations  en - swe as context param, this change the current language state
-  const TRANSLATION = translations[settings.language];
+  const TRANSLATION = translations[language];
   const { cardEdit_T, daysRemainingFig_T } = TRANSLATION;
 
+  //TODO create a const new date
+
   const daysRemaining = countRemainingDays(new Date(), deadline);
-  const isWarningOn =
-    countRemainingDays(new Date(), deadline) <= settings.daysCountdown;
+  const isWarningOn = countRemainingDays(new Date(), deadline) <= daysCountdown;
   const isExpired = countRemainingDays(new Date(), deadline) < 0;
   const isToday = countRemainingDays(new Date(), deadline) === 0;
   const isYesterday = countRemainingDays(new Date(), deadline) === -1;
   const isTomorrow = countRemainingDays(new Date(), deadline) === 1;
 
-  //TODO:Fix this component using if else statements
+  //TODO:Fix this component using if else statements in a util function
   return (
     <div className={styles.cardEditContainer}>
       <div
@@ -160,7 +162,7 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
 
       <div className={styles.buttonsContainer}>
         <button onClick={() => onEdit && onEdit(id)}>
-          <EditIcon style={{ width: ICONS_WIDTH, height: "auto" }} />
+          <EditIcon style={{ width: ICONS_CARDS_WIDTH, height: "auto" }} />
         </button>
 
         <p>
@@ -169,7 +171,7 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
         </p>
 
         <button onClick={() => onRemove && onRemove(id)}>
-          <RemoveIcon style={{ width: ICONS_WIDTH, height: "auto" }} />
+          <RemoveIcon style={{ width: ICONS_CARDS_WIDTH, height: "auto" }} />
         </button>
       </div>
     </div>
