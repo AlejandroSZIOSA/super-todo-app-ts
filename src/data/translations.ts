@@ -10,6 +10,7 @@ interface TranslationTypes {
     cardEdit_T: null;
     settingsPage_T: null;
     daysRemainingFig_T: null;
+    navBar_T: null;
   };
 
   sv: {
@@ -21,6 +22,7 @@ interface TranslationTypes {
     cardEdit_T: Record<string, string>;
     settingsPage_T: Record<string, string>;
     daysRemainingFig_T: Record<string, string>;
+    navBar_T: Record<string, string>;
   };
 
   es: {
@@ -32,6 +34,7 @@ interface TranslationTypes {
     cardEdit_T: Record<string, string>;
     settingsPage_T: Record<string, string>;
     daysRemainingFig_T: Record<string, string>;
+    navBar_T: Record<string, string>;
   };
 }
 
@@ -45,6 +48,7 @@ export const translations: TranslationTypes = {
     cardEdit_T: null,
     settingsPage_T: null,
     daysRemainingFig_T: null,
+    navBar_T: null,
   },
 
   sv: {
@@ -131,6 +135,11 @@ export const translations: TranslationTypes = {
       day: "dag",
       days: "dagar",
     },
+    navBar_T: {
+      home: "Hem",
+      organize: "Redigera",
+      settings: "Inställningar",
+    },
   },
   es: {
     homePage_T: {
@@ -198,7 +207,7 @@ export const translations: TranslationTypes = {
       remove: "Eliminar",
     },
     settingsPage_T: {
-      settings: "Configuraciones",
+      settings: "Configuracion",
       language: "Idioma",
       english: "Inglés",
       swedish: "Sueco",
@@ -218,6 +227,11 @@ export const translations: TranslationTypes = {
       in: "En",
       day: "día",
       days: "días",
+    },
+    navBar_T: {
+      home: "Inicio",
+      organize: "Editar",
+      settings: "Opciones",
     },
   },
 };

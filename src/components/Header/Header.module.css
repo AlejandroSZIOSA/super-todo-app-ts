@@ -8,6 +8,7 @@
 }
 
 .appTitleContainer h1 {
+  font-family: quantico;
   font-weight: 600;
   color: #333;
   margin-left: 1rem;
@@ -20,6 +21,7 @@
 }
 
 .childrenContainer {
+  font-family: quantico;
   display: flex;
   flex-direction: column;
   align-items: center;

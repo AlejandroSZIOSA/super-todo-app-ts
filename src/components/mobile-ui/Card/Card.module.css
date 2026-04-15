@@ -1,12 +1,11 @@
 .cardHomeContainer {
   width: 95vw;
   border: 2px solid #2b2a2a;
-  border-radius: 10px;
+  border-radius: 15px;
   background: #feb05d;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   margin-bottom: 12px;
   transition: box-shadow 0.2s ease-in-out;
-  border-radius: 5%;
 }
 
 .cardHomeContainer:hover {
@@ -91,7 +90,7 @@
 }
 
 .warningFigures {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 
 .warningFigureTextContainer span {
