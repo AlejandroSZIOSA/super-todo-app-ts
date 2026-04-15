@@ -43,7 +43,7 @@ header {
   text-align: center;
   z-index: 1000;
   background-color: #948979;
-  /* height: 4rem; */
+  /* height: 6rem; */
 }
 
 main {
@@ -57,7 +57,7 @@ main {
 }
 
 h1 {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
 }
 
 h2 {
