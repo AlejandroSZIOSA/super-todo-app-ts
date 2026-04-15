@@ -80,9 +80,24 @@ const SettingsPage: FC = () => {
             </SelectRootModal>
           ) : (
             <SelectorRoot selectorIdentifier="daysCountdown">
-              <SelectorRoot.Item value={3}>Three</SelectorRoot.Item>
-              <SelectorRoot.Item value={6}>Six</SelectorRoot.Item>
-              <SelectorRoot.Item value={9}>Nine</SelectorRoot.Item>
+              <SelectorRoot.Item value={2}>
+                2 {daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}
+              </SelectorRoot.Item>
+              <SelectorRoot.Item value={3}>
+                3 {daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}
+              </SelectorRoot.Item>
+              <SelectorRoot.Item value={4}>
+                4 {daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}
+              </SelectorRoot.Item>
+              <SelectorRoot.Item value={6}>
+                6 {daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}
+              </SelectorRoot.Item>
+              <SelectorRoot.Item value={9}>
+                9 {daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}
+              </SelectorRoot.Item>
+              <SelectorRoot.Item value={14}>
+                14 {daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}
+              </SelectorRoot.Item>
             </SelectorRoot>
           )}
         </section>

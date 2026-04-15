@@ -56,15 +56,6 @@ const OrganizePage: FC = () => {
   const TRANSLATION = translations[settings.language];
   const { editPage_T } = TRANSLATION;
 
-  //fetch todos from db on component mount and after update the component
-  /*  useEffect(() => {
-    const fetchTodos = async () => {
-      const todosDb = await getAllTodosDb();
-      getTodosFromDb(dispatch, todosDb);
-    };
-    fetchTodos();
-  }, [dispatch]); */
-
   const { isLoading, error } = useGetTasksFromDb(dispatch); // Custom hook to fetch tasks from the database and manage loading and error states
 
   //fixed: problem with dialog backdrop and scroll, when open the dialog the body is blocked to scroll but when close the dialog the body is still blocked, so I added a useEffect to remove the class "no-scroll" when the dialog is closed
