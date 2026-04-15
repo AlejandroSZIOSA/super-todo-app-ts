@@ -99,7 +99,7 @@ ol {
   }
 
   header {
-    height: 6rem;
+    height: 7rem;
   }
 
   main {
@@ -135,6 +135,7 @@ ol {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     align-items: start;
+    width: 100%;
   }
 
   li {

@@ -6,6 +6,7 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   margin-bottom: 12px;
   transition: box-shadow 0.2s ease-in-out;
+  border-radius: 5%;
 }
 
 .cardHomeContainer:hover {

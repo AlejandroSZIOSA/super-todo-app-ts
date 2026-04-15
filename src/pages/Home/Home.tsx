@@ -53,6 +53,7 @@ const HomePage: FC = () => {
   const TRANSLATION = translations[settings.language];
   const { homePage_T } = TRANSLATION;
 
+  //custom hook that persist all tasks from the database and manage the loading and error states, this is to prevent the code duplication and to keep the component clean and focused on the UI logic, and also to make it reusable in other components if needed.
   const { isLoading, error } = useGetTasksFromDb(dispatch); // Custom hook to fetch tasks from the database and manage loading and error states
 
   //manage no-scroll class on body
@@ -139,7 +140,7 @@ const HomePage: FC = () => {
         ) : (
           <>
             <h2>{!homePage_T ? "Home" : homePage_T.subHeaderTitle}</h2>
-            {isLoading && !error && (
+            {isLoading && (
               <div className={styles.loaderContainerDesktop}>
                 <BarLoader />
               </div>
@@ -149,7 +150,8 @@ const HomePage: FC = () => {
       </Header>
       <main>
         {content}
-        {isMobile && isLoading && !error && (
+
+        {isMobile && isLoading && (
           <div className={styles.loaderContainer}>
             <BarLoader />
           </div>
@@ -157,7 +159,9 @@ const HomePage: FC = () => {
         {error && <Message message={error} />}
 
         {sortedTodos.length === 0 && !isLoading && (
-          <Message message="Empty List." />
+          <div className={styles.messageOuterContainer}>
+            <Message message="Empty List." />
+          </div>
         )}
 
         {sortedTodos.length > 0 && (

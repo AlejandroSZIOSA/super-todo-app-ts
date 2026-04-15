@@ -15,7 +15,7 @@ const AsidePanel: FC<AsidePanelProps> = ({ children, title }) => {
       </div>
       <div className={styles.logoContainer}>
         <span>
-          <h3>alias</h3>
+          <h3>Alias</h3>
         </span>
         <div className={styles.innerLogoContainer}></div>
       </div>

@@ -1,5 +1,12 @@
 //Edit Page
-import { type FC, useState, type ReactNode, useRef, useEffect } from "react";
+import {
+  type FC,
+  useState,
+  type ReactNode,
+  useRef,
+  useEffect,
+  useMemo,
+} from "react";
 import type { Todo, ConfirmDialogData } from "../../types/shared";
 import type { RootState } from "../../store";
 import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
@@ -10,20 +17,19 @@ import Header from "../../components/Header/Header";
 import Message from "../../components/Message";
 import CardEdit from "../../components/mobile-ui/CardEdit/CardEdit";
 
+import useGetTasksFromDb from "../../hooks/useGetTasksFromDb";
 import ConfirmDialog, {
   type ConfirmDialogRef,
 } from "../../components/ConfirmDialog/ConfirmDialog";
 
-import {
-  handleRemoveTodo,
-  handleOnEdit,
-  getTodosFromDb,
-} from "../../utils/crudsREDUX";
-import { getAllTodosDb } from "../../services/db/crudsDB";
+import { handleRemoveTodo, handleOnEdit } from "../../utils/crudsREDUX";
 
 import { translations } from "../../data/translations";
 import { sortedTodosFn } from "../../utils/calculations";
 import AsidePanel from "../../components/desktop-ui/AsidePanelOperations/AsidePanel";
+import BarLoader from "../../components/BarLoader/BarLoader";
+
+import styles from "./Organize.module.css";
 
 const OrganizePage: FC = () => {
   const [todoEdit, setTodoEdit] = useState<Omit<Todo, "id" | "isComplete">>({
@@ -51,13 +57,15 @@ const OrganizePage: FC = () => {
   const { editPage_T } = TRANSLATION;
 
   //fetch todos from db on component mount and after update the component
-  useEffect(() => {
+  /*  useEffect(() => {
     const fetchTodos = async () => {
       const todosDb = await getAllTodosDb();
       getTodosFromDb(dispatch, todosDb);
     };
     fetchTodos();
-  }, [dispatch]);
+  }, [dispatch]); */
+
+  const { isLoading, error } = useGetTasksFromDb(dispatch); // Custom hook to fetch tasks from the database and manage loading and error states
 
   //fixed: problem with dialog backdrop and scroll, when open the dialog the body is blocked to scroll but when close the dialog the body is still blocked, so I added a useEffect to remove the class "no-scroll" when the dialog is closed
   useEffect(() => {
@@ -68,8 +76,8 @@ const OrganizePage: FC = () => {
     }
   }, [dialogData]);
 
-  //filtered and sorted task by priority and deadline
-  const sortedTodos = sortedTodosFn(todos);
+  //filtered and sorted task by priority and deadline, optimize using useMemo to prevent unnecessary calculations on every render, it will only recalculate when the todos array changes, this is to improve the performance of the component and prevent unnecessary re-renders of the child components that depend on the sortedTodos.
+  const sortedTodos = useMemo(() => sortedTodosFn(todos), [todos]);
 
   //callback FN set selected values todo item to the reusable form
   function handleEditForm(todoId: number) {
@@ -146,10 +154,29 @@ const OrganizePage: FC = () => {
     <>
       <Header>
         <h2>{editPage_T ? editPage_T.editTask : "Edit Task"}</h2>
+        {!isMobile && isLoading && (
+          <div className={styles.loaderContainerDesktop}>
+            <BarLoader />
+          </div>
+        )}
       </Header>
       <main>
         {content}
-        {sortedTodos.length !== 0 ? (
+
+        {isMobile && isLoading && (
+          <div className={styles.loaderContainer}>
+            <BarLoader />
+          </div>
+        )}
+        {error && <Message message={error} />}
+
+        {sortedTodos.length === 0 && !isLoading && (
+          <div className={styles.messageOuterContainer}>
+            <Message message="Empty List." />
+          </div>
+        )}
+
+        {sortedTodos.length > 0 && (
           <ol>
             {sortedTodos.map((todo, index) => (
               <li key={todo.id}>
@@ -162,8 +189,6 @@ const OrganizePage: FC = () => {
               </li>
             ))}
           </ol>
-        ) : (
-          <Message message="Empty List" />
         )}
       </main>
       <ConfirmDialog
