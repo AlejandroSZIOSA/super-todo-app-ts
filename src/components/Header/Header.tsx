@@ -12,7 +12,7 @@ import { translations } from "../../data/translations";
 import styles from "./Header.module.css";
 
 interface HeaderProps {
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 //using constrains fix the problem with the children prop
