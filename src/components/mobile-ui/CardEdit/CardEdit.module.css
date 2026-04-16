@@ -70,6 +70,7 @@
   justify-content: center; /* centra el elemento principal */
   position: relative;
   margin: 0.5rem 0;
+  font-weight: 600;
 }
 
 .textSuccess {

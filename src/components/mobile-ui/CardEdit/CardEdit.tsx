@@ -86,41 +86,39 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
           />
         </div>
         <div className={`${styles.deadlineContainer} `}>
-          <p>
-            <strong
-              className={
-                isToday && !isComplete && !isExpired ? styles.textExpired : ""
-              }
-            >
-              {isToday && (cardEdit_T ? cardEdit_T.today : "Today")}
-              {isYesterday && (cardEdit_T ? cardEdit_T.yesterday : "Yesterday")}
-              {isTomorrow && (cardEdit_T ? cardEdit_T.tomorrow : "Tomorrow")}
-              {!isComplete &&
-                !isExpired &&
-                !isToday &&
-                !isTomorrow &&
-                `${cardEdit_T ? cardEdit_T.daysRemaining : "Days remaining"} : 
+          <p
+            className={
+              isToday && !isComplete && !isExpired ? styles.textExpired : ""
+            }
+          >
+            {isToday && (cardEdit_T ? cardEdit_T.today : "Today")}
+            {isYesterday && (cardEdit_T ? cardEdit_T.yesterday : "Yesterday")}
+            {isTomorrow && (cardEdit_T ? cardEdit_T.tomorrow : "Tomorrow")}
+            {!isComplete &&
+              !isExpired &&
+              !isToday &&
+              !isTomorrow &&
+              `${cardEdit_T ? cardEdit_T.daysRemaining : "Days remaining"} : 
               ${daysRemaining}`}
-              {isExpired &&
-                !isComplete &&
-                !isToday &&
-                !isYesterday &&
-                !isTomorrow &&
-                `${daysRemainingFig_T ? daysRemainingFig_T.for : "For"} : ${daysRemaining * -1} ${daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}`}
-              {isExpired &&
-                isComplete &&
-                !isToday &&
-                !isYesterday &&
-                !isTomorrow &&
-                `${daysRemainingFig_T ? daysRemainingFig_T.for : "For"} : ${daysRemaining * -1} ${daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}`}
-              {isComplete &&
-                !isToday &&
-                !isYesterday &&
-                !isTomorrow &&
-                !isExpired &&
-                `${cardEdit_T ? cardEdit_T.daysRemaining : "Days remaining"} :
+            {isExpired &&
+              !isComplete &&
+              !isToday &&
+              !isYesterday &&
+              !isTomorrow &&
+              `${daysRemainingFig_T ? daysRemainingFig_T.for : "For"} : ${daysRemaining * -1} ${daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}`}
+            {isExpired &&
+              isComplete &&
+              !isToday &&
+              !isYesterday &&
+              !isTomorrow &&
+              `${daysRemainingFig_T ? daysRemainingFig_T.for : "For"} : ${daysRemaining * -1} ${daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}`}
+            {isComplete &&
+              !isToday &&
+              !isYesterday &&
+              !isTomorrow &&
+              !isExpired &&
+              `${cardEdit_T ? cardEdit_T.daysRemaining : "Days remaining"} :
               ${daysRemaining}`}
-            </strong>
           </p>
           <span
             className={
@@ -150,12 +148,12 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
               !isToday &&
               !isComplete &&
               !isExpired &&
-              (cardEdit_T ? cardEdit_T.verySoon : "Very soon")}
+              (cardEdit_T ? cardEdit_T.verySoon : "Soon")}
             {isWarningOn &&
               isToday &&
               !isComplete &&
               !isExpired &&
-              (cardEdit_T ? cardEdit_T.verySoon : "Very soon")}
+              (cardEdit_T ? cardEdit_T.verySoon : "Soon")}
           </span>
         </div>
       </div>
@@ -166,8 +164,9 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
         </button>
 
         <p>
-          {cardEdit_T ? cardEdit_T.deadline : "Deadline"}:{" "}
-          <strong>{deadline}</strong>
+          <strong>
+            {cardEdit_T ? cardEdit_T.deadline : "Deadline"}: {deadline}
+          </strong>
         </p>
 
         <button onClick={() => onRemove && onRemove(id)}>
