@@ -1,4 +1,4 @@
-import { type FC, useState, useEffect } from "react";
+import { type FC, useState } from "react";
 import type { Todo, Priority } from "../../../types/shared";
 import { ICONS_CARDS_WIDTH } from "../../../utils/constants";
 
