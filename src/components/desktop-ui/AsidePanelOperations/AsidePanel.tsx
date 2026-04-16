@@ -1,6 +1,8 @@
 import { type FC, type ReactNode } from "react";
 import styles from "./AsidePanel.module.css";
 
+import ALIAS_CAT from "../../../assets/images/alias/alias-image.png";
+
 interface AsidePanelProps {
   title: string;
   children?: ReactNode;
@@ -17,7 +19,9 @@ const AsidePanel: FC<AsidePanelProps> = ({ children, title }) => {
         <span>
           <h3>Alias</h3>
         </span>
-        <div className={styles.innerLogoContainer}></div>
+        <div className={styles.innerLogoContainer}>
+          <img src={ALIAS_CAT} alt="logo" />
+        </div>
       </div>
     </aside>
   );

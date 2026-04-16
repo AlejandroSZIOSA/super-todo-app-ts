@@ -43,8 +43,11 @@ const Header: FC<HeaderProps> = ({ children }) => {
       <div className={styles.appTitleContainer}>
         <h1>
           {homePage_T ? homePage_T.appTitle : "Task Reminder"}
-          <span style={{ fontSize: "0.8rem" }}>
+          <span className={styles.versionContainer}>
             {language !== "es" && appVersion}
+          </span>
+          <span className={styles.versionContainerDesktop}>
+            {language === "es" && appVersion}
           </span>
         </h1>
         <img src={flagContent} />

@@ -7,13 +7,20 @@
 }
 
 .appTitleContainer h1 {
-  font-family: quantico;
   font-weight: 600;
   color: #333;
   margin-left: 1rem;
 }
 .appTitleContainer h1 span {
   margin-left: 0.5rem;
+}
+
+.versionContainer {
+  font-size: 0.8rem;
+}
+
+.versionContainerDesktop {
+  display: none;
 }
 
 .appTitleContainer img {
@@ -23,7 +30,6 @@
 }
 
 .childrenContainer {
-  font-family: quantico;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,6 +41,12 @@
   .appTitleContainer {
     height: 70%;
   }
+
+  .versionContainerDesktop {
+    display: inline;
+    font-size: 0.8rem;
+  }
+
   .childrenContainer {
     flex-direction: row;
     justify-content: center;
