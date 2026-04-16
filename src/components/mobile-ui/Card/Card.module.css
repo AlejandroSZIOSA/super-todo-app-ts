@@ -96,7 +96,7 @@
 .warningFigureTextContainer span {
   position: absolute;
   right: 0; /* centra el elemento hacia la derecha */
-  margin-right: 2rem;
+  margin-right: 3rem;
   font-weight: 600;
 }
 
