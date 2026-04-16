@@ -19,7 +19,6 @@ import DaysRemainingFigure from "../../DaysRemainingFigure/DaysRemainingFigure";
 
 interface CardProps {
   todoData: Todo;
-
   onEdit?: (todoId: number) => void; //prop drilling x1 + call back
   onRemove?: (todoId: number) => void;
 }
@@ -30,15 +29,10 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
   const { language, daysCountdown } = useAppSelector(
     (state: RootState) => state.settings,
   );
-  /*   const { language, daysCountdown } = settings;
-   */ //TODO: Deriver is done status from the store, this is to
-  // prevent the problem with the sync between the local state and the store state,
-  // this is to prevent the problem with the toggle complete status button, when the user click
-  // on the button, the local state is updated but the store state is not updated yet, so the card component
-  // is re-rendered with the old isComplete value from the store, this is to prevent that problem by deriving the
-  // isDone state from the store state directly.
-  const [isDone, setIsDone] = useState<boolean>(false);
 
+  /*   
+  const [isDone, setIsDone] = useState<boolean>(false);
+ */
   const [selectedPriority] = useState<Priority>(priority ?? "low");
 
   //translations  en - swe as context param, this change the current language state
@@ -46,9 +40,9 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
   const { cardView_T } = TRANSLATION;
 
   //sync isDone with isComplete from the store
-  useEffect(() => {
+  /*   useEffect(() => {
     setIsDone(isComplete);
-  }, [isComplete]);
+  }, [isComplete]); */
 
   const daysRemaining = countRemainingDays(new Date(), deadline);
   const isWarningOn = countRemainingDays(new Date(), deadline) <= daysCountdown;
@@ -72,7 +66,7 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
             className={styles.warningFigureTextContainer}
           >
             <div className={styles.warningFigures}>🌾</div>{" "}
-            <span>{cardView_T ? cardView_T.quite : "Quite"}</span>
+            {/* <span>{cardView_T ? cardView_T.quite : "Quite"}</span> */}
           </div>
         )}
         {isExpired && !isComplete && (
@@ -86,11 +80,11 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
         <p>ID-{id}</p>
         <p>
           <strong style={{ marginRight: "40px" }}>
-            {isExpired && !isDone
+            {isExpired && !isComplete
               ? cardView_T
                 ? cardView_T.expired
                 : "Expired"
-              : isDone
+              : isComplete
                 ? cardView_T
                   ? cardView_T.done
                   : "Done"
@@ -106,7 +100,7 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
           <Accordion
             title={title}
             description={description}
-            isDone={isDone}
+            isDone={isComplete}
             isExpired={isExpired}
             variant="home"
           />
@@ -115,11 +109,11 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
           {!isExpired && (
             <>
               <button
-                className={`${styles.btnToggleStatus} ${isDone && styles.done} ${!isDone && styles.notDone} ${isWarningOn && !isComplete && styles.notDoneAndWarning} ${isWarningOn && isComplete && styles.done}`}
+                className={`${styles.btnToggleStatus} ${isComplete && styles.done} ${!isComplete && styles.notDone} ${isWarningOn && !isComplete && styles.notDoneAndWarning} ${isWarningOn && isComplete && styles.done}`}
                 onClick={() =>
-                  handleToggleCompleteStatus(dispatch, todoData, isDone)
+                  handleToggleCompleteStatus(dispatch, todoData, isComplete)
                 }
-                disabled={isExpired && !isDone}
+                disabled={isExpired && !isComplete}
               >
                 {cardView_T ? cardView_T.changeStatusBtn : "Change status"}
               </button>

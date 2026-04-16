@@ -19,9 +19,9 @@ const SettingsPage: FC = () => {
   const dispatch = useAppDispatch();
 
   //translations  en - swe as context param, this change the current language state
-  const settings = useAppSelector((state: RootState) => state.settings);
+  const { language } = useAppSelector((state: RootState) => state.settings);
 
-  const TRANSLATION = translations[settings.language];
+  const TRANSLATION = translations[language];
   const { settingsPage_T, daysRemainingFig_T } = TRANSLATION;
 
   //Note: Using compound components pattern :)

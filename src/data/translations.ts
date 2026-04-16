@@ -53,7 +53,7 @@ export const translations: TranslationTypes = {
 
   sv: {
     homePage_T: {
-      addTask: "Lägg till uppgift",
+      addTask: "Lägg till",
       appTitle: "Uppgifts Påminnare",
       addBtn: "Lägg till",
       subHeaderTitle: "Dina uppgifter",
@@ -91,6 +91,7 @@ export const translations: TranslationTypes = {
     },
     editPage_T: {
       editTask: "Redigera uppgift",
+      editTaskAsideTitle: "Redigera",
     },
     cardEdit_T: {
       success: "Succé",
@@ -143,7 +144,7 @@ export const translations: TranslationTypes = {
   },
   es: {
     homePage_T: {
-      addTask: "Agregar tarea",
+      addTask: "Agregar",
       appTitle: "Recordatorio de tareas",
       addBtn: "Agregar",
       subHeaderTitle: "Tus tareas",
@@ -185,6 +186,7 @@ export const translations: TranslationTypes = {
 
     editPage_T: {
       editTask: "Editar Tarea",
+      editTaskAsideTitle: "Editar",
     },
     cardEdit_T: {
       success: "Éxito",
@@ -207,7 +209,7 @@ export const translations: TranslationTypes = {
       remove: "Eliminar",
     },
     settingsPage_T: {
-      settings: "Configuracion",
+      settings: "Opciones",
       language: "Idioma",
       english: "Inglés",
       swedish: "Sueco",

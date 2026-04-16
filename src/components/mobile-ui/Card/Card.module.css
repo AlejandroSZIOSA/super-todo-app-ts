@@ -97,6 +97,7 @@
   position: absolute;
   right: 0; /* centra el elemento hacia la derecha */
   margin-right: 2rem;
+  font-weight: 600;
 }
 
 .subHeaderWarningOn {

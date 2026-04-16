@@ -1,7 +1,7 @@
 .loader {
   width: 200px;
   height: 6px;
-  background: #ddd;
+  background: #222831;
   border-radius: 4px;
   overflow: hidden;
   position: relative;
@@ -12,7 +12,7 @@
   position: absolute;
   height: 100%;
   width: 40%;
-  background: #3498db;
+  background: #43d0ff;
   animation: loading 1.2s infinite ease-in-out;
 }
 

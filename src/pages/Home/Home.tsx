@@ -109,7 +109,7 @@ const HomePage: FC = () => {
     );
   } else {
     content = (
-      <AsidePanel title={homePage_T ? homePage_T.addTask : "Add Task"}>
+      <AsidePanel title={homePage_T ? homePage_T.addTask : "Add"}>
         <TodoForm
           initialValues={{ deadline: getCurrentDate() }}
           /* fix problem with the modal */
@@ -139,7 +139,7 @@ const HomePage: FC = () => {
           </button>
         ) : (
           <>
-            <h2>{!homePage_T ? "Home" : homePage_T.subHeaderTitle}</h2>
+            <h2>{!homePage_T ? "Your Tasks" : homePage_T.subHeaderTitle}</h2>
             {isLoading && (
               <div className={styles.loaderContainerDesktop}>
                 <BarLoader />
