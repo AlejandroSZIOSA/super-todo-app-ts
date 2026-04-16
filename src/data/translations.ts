@@ -53,10 +53,11 @@ export const translations: TranslationTypes = {
 
   sv: {
     homePage_T: {
-      addTask: "Lägg till",
+      addTask: "Lägg till ",
       appTitle: "Uppgifts Påminnare",
       addBtn: "Lägg till",
       subHeaderTitle: "Dina uppgifter",
+      modalAddTask: "Lägg till uppgift",
     },
 
     cardView_T: {
@@ -148,6 +149,7 @@ export const translations: TranslationTypes = {
       appTitle: "Recordatorio de tareas",
       addBtn: "Agregar",
       subHeaderTitle: "Tus tareas",
+      modalAddTask: "Agregar Tarea",
     },
 
     cardView_T: {
