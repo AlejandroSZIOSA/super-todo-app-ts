@@ -3,14 +3,24 @@
   justify-content: space-between;
   align-items: center;
   background-color: #dfd0b8; /* cornflowerblue */
-  height: 7vh;
+  height: 6vh;
 }
 
 .appTitleContainer h1 {
-  font-size: 1.5rem;
   font-weight: 600;
   color: #333;
   margin-left: 1rem;
+}
+.appTitleContainer h1 span {
+  margin-left: 0.5rem;
+}
+
+.versionContainer {
+  font-size: 0.8rem;
+}
+
+.versionContainerDesktop {
+  display: none;
 }
 
 .appTitleContainer img {
@@ -20,11 +30,26 @@
 }
 
 .childrenContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 0.3rem 0;
+  height: 3rem;
 }
 
-/* @media (min-width: 1024px) {
-  .childrenContainer {
-    display: none;
+@media (min-width: 1024px) {
+  .appTitleContainer {
+    height: 70%;
   }
-} */
+
+  .versionContainerDesktop {
+    display: inline;
+    font-size: 0.8rem;
+  }
+
+  .childrenContainer {
+    flex-direction: row;
+    justify-content: center;
+    position: relative;
+  }
+}

@@ -1,7 +1,7 @@
 .cardEditContainer {
   width: auto;
   border: 2px solid #000000;
-  border-radius: 10px;
+  border-radius: 15px;
   background: #f5f2f2;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   margin-bottom: 12px;
@@ -118,4 +118,13 @@
 
 .organizePriorityContainer {
   display: flex;
+}
+
+@media (min-width: 1024px) {
+  /* .deadlineContainer {
+    justify-content: space-between;
+  } */
+  .cardEditContainer {
+    width: 97%;
+  }
 }

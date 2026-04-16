@@ -3,6 +3,35 @@
   color: white;
   background-color: #f35529;
   cursor: pointer;
-  width: 6rem;
-  height: 3rem;
+  width: 5.5rem;
+  height: 2.5rem;
+}
+
+.cardsContainer {
+  list-style: none;
+  width: 95%;
+}
+
+.loaderContainer {
+  margin-bottom: 1rem;
+}
+
+.homeSubHeaderContainer {
+  /* margin: 1rem 0; */
+}
+
+.loaderContainerDesktop {
+  /*  margin: 0 auto; */
+}
+
+.messageOuterContainer {
+  margin: auto;
+}
+
+@media (min-width: 1024px) {
+  .loaderContainerDesktop {
+    position: absolute;
+    right: 0;
+    margin-right: 2rem;
+  }
 }

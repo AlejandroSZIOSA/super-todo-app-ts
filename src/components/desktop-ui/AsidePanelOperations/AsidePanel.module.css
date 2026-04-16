@@ -1,0 +1,48 @@
+.asidePanelRootContainer {
+  margin-left: 7rem;
+  background-color: #948979;
+  padding: 1rem;
+  box-shadow: 4px 4px 10px #000000; /* using shadows */
+}
+
+.formOuterContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.logoContainer {
+  position: relative;
+  display: inline-block;
+  background-color: #222831;
+  width: 300px;
+  height: 300px;
+  border-radius: 5%;
+}
+
+.innerLogoContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* center the inner container */
+  width: 230px;
+  height: 230px;
+  /*   background-color: #006d2a; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.innerLogoContainer img {
+  width: 80%;
+  height: auto;
+  border-radius: 5%;
+}
+
+.logoContainer span {
+  color: #43d0ff;
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  transform: rotate(30deg);
+}

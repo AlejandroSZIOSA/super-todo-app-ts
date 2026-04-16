@@ -27,8 +27,7 @@
   border-radius: 4px;
   resize: vertical;
   height: 4rem;
-  /*   font-size: x-large;
- */
+  font-size: 1rem;
 }
 
 .deadlineContainer {
@@ -79,4 +78,22 @@
 
 .formContainer input:focus {
   outline: 2px solid #f35529;
+}
+
+@media (min-width: 1024px) {
+  .inputsTextContainer textarea {
+    height: 8rem;
+    font-size: 1.125rem;
+  }
+
+  .priorityDesktopContainer select {
+    width: 6vw;
+    margin-left: 0.5rem;
+  }
+
+  .submitBtnContainer {
+    margin-top: 1rem;
+    padding-bottom: 1.5rem;
+    justify-content: center;
+  }
 }

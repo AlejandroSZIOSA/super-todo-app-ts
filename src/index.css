@@ -14,6 +14,8 @@
   padding-bottom: 64px; /* navigation bottom */
 }
 
+/* Global styles for the app
+ */
 * {
   box-sizing: border-box;
   padding: 0;
@@ -24,10 +26,15 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  background-color: #5d5d5d;
+
+  /*   create a pattern background using radial-gradient; */
+  background-color: #948979;
+  background-image: radial-gradient(#5d5d5d 1px, transparent 2px);
+  background-size: 3px 3px;
 }
 
 header {
+  font-family: quantico;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,7 +44,7 @@ header {
   text-align: center;
   z-index: 1000;
   background-color: #948979;
-  /* height: 4rem; */
+  /* height: 6rem; */
 }
 
 main {
@@ -51,11 +58,15 @@ main {
 }
 
 h1 {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
 }
 
 h2 {
   font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.25rem;
 }
 
 p {
@@ -84,19 +95,58 @@ ol {
 }
 
 @media (min-width: 1024px) {
+  body {
+    background-size: 4px 4px;
+  }
+
+  header {
+    height: 7rem;
+  }
+
   main {
     display: flex;
     flex-direction: row;
-    /* justify-content: space-around; */
     align-items: baseline;
+    margin: 0;
   }
 
-  aside {
-    margin-left: 8rem;
+  h1 {
+    font-size: 2.2rem;
   }
 
-  /* .settingsPage__main {
-    flex-direction: column;
-    align-items: unset;
-  } */
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  h3 {
+    font-size: 1.375rem;
+  }
+
+  p {
+    font-size: 1.125rem;
+  }
+
+  label {
+    font-size: 1.25rem;
+  }
+
+  ol {
+    margin-left: 1rem;
+    margin-top: 0.5rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: start;
+    width: 100%;
+  }
+
+  li {
+    display: flex;
+    justify-content: center;
+    align-self: start;
+  }
+
+  select {
+    padding: 10px;
+    font-size: 1.125rem;
+  }
 }

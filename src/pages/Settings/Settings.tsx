@@ -19,9 +19,9 @@ const SettingsPage: FC = () => {
   const dispatch = useAppDispatch();
 
   //translations  en - swe as context param, this change the current language state
-  const settings = useAppSelector((state: RootState) => state.settings);
+  const { language } = useAppSelector((state: RootState) => state.settings);
 
-  const TRANSLATION = translations[settings.language];
+  const TRANSLATION = translations[language];
   const { settingsPage_T, daysRemainingFig_T } = TRANSLATION;
 
   //Note: Using compound components pattern :)
@@ -80,9 +80,24 @@ const SettingsPage: FC = () => {
             </SelectRootModal>
           ) : (
             <SelectorRoot selectorIdentifier="daysCountdown">
-              <SelectorRoot.Item value={3}>Three</SelectorRoot.Item>
-              <SelectorRoot.Item value={6}>Six</SelectorRoot.Item>
-              <SelectorRoot.Item value={9}>Nine</SelectorRoot.Item>
+              <SelectorRoot.Item value={2}>
+                2 {daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}
+              </SelectorRoot.Item>
+              <SelectorRoot.Item value={3}>
+                3 {daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}
+              </SelectorRoot.Item>
+              <SelectorRoot.Item value={4}>
+                4 {daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}
+              </SelectorRoot.Item>
+              <SelectorRoot.Item value={6}>
+                6 {daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}
+              </SelectorRoot.Item>
+              <SelectorRoot.Item value={9}>
+                9 {daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}
+              </SelectorRoot.Item>
+              <SelectorRoot.Item value={14}>
+                14 {daysRemainingFig_T ? daysRemainingFig_T.days : "Days"}
+              </SelectorRoot.Item>
             </SelectorRoot>
           )}
         </section>

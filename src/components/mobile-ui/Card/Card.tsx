@@ -1,6 +1,6 @@
-import { type FC, useState, useEffect } from "react";
+import { type FC, useState } from "react";
 import type { Todo, Priority } from "../../../types/shared";
-import { ICONS_WIDTH } from "../../../utils/constants";
+import { ICONS_CARDS_WIDTH } from "../../../utils/constants";
 
 import { RemoveIcon, DeadLineIcon } from "../../../assets/icons";
 
@@ -19,7 +19,6 @@ import DaysRemainingFigure from "../../DaysRemainingFigure/DaysRemainingFigure";
 
 interface CardProps {
   todoData: Todo;
-
   onEdit?: (todoId: number) => void; //prop drilling x1 + call back
   onRemove?: (todoId: number) => void;
 }
@@ -27,29 +26,26 @@ interface CardProps {
 const Card: FC<CardProps> = ({ todoData, onRemove }) => {
   const { id, title, description, priority, deadline, isComplete } = todoData;
   const dispatch = useAppDispatch();
-  const settings = useAppSelector((state: RootState) => state.settings);
-  //TODO: Deriver is done status from the store, this is to
-  // prevent the problem with the sync between the local state and the store state,
-  // this is to prevent the problem with the toggle complete status button, when the user click
-  // on the button, the local state is updated but the store state is not updated yet, so the card component
-  // is re-rendered with the old isComplete value from the store, this is to prevent that problem by deriving the
-  // isDone state from the store state directly.
-  const [isDone, setIsDone] = useState<boolean>(false);
+  const { language, daysCountdown } = useAppSelector(
+    (state: RootState) => state.settings,
+  );
 
+  /*   
+  const [isDone, setIsDone] = useState<boolean>(false);
+ */
   const [selectedPriority] = useState<Priority>(priority ?? "low");
 
   //translations  en - swe as context param, this change the current language state
-  const TRANSLATION = translations[settings.language];
+  const TRANSLATION = translations[language];
   const { cardView_T } = TRANSLATION;
 
   //sync isDone with isComplete from the store
-  useEffect(() => {
+  /*   useEffect(() => {
     setIsDone(isComplete);
-  }, [isComplete]);
+  }, [isComplete]); */
 
   const daysRemaining = countRemainingDays(new Date(), deadline);
-  const isWarningOn =
-    countRemainingDays(new Date(), deadline) <= settings.daysCountdown;
+  const isWarningOn = countRemainingDays(new Date(), deadline) <= daysCountdown;
   const isExpired = countRemainingDays(new Date(), deadline) < 0;
   /* const isExpired = true; */
 
@@ -60,8 +56,8 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
       >
         {isWarningOn && !isExpired && !isComplete && (
           <div className={styles.warningFigureTextContainer}>
-            <>👀</>
-            <span>{cardView_T ? cardView_T.verySoon : "Very soon"}</span>
+            <div className={styles.warningFigures}>👀</div>
+            <span>{cardView_T ? cardView_T.verySoon : "Soon"}</span>
           </div>
         )}
         {!isWarningOn && !isComplete && (
@@ -69,11 +65,14 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
             style={{ color: "#EEFF00" }}
             className={styles.warningFigureTextContainer}
           >
-            <>🌾</> <span>{cardView_T ? cardView_T.quite : "Quite"}</span>
+            <div className={styles.warningFigures}>🌾</div>{" "}
+            {/* <span>{cardView_T ? cardView_T.quite : "Quite"}</span> */}
           </div>
         )}
-        {isExpired && !isComplete && <> 🎈 </>}
-        {isComplete && <> 😃🎉✨</>}
+        {isExpired && !isComplete && (
+          <div className={styles.warningFigures}> 🎈 </div>
+        )}
+        {isComplete && <div className={styles.warningFigures}> 😃🎉✨</div>}
       </div>
       <div
         className={`${styles.cardHomeSubHeader} ${isWarningOn && !isExpired && !isComplete && styles.subHeaderWarningOn} ${!isWarningOn && !isComplete && styles.subHeaderWarningOff} ${isExpired && !isComplete && styles.subHeaderExpired} ${isComplete && styles.subHeaderSuccess} ${isComplete && isExpired && styles.subHeaderSuccess}}`}
@@ -81,11 +80,11 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
         <p>ID-{id}</p>
         <p>
           <strong style={{ marginRight: "40px" }}>
-            {isExpired && !isDone
+            {isExpired && !isComplete
               ? cardView_T
                 ? cardView_T.expired
                 : "Expired"
-              : isDone
+              : isComplete
                 ? cardView_T
                   ? cardView_T.done
                   : "Done"
@@ -101,7 +100,7 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
           <Accordion
             title={title}
             description={description}
-            isDone={isDone}
+            isDone={isComplete}
             isExpired={isExpired}
             variant="home"
           />
@@ -110,11 +109,11 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
           {!isExpired && (
             <>
               <button
-                className={`${styles.btnToggleStatus} ${isDone && styles.done} ${!isDone && styles.notDone} ${isWarningOn && !isComplete && styles.notDoneAndWarning} ${isWarningOn && isComplete && styles.done}`}
+                className={`${styles.btnToggleStatus} ${isComplete && styles.done} ${!isComplete && styles.notDone} ${isWarningOn && !isComplete && styles.notDoneAndWarning} ${isWarningOn && isComplete && styles.done}`}
                 onClick={() =>
-                  handleToggleCompleteStatus(dispatch, todoData, isDone)
+                  handleToggleCompleteStatus(dispatch, todoData, isComplete)
                 }
-                disabled={isExpired && !isDone}
+                disabled={isExpired && !isComplete}
               >
                 {cardView_T ? cardView_T.changeStatusBtn : "Change status"}
               </button>
@@ -148,7 +147,7 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
           className={styles.btnRemove}
           onClick={() => onRemove && onRemove(id)}
         >
-          <RemoveIcon style={{ width: ICONS_WIDTH, height: "auto" }} />
+          <RemoveIcon style={{ width: ICONS_CARDS_WIDTH, height: "auto" }} />
         </button>
       </div>
     </div>

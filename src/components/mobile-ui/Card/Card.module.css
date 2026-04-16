@@ -1,7 +1,7 @@
 .cardHomeContainer {
-  width: auto;
+  width: 95vw;
   border: 2px solid #2b2a2a;
-  border-radius: 10px;
+  border-radius: 15px;
   background: #feb05d;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   margin-bottom: 12px;
@@ -89,10 +89,15 @@
   width: 100%;
 }
 
+.warningFigures {
+  font-size: 1.3rem;
+}
+
 .warningFigureTextContainer span {
   position: absolute;
   right: 0; /* centra el elemento hacia la derecha */
   margin-right: 2rem;
+  font-weight: 600;
 }
 
 .subHeaderWarningOn {
@@ -150,15 +155,15 @@
   align-items: center; /* centra verticalmente */
   justify-content: center; /* centra el elemento principal */
   position: relative;
-  height: 3.5rem;
+  min-height: 3.5rem;
 }
 
 .btnToggleStatus {
   /* border: 2px solid #007bff; */
   color: white;
   cursor: pointer;
-  width: 35vw;
-  height: 5vh;
+  min-width: 8rem;
+  min-height: 5vh;
   border-radius: 16px;
 }
 
@@ -201,4 +206,14 @@
 
 .btnRemove {
   display: contents;
+}
+
+@media (min-width: 1024px) {
+  .cardHomeContainer {
+    width: 95%;
+  }
+
+  .btnToggleStatus {
+    min-height: 3.5vh;
+  }
 }

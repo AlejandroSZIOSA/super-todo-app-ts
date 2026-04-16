@@ -21,6 +21,6 @@ export type Language = "en" | "sv" | "es";
 export type Theme = "default" | "ocean";
 
 //countdown days remainder
-export type DaysCountdown = 2 | 3 | 6 | 9;
+export type DaysCountdown = 2 | 3 | 4 | 6 | 9 | 14;
 
 export type Priority = "low" | "medium" | "high";

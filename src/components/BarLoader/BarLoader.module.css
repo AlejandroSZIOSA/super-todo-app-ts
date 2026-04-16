@@ -1,0 +1,29 @@
+.loader {
+  width: 200px;
+  height: 6px;
+  background: #222831;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.loader::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 40%;
+  background: #43d0ff;
+  animation: loading 1.2s infinite ease-in-out;
+}
+
+@keyframes loading {
+  0% {
+    left: -40%;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+  }
+}

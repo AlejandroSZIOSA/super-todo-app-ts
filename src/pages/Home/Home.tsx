@@ -1,4 +1,11 @@
-import { type FC, useState, type ReactNode, useRef, useEffect } from "react";
+import {
+  type FC,
+  useState,
+  type ReactNode,
+  useRef,
+  useEffect,
+  useMemo,
+} from "react";
 import type { RootState } from "../../store";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import TodoForm from "../../components/TodoForm/TodoForm";
@@ -10,31 +17,29 @@ import { getCurrentDate, sortedTodosFn } from "../../utils/calculations";
 import Message from "../../components/Message";
 import Header from "../../components/Header/Header";
 import Card from "../../components/mobile-ui/Card/Card";
-import TodoItem from "../../components/desktop-ui/TodoItem/TodoItem";
 
 import ConfirmDialog, {
   type ConfirmDialogRef,
 } from "../../components/ConfirmDialog/ConfirmDialog";
 
-import { getAllTodosDb } from "../../services/db/crudsDB";
-
 import { type ConfirmDialogData } from "../../types/shared";
-import {
-  handleCreate,
-  handleRemoveTodo,
-  getTodosFromDb,
-} from "../../utils/crudsREDUX";
+import { handleCreate, handleRemoveTodo } from "../../utils/crudsREDUX";
 
 import { translations } from "../../data/translations";
 
 import styles from "./Home.module.css";
+import AsidePanel from "../../components/desktop-ui/AsidePanelOperations/AsidePanel";
 
+import BarLoader from "../../components/BarLoader/BarLoader";
+
+import useGetTasksFromDb from "../../hooks/useGetTasksFromDb";
 const HomePage: FC = () => {
   const [dialogData, setDialogData] = useState<ConfirmDialogData>({
     id: null,
     title: "",
     operation: "",
   });
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { todos } = useAppSelector((state: RootState) => state.todos);
@@ -48,15 +53,8 @@ const HomePage: FC = () => {
   const TRANSLATION = translations[settings.language];
   const { homePage_T } = TRANSLATION;
 
-  //fetch todos from db on component mount
-  useEffect(() => {
-    //load todos from db
-    const fetchTodos = async () => {
-      const todosDb = await getAllTodosDb();
-      getTodosFromDb(dispatch, todosDb);
-    };
-    fetchTodos();
-  }, [dispatch]);
+  //custom hook that persist all tasks from the database and manage the loading and error states, this is to prevent the code duplication and to keep the component clean and focused on the UI logic, and also to make it reusable in other components if needed.
+  const { isLoading, error } = useGetTasksFromDb(dispatch); // Custom hook to fetch tasks from the database and manage loading and error states
 
   //manage no-scroll class on body
   //fixed: problem with side effect when the dialog is open and the user scrolls, the dialog closes but the scroll lock remains, this is to remove the scroll lock when the dialog is closed by any means.
@@ -111,8 +109,7 @@ const HomePage: FC = () => {
     );
   } else {
     content = (
-      <aside>
-        <h3>Add New Task</h3>
+      <AsidePanel title={homePage_T ? homePage_T.addTask : "Add"}>
         <TodoForm
           initialValues={{ deadline: getCurrentDate() }}
           /* fix problem with the modal */
@@ -123,13 +120,12 @@ const HomePage: FC = () => {
           operation="create"
           submitBtnLabel="Add"
         />
-      </aside>
+      </AsidePanel>
     );
   }
 
-  //filtered and sorted task by priority and deadline
-
-  const sortedTodos = sortedTodosFn(todos);
+  //filtered and sorted task by priority and deadline , and useMemo to optimize the performance by memoizing the sorted todos, so it will only re-calculate when the todos array changes, this is to prevent unnecessary re-renders and calculations when the component re-renders for other reasons.
+  const sortedTodos = useMemo(() => sortedTodosFn(todos), [todos]);
 
   return (
     <>
@@ -142,36 +138,43 @@ const HomePage: FC = () => {
             {!homePage_T ? "Add" : homePage_T.addBtn}
           </button>
         ) : (
-          <h2>{!homePage_T ? "Home" : homePage_T.subHeaderTitle}</h2>
+          <>
+            <h2>{!homePage_T ? "Your Tasks" : homePage_T.subHeaderTitle}</h2>
+            {isLoading && (
+              <div className={styles.loaderContainerDesktop}>
+                <BarLoader />
+              </div>
+            )}
+          </>
         )}
       </Header>
       <main>
         {content}
-        {sortedTodos.length !== 0 ? (
+
+        {isMobile && isLoading && (
+          <div className={styles.loaderContainer}>
+            <BarLoader />
+          </div>
+        )}
+        {error && <Message message={error} />}
+
+        {sortedTodos.length === 0 && !isLoading && (
+          <div className={styles.messageOuterContainer}>
+            <Message message="Empty List." />
+          </div>
+        )}
+
+        {sortedTodos.length > 0 && (
           <ol>
             {sortedTodos.map((todo) => (
               <li key={todo.id}>
-                {isMobile ? (
-                  <Card
-                    todoData={todo}
-                    onRemove={(id) =>
-                      handleOpenDialog(id, todo.title, "remove")
-                    }
-                  />
-                ) : (
-                  <TodoItem
-                    todoData={todo}
-                    page="home"
-                    onRemove={(id) =>
-                      handleOpenDialog(id, todo.title, "remove")
-                    }
-                  />
-                )}
+                <Card
+                  todoData={todo}
+                  onRemove={(id) => handleOpenDialog(id, todo.title, "remove")}
+                />
               </li>
             ))}
           </ol>
-        ) : (
-          <Message message="Empty List." />
         )}
         <ConfirmDialog
           ref={dialogRef}

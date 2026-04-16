@@ -10,6 +10,7 @@ interface TranslationTypes {
     cardEdit_T: null;
     settingsPage_T: null;
     daysRemainingFig_T: null;
+    navBar_T: null;
   };
 
   sv: {
@@ -21,6 +22,7 @@ interface TranslationTypes {
     cardEdit_T: Record<string, string>;
     settingsPage_T: Record<string, string>;
     daysRemainingFig_T: Record<string, string>;
+    navBar_T: Record<string, string>;
   };
 
   es: {
@@ -32,6 +34,7 @@ interface TranslationTypes {
     cardEdit_T: Record<string, string>;
     settingsPage_T: Record<string, string>;
     daysRemainingFig_T: Record<string, string>;
+    navBar_T: Record<string, string>;
   };
 }
 
@@ -45,18 +48,19 @@ export const translations: TranslationTypes = {
     cardEdit_T: null,
     settingsPage_T: null,
     daysRemainingFig_T: null,
+    navBar_T: null,
   },
 
   sv: {
     homePage_T: {
-      addTask: "Lägg till uppgift",
+      addTask: "Lägg till",
       appTitle: "Uppgifts Påminnare",
       addBtn: "Lägg till",
       subHeaderTitle: "Dina uppgifter",
     },
 
     cardView_T: {
-      verySoon: "Väldigt snart",
+      verySoon: "Snart",
       quite: " Lugnt",
       priority: "Prioritet",
       done: "Klart",
@@ -87,12 +91,13 @@ export const translations: TranslationTypes = {
     },
     editPage_T: {
       editTask: "Redigera uppgift",
+      editTaskAsideTitle: "Redigera",
     },
     cardEdit_T: {
       success: "Succé",
       quite: "Lugnt",
       expired: "Utgånget",
-      verySoon: "Väldigt snart",
+      verySoon: "Snart",
       today: "Idag",
       yesterday: "Igår",
       tomorrow: "Imorgon",
@@ -131,10 +136,15 @@ export const translations: TranslationTypes = {
       day: "dag",
       days: "dagar",
     },
+    navBar_T: {
+      home: "Hem",
+      organize: "Redigera",
+      settings: "Inställningar",
+    },
   },
   es: {
     homePage_T: {
-      addTask: "Agregar tarea",
+      addTask: "Agregar",
       appTitle: "Recordatorio de tareas",
       addBtn: "Agregar",
       subHeaderTitle: "Tus tareas",
@@ -144,7 +154,7 @@ export const translations: TranslationTypes = {
       today: "Hoy",
       yesterday: "Ayer",
       tomorrow: "Mañana",
-      verySoon: "Muy pronto",
+      verySoon: "Pronto",
       quite: "Tranquilo",
       priority: "Prioridad",
       done: "Hecho",
@@ -176,12 +186,13 @@ export const translations: TranslationTypes = {
 
     editPage_T: {
       editTask: "Editar Tarea",
+      editTaskAsideTitle: "Editar",
     },
     cardEdit_T: {
       success: "Éxito",
       quite: "Tranquilo",
       expired: "Expirado",
-      verySoon: "Muy pronto",
+      verySoon: "Pronto",
       today: "Hoy",
       yesterday: "Ayer",
       tomorrow: "Mañana",
@@ -198,7 +209,7 @@ export const translations: TranslationTypes = {
       remove: "Eliminar",
     },
     settingsPage_T: {
-      settings: "Configuraciones",
+      settings: "Opciones",
       language: "Idioma",
       english: "Inglés",
       swedish: "Sueco",
@@ -218,6 +229,11 @@ export const translations: TranslationTypes = {
       in: "En",
       day: "día",
       days: "días",
+    },
+    navBar_T: {
+      home: "Inicio",
+      organize: "Editar",
+      settings: "Opciones",
     },
   },
 };

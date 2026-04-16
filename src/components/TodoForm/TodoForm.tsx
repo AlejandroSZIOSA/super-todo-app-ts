@@ -166,7 +166,7 @@ const TodoForm: FC<TodoFormProps> = ({
       </div>
 
       {!isMobile && (
-        <>
+        <div className={styles.priorityDesktopContainer}>
           <label htmlFor="priority">
             {todoForm_T ? todoForm_T.priority : "Priority"}
           </label>
@@ -188,7 +188,7 @@ const TodoForm: FC<TodoFormProps> = ({
             <option value="high">high</option>
           </select>
           <br />
-        </>
+        </div>
       )}
 
       {(operation === "create" || operation === "edit") && isMobile && (
