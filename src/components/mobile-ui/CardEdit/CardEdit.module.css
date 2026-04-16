@@ -70,7 +70,7 @@
   justify-content: center; /* centra el elemento principal */
   position: relative;
   margin: 0.5rem 0;
-  font-weight: 600;
+  /* font-weight: 600; */
 }
 
 .textSuccess {
@@ -85,6 +85,7 @@
   position: absolute;
   right: 0; /* centra el elemento hacia la derecha */
   margin-right: 1rem;
+  font-weight: 600;
 }
 
 .deadlineMessageLeft {
