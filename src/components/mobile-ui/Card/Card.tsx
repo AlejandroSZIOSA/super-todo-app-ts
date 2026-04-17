@@ -1,4 +1,4 @@
-import { type FC, useState } from "react";
+import { type FC, useState, useEffect } from "react";
 import type { Todo, Priority } from "../../../types/shared";
 import { ICONS_CARDS_WIDTH } from "../../../utils/constants";
 
@@ -16,6 +16,7 @@ import { handleToggleCompleteStatus } from "../../../utils/crudsREDUX";
 import styles from "./Card.module.css";
 import PriorityMark from "../../PriorityMark/PriorityMark";
 import DaysRemainingFigure from "../../DaysRemainingFigure/DaysRemainingFigure";
+import { saveTodoDb } from "../../../services/db/crudsDB";
 
 interface CardProps {
   todoData: Todo;
@@ -30,9 +31,8 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
     (state: RootState) => state.settings,
   );
 
-  /*   
-  const [isDone, setIsDone] = useState<boolean>(false);
- */
+  const [isDone, setIsDone] = useState<boolean>(isComplete);
+
   const [selectedPriority] = useState<Priority>(priority ?? "low");
 
   //translations  en - swe as context param, this change the current language state
@@ -49,18 +49,29 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
   const isExpired = countRemainingDays(deadline) < 0;
   /* const isExpired = true; */
 
+  const handleToggleStatus = async (task: Todo, isComplete: boolean) => {
+    try {
+      saveTodoDb({ ...task, isComplete: !isComplete });
+      setIsDone((prev) => !prev);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
+    }
+  };
+
   return (
     <div className={styles.cardHomeContainer}>
       <div
-        className={`${styles.cardHomeHeader} ${isWarningOn && !isExpired && !isComplete && styles.warningShow} ${!isWarningOn && !isComplete && styles.warningNotShow} ${isExpired && styles.expired} ${isComplete && styles.success}`}
+        className={`${styles.cardHomeHeader} ${isWarningOn && !isExpired && !isDone && styles.warningShow} ${!isWarningOn && !isDone && styles.warningNotShow} ${isExpired && styles.expired} ${isDone && styles.success}`}
       >
-        {isWarningOn && !isExpired && !isComplete && (
+        {isWarningOn && !isExpired && !isDone && (
           <div className={styles.warningFigureTextContainer}>
             <div className={styles.warningFigures}>👀</div>
             <span>{cardView_T ? cardView_T.verySoon : "Soon"}</span>
           </div>
         )}
-        {!isWarningOn && !isComplete && (
+        {!isWarningOn && !isDone && (
           <div
             style={{ color: "#EEFF00" }}
             className={styles.warningFigureTextContainer}
@@ -69,22 +80,22 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
             {/* <span>{cardView_T ? cardView_T.quite : "Quite"}</span> */}
           </div>
         )}
-        {isExpired && !isComplete && (
+        {isExpired && !isDone && (
           <div className={styles.warningFigures}> 🎈 </div>
         )}
-        {isComplete && <div className={styles.warningFigures}> 😃🎉✨</div>}
+        {isDone && <div className={styles.warningFigures}> 😃🎉✨</div>}
       </div>
       <div
-        className={`${styles.cardHomeSubHeader} ${isWarningOn && !isExpired && !isComplete && styles.subHeaderWarningOn} ${!isWarningOn && !isComplete && styles.subHeaderWarningOff} ${isExpired && !isComplete && styles.subHeaderExpired} ${isComplete && styles.subHeaderSuccess} ${isComplete && isExpired && styles.subHeaderSuccess}}`}
+        className={`${styles.cardHomeSubHeader} ${isWarningOn && !isExpired && !isDone && styles.subHeaderWarningOn} ${!isWarningOn && !isDone && styles.subHeaderWarningOff} ${isExpired && !isDone && styles.subHeaderExpired} ${isDone && styles.subHeaderSuccess} ${isDone && isExpired && styles.subHeaderSuccess}}`}
       >
         <p>ID-{id}</p>
         <p>
           <strong style={{ marginRight: "40px" }}>
-            {isExpired && !isComplete
+            {isExpired && !isDone
               ? cardView_T
                 ? cardView_T.expired
                 : "Expired"
-              : isComplete
+              : isDone
                 ? cardView_T
                   ? cardView_T.done
                   : "Done"
@@ -100,7 +111,7 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
           <Accordion
             title={title}
             description={description}
-            isDone={isComplete}
+            isDone={isDone}
             isExpired={isExpired}
             variant="home"
           />
@@ -109,11 +120,9 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
           {!isExpired && (
             <>
               <button
-                className={`${styles.btnToggleStatus} ${isComplete && styles.done} ${!isComplete && styles.notDone} ${isWarningOn && !isComplete && styles.notDoneAndWarning} ${isWarningOn && isComplete && styles.done}`}
-                onClick={() =>
-                  handleToggleCompleteStatus(dispatch, todoData, isComplete)
-                }
-                disabled={isExpired && !isComplete}
+                className={`${styles.btnToggleStatus} ${isDone && styles.done} ${!isDone && styles.notDone} ${isWarningOn && !isDone && styles.notDoneAndWarning} ${isWarningOn && isDone && styles.done}`}
+                onClick={() => handleToggleStatus(todoData, isComplete)}
+                disabled={isExpired && !isDone}
               >
                 {cardView_T ? cardView_T.changeStatusBtn : "Change status"}
               </button>

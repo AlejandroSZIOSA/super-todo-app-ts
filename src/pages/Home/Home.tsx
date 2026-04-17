@@ -52,7 +52,7 @@ const HomePage: FC = () => {
   const { homePage_T } = TRANSLATION;
 
   //custom hook that persist all tasks from the database and manage the loading and error states, this is to prevent the code duplication and to keep the component clean and focused on the UI logic, and also to make it reusable in other components if needed.
-  const { isLoading, error } = useGetTasksFromDb(dispatch); // Custom hook to fetch tasks from the database and manage loading and error states
+  const { data, isLoading, error } = useGetTasksFromDb(dispatch); // Custom hook to fetch tasks from the database and manage loading and error states
 
   //manage no-scroll class on body
   //fixed: problem with side effect when the dialog is open and the user scrolls, the dialog closes but the scroll lock remains, this is to remove the scroll lock when the dialog is closed by any means.
@@ -123,7 +123,7 @@ const HomePage: FC = () => {
   }
 
   //filtered and sorted task by priority and deadline , and useMemo to optimize the performance by memoizing the sorted todos, so it will only re-calculate when the todos array changes, this is to prevent unnecessary re-renders and calculations when the component re-renders for other reasons.
-  const sortedTodos = useMemo(() => sortedTodosFn(todos), [todos]);
+  const sortedTodos = useMemo(() => sortedTodosFn(data), [data]);
 
   return (
     <>
