@@ -4,7 +4,7 @@ import { getTodosFromDb } from "../utils/crudsREDUX";
 import { useAppDispatch } from "./reduxHooks";
 import { type Todo } from "../types/shared";
 
-const useGetTasksFromDb = (dispatchData: ReturnType<typeof useAppDispatch>) => {
+const useGetTasksFromDb = () => {
   const [isLoading, setIsLoading] = useState(true); // State to manage loading status
   const [error, setError] = useState<string | null>(null); // State to manage error messages
   const [data, setData] = useState<Todo[]>([]); // State to manage fetched data
@@ -24,9 +24,9 @@ const useGetTasksFromDb = (dispatchData: ReturnType<typeof useAppDispatch>) => {
       }
     };
     fetchTasks();
-  }, [dispatchData]);
+  }, [data]);
 
-  return { data, isLoading, error };
+  return { data, setData, isLoading, error };
 };
 
 export default useGetTasksFromDb;

@@ -16,7 +16,7 @@ import { handleToggleCompleteStatus } from "../../../utils/crudsREDUX";
 import styles from "./Card.module.css";
 import PriorityMark from "../../PriorityMark/PriorityMark";
 import DaysRemainingFigure from "../../DaysRemainingFigure/DaysRemainingFigure";
-import { saveTodoDb } from "../../../services/db/crudsDB";
+import { deleteTodoDb, saveTodoDb } from "../../../services/db/crudsDB";
 
 interface CardProps {
   todoData: Todo;
@@ -57,6 +57,7 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
       if (error instanceof Error) {
         console.error(error.message);
       }
+      return;
     }
   };
 

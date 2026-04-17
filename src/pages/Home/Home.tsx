@@ -16,12 +16,15 @@ import Message from "../../components/Message";
 import Header from "../../components/Header/Header";
 import Card from "../../components/mobile-ui/Card/Card";
 
+import { type Todo } from "../../types/shared";
 import ConfirmDialog, {
   type ConfirmDialogRef,
 } from "../../components/ConfirmDialog/ConfirmDialog";
 
 import { type ConfirmDialogData } from "../../types/shared";
-import { handleCreate, handleRemoveTodo } from "../../utils/crudsREDUX";
+/* import { handleCreate, handleRemoveTodo } from "../../utils/crudsREDUX";  continuar*/
+
+import { deleteTodoDb, saveTodoDb } from "../../services/db/crudsDB";
 
 import { translations } from "../../data/translations";
 
@@ -52,7 +55,7 @@ const HomePage: FC = () => {
   const { homePage_T } = TRANSLATION;
 
   //custom hook that persist all tasks from the database and manage the loading and error states, this is to prevent the code duplication and to keep the component clean and focused on the UI logic, and also to make it reusable in other components if needed.
-  const { data, isLoading, error } = useGetTasksFromDb(dispatch); // Custom hook to fetch tasks from the database and manage loading and error states
+  const { data, isLoading, error } = useGetTasksFromDb(); // Custom hook to fetch tasks from the database and manage loading and error states
 
   //manage no-scroll class on body
   //fixed: problem with side effect when the dialog is open and the user scrolls, the dialog closes but the scroll lock remains, this is to remove the scroll lock when the dialog is closed by any means.
@@ -65,6 +68,28 @@ const HomePage: FC = () => {
     }
   }, [dialogData.id]);
 
+  const handleCreate = async (newTask: Todo) => {
+    try {
+      saveTodoDb(newTask);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
+      return;
+    }
+  };
+
+  const handleRemove = async (id: number) => {
+    try {
+      deleteTodoDb(id);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
+      return;
+    }
+  };
+
   const handleOpenDialog = (
     todoId: number,
     title: string,
@@ -76,7 +101,8 @@ const HomePage: FC = () => {
 
   const confirmAction = () => {
     if (dialogData.id) {
-      handleRemoveTodo(dispatch, dialogData.id);
+      /* handleRemoveTodo(dispatch, dialogData.id); */
+      handleRemove(dialogData.id);
       setDialogData({ id: null, operation: "", title: "" });
       //style class no-scroll is removed in the handleCancel function inside the ConfirmDialog component, this is to prevent the scroll lock when the dialog is closed after confirming the action.
     }
@@ -96,7 +122,8 @@ const HomePage: FC = () => {
             initialValues={{ deadline: getCurrentDateInput() }}
             /* fix problem with the modal */
             onSubmit={(values) => {
-              handleCreate(dispatch, values);
+              /* handleCreate(dispatch, values); */
+              handleCreate(values);
               setIsModalOpen(false);
             }}
             operation="create"
