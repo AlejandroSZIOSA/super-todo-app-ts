@@ -7,7 +7,7 @@ import {
   useMemo,
 } from "react";
 import type { RootState } from "../../store";
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
+import { useAppSelector } from "../../hooks/reduxHooks";
 import TodoForm from "../../components/TodoForm/TodoForm";
 import useMediaQuery, { RESOLUTIONS } from "../../hooks/useMediaQuery";
 import Modal from "../../components/mobile-ui/Modal/Modal";
@@ -43,9 +43,6 @@ const HomePage: FC = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { todos } = useAppSelector((state: RootState) => state.todos);
-  const dispatch = useAppDispatch();
-
   const isMobile = useMediaQuery(RESOLUTIONS.DESKTOP_BREAKPOINT); //It is working perfectly
 
   const dialogRef = useRef<ConfirmDialogRef>(null); //Imported type for ConfirmDialogRef
@@ -55,7 +52,7 @@ const HomePage: FC = () => {
   const { homePage_T } = TRANSLATION;
 
   //custom hook that persist all tasks from the database and manage the loading and error states, this is to prevent the code duplication and to keep the component clean and focused on the UI logic, and also to make it reusable in other components if needed.
-  const { data, isLoading, error } = useGetTasksFromDb(); // Custom hook to fetch tasks from the database and manage loading and error states
+  const { data, isLoading, error, refetch } = useGetTasksFromDb(); // Custom hook to fetch tasks from the database and manage loading and error states
 
   //manage no-scroll class on body
   //fixed: problem with side effect when the dialog is open and the user scrolls, the dialog closes but the scroll lock remains, this is to remove the scroll lock when the dialog is closed by any means.
@@ -69,24 +66,25 @@ const HomePage: FC = () => {
   }, [dialogData.id]);
 
   const handleCreate = async (newTask: Todo) => {
+    console.log("Creating task:", newTask); // Debug log to check the values being passed
     try {
       saveTodoDb(newTask);
+      refetch(); //Fix: Refetch tasks after creating a new one to update the UI,fn by reference
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error(error.message);
       }
-      return;
     }
   };
 
   const handleRemove = async (id: number) => {
     try {
       deleteTodoDb(id);
+      refetch(); // Fix:Refetch tasks after deleting to update the UI,fn by reference
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error(error.message);
       }
-      return;
     }
   };
 
@@ -123,7 +121,7 @@ const HomePage: FC = () => {
             /* fix problem with the modal */
             onSubmit={(values) => {
               /* handleCreate(dispatch, values); */
-              handleCreate(values);
+              handleCreate(values as Todo);
               setIsModalOpen(false);
             }}
             operation="create"
@@ -139,8 +137,8 @@ const HomePage: FC = () => {
           initialValues={{ deadline: getCurrentDateInput() }}
           /* fix problem with the modal */
           onSubmit={(values) => {
-            handleCreate(dispatch, values);
-            setIsModalOpen(false);
+            /* handleCreate(dispatch, values); */
+            handleCreate(values as Todo);
           }}
           operation="create"
           submitBtnLabel="Add"

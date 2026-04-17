@@ -11,10 +11,10 @@ export async function saveTodoDb(todo: Todo) {
 }
 
 /* Get One */
-export async function getTodoDb(id: number) {
+/* export async function getTodoDb(id: number) {
   const db = await dbPromise;
   return db.get("todos", id);
-}
+} */
 
 /* Get All */
 export async function getAllTodosDb() {

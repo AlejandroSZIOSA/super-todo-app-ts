@@ -4,7 +4,7 @@ import { type Todo } from "../../types/shared";
 /* DB Schema */
 interface TodoDB extends DBSchema {
   todos: {
-    key: number;
+    key: string;
     value: Todo;
     indexes: {
       "by-completed": string;

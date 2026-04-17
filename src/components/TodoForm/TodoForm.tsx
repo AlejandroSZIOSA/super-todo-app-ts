@@ -2,6 +2,7 @@ import { useState, type FC, useEffect, type ReactNode, useRef } from "react";
 /* import { Item } from "../store/itemsSlice"; */
 import type { Todo, Priority } from "../../types/shared";
 import { getCurrentDateInput } from "../../utils/calculations";
+import { v4 as uuid } from "uuid"; //create unique ids max 4 values length
 
 import useMediaQuery, { RESOLUTIONS } from "../../hooks/useMediaQuery";
 
@@ -24,7 +25,10 @@ const TodoForm: FC<TodoFormProps> = ({
   operation,
   submitBtnLabel,
 }) => {
-  const [formData, setFormData] = useState<Omit<Todo, "id" | "isComplete">>({
+  const [formData, setFormData] = useState<
+    Omit<Todo, "id" | "isComplete"> | Todo
+  >({
+    id: initialValues.id ?? uuid().replace(/-/g, "").slice(0, 3),
     title: initialValues.title ?? "",
     description: initialValues.description ?? "",
     priority: initialValues.priority ?? "low",
@@ -51,7 +55,7 @@ const TodoForm: FC<TodoFormProps> = ({
         deadline: deadline ?? "",
       });
     }
-    handleFocus();
+    /*  handleFocus(); */
   }, [initialValues, operation]);
 
   let btnTextContent: ReactNode;
