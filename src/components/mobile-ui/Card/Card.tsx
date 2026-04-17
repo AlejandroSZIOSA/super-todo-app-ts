@@ -44,9 +44,9 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
     setIsDone(isComplete);
   }, [isComplete]); */
 
-  const daysRemaining = countRemainingDays(new Date(), deadline);
-  const isWarningOn = countRemainingDays(new Date(), deadline) <= daysCountdown;
-  const isExpired = countRemainingDays(new Date(), deadline) < 0;
+  const daysRemaining = countRemainingDays(deadline);
+  const isWarningOn = countRemainingDays(deadline) <= daysCountdown;
+  const isExpired = countRemainingDays(deadline) < 0;
   /* const isExpired = true; */
 
   return (
@@ -128,7 +128,7 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
           )}
           {isExpired && (
             <DaysRemainingFigure
-              counter={daysRemaining}
+              counter={countRemainingDays(deadline)}
               variant="expired-success"
             />
           )}

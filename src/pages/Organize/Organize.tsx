@@ -52,8 +52,8 @@ const OrganizePage: FC = () => {
 
   const dialogRef = useRef<ConfirmDialogRef>(null); //Imported type for ConfirmDialogRef
 
-  const settings = useAppSelector((state: RootState) => state.settings);
-  const TRANSLATION = translations[settings.language];
+  const { language } = useAppSelector((state: RootState) => state.settings);
+  const TRANSLATION = translations[language];
   const { editPage_T } = TRANSLATION;
 
   const { isLoading, error } = useGetTasksFromDb(dispatch); // Custom hook to fetch tasks from the database and manage loading and error states

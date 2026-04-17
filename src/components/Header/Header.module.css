@@ -1,8 +1,14 @@
+.headerInnerContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: #dfd0b8; /* cornflowerblue */
+}
+
 .appTitleContainer {
-  display: inline-flex;
+  display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: #dfd0b8; /* cornflowerblue */
   height: 6vh;
 }
 
@@ -11,21 +17,10 @@
   color: #333;
   margin-left: 1rem;
 }
-.appTitleContainer h1 span {
-  margin-left: 0.5rem;
-}
-
-.versionContainer {
-  font-size: 0.8rem;
-}
-
-.versionContainerDesktop {
-  display: none;
-}
 
 .appTitleContainer img {
   width: 35px;
-  height: "auto";
+  height: auto;
   margin-right: 1rem;
 }
 
@@ -37,19 +32,65 @@
   height: 3rem;
 }
 
+.currentDateContainer {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 0.3rem;
+  gap: 0.5rem;
+}
+.currentDateContainerDesktop {
+  display: none;
+}
+
+.currentDateContainer p {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.dateIcon {
+  width: 25px;
+  height: auto;
+  fill: #555;
+}
+
 @media (min-width: 1024px) {
   .appTitleContainer {
     height: 70%;
   }
 
-  .versionContainerDesktop {
-    display: inline;
-    font-size: 0.8rem;
+  .appTitleContainer img {
+    width: 40px;
+    height: auto;
+    margin-right: 1rem;
   }
 
   .childrenContainer {
     flex-direction: row;
     justify-content: center;
     position: relative;
+  }
+
+  .currentDateContainer {
+    display: none;
+  }
+
+  .currentDateContainerDesktop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 0.3rem;
+    gap: 0.5rem;
+    margin-right: 55%;
+  }
+
+  .currentDateContainerDesktop p {
+    font-size: 1rem;
+    color: #555;
+  }
+
+  .dateIconDesktop {
+    width: 30px;
+    height: auto;
+    fill: #555;
   }
 }

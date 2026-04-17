@@ -11,9 +11,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import TodoForm from "../../components/TodoForm/TodoForm";
 import useMediaQuery, { RESOLUTIONS } from "../../hooks/useMediaQuery";
 import Modal from "../../components/mobile-ui/Modal/Modal";
-
-import { getCurrentDate, sortedTodosFn } from "../../utils/calculations";
-
+import { getCurrentDateInput, sortedTodosFn } from "../../utils/calculations";
 import Message from "../../components/Message";
 import Header from "../../components/Header/Header";
 import Card from "../../components/mobile-ui/Card/Card";
@@ -49,8 +47,8 @@ const HomePage: FC = () => {
 
   const dialogRef = useRef<ConfirmDialogRef>(null); //Imported type for ConfirmDialogRef
 
-  const settings = useAppSelector((state: RootState) => state.settings);
-  const TRANSLATION = translations[settings.language];
+  const { language } = useAppSelector((state: RootState) => state.settings);
+  const TRANSLATION = translations[language];
   const { homePage_T } = TRANSLATION;
 
   //custom hook that persist all tasks from the database and manage the loading and error states, this is to prevent the code duplication and to keep the component clean and focused on the UI logic, and also to make it reusable in other components if needed.
@@ -95,7 +93,7 @@ const HomePage: FC = () => {
           onClose={() => setIsModalOpen(false)}
         >
           <TodoForm
-            initialValues={{ deadline: getCurrentDate() }}
+            initialValues={{ deadline: getCurrentDateInput() }}
             /* fix problem with the modal */
             onSubmit={(values) => {
               handleCreate(dispatch, values);
@@ -111,7 +109,7 @@ const HomePage: FC = () => {
     content = (
       <AsidePanel title={homePage_T ? homePage_T.addTask : "Add"}>
         <TodoForm
-          initialValues={{ deadline: getCurrentDate() }}
+          initialValues={{ deadline: getCurrentDateInput() }}
           /* fix problem with the modal */
           onSubmit={(values) => {
             handleCreate(dispatch, values);

@@ -1,7 +1,7 @@
 import { useState, type FC, useEffect, type ReactNode, useRef } from "react";
 /* import { Item } from "../store/itemsSlice"; */
 import type { Todo, Priority } from "../../types/shared";
-import { getCurrentDate } from "../../utils/calculations";
+import { getCurrentDateInput } from "../../utils/calculations";
 
 import useMediaQuery, { RESOLUTIONS } from "../../hooks/useMediaQuery";
 
@@ -28,7 +28,7 @@ const TodoForm: FC<TodoFormProps> = ({
     title: initialValues.title ?? "",
     description: initialValues.description ?? "",
     priority: initialValues.priority ?? "low",
-    deadline: initialValues.deadline ?? getCurrentDate(),
+    deadline: initialValues.deadline ?? getCurrentDateInput(),
   });
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -85,7 +85,7 @@ const TodoForm: FC<TodoFormProps> = ({
         ...TodoForm,
         title: "",
         description: "",
-        deadline: getCurrentDate(),
+        deadline: getCurrentDateInput(),
         priority: "low",
       });
       handleFocus();
@@ -156,7 +156,7 @@ const TodoForm: FC<TodoFormProps> = ({
         <input
           type="date"
           id="deadline"
-          min={getCurrentDate()}
+          min={getCurrentDateInput()}
           value={formData.deadline}
           onChange={(e) =>
             setFormData({ ...formData, deadline: e.target.value })
