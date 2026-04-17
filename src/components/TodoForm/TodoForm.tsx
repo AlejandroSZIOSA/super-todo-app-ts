@@ -55,7 +55,7 @@ const TodoForm: FC<TodoFormProps> = ({
         deadline: deadline ?? "",
       });
     }
-    /*  handleFocus(); */
+    handleFocus();
   }, [initialValues, operation]);
 
   let btnTextContent: ReactNode;
