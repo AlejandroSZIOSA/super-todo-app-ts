@@ -16,11 +16,8 @@ interface HeaderProps {
   children?: ReactNode;
 }
 
-//using constrains fix the problem with the children prop
 const Header: FC<HeaderProps> = ({ children }) => {
   const { language } = useAppSelector((state: RootState) => state.settings);
-  /* const settings = useAppSelector((state: RootState) => state.settings); */
-  //translations  en - swe as context param, this change the current language state
   const TRANSLATION = translations[language];
   const { homePage_T } = TRANSLATION;
 
