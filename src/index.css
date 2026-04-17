@@ -2,16 +2,13 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(0, 0, 0, 0.87);
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  padding-bottom: 64px; /* navigation bottom */
+  padding-bottom: 3.5rem; /* navigation bottom */
 }
 
 /* Global styles for the app
@@ -26,7 +23,6 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-
   /*   create a pattern background using radial-gradient; */
   background-color: #948979;
   background-image: radial-gradient(#5d5d5d 1px, transparent 2px);
@@ -44,7 +40,6 @@ header {
   text-align: center;
   z-index: 1000;
   background-color: #948979;
-  /* height: 6rem; */
 }
 
 main {
@@ -52,9 +47,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /*   height: 100vh; */
-  margin: 1rem 0 1rem 0;
-  /*   padding: 1rem; */
+  margin-top: 0.7rem;
 }
 
 h1 {
@@ -127,8 +120,8 @@ ol {
   }
 
   ol {
-    margin-left: 1rem;
-    margin-top: 0.5rem;
+    margin-left: 0.2rem;
+    margin-top: 0.4rem;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     align-items: start;
