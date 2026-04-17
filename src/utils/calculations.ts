@@ -6,25 +6,18 @@ const PRIORITY_ORDER = {
   low: 1,
 } as const;
 
-export function countRemainingDays(
-  currentDate: Date,
-  deadline?: string,
-): number {
-  const current = new Date(currentDate);
-  //gard condition
-  if (!deadline) {
-    return 0; // No deadline provided
-  }
+export function countRemainingDays(deadline: string): number {
+  const currentDate = new Date();
   const target = new Date(deadline);
   // Calculate the difference in time (milliseconds)
-  const timeDifference = target.getTime() - current.getTime();
+  const timeDifference = target.getTime() - currentDate.getTime();
   // Convert the difference to days
   //ceil() fn to round up to the nearest whole number
   const remainingDays = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)); // milliseconds to days
   return remainingDays;
 }
 
-export const getCurrentDate = () => new Date().toISOString().split("T")[0];
+export const getCurrentDateInput = () => new Date().toISOString().split("T")[0];
 
 //tests
 export const getDateMinusDays = (days: number = 2) => {

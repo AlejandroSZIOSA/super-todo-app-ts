@@ -28,12 +28,12 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
 
   //TODO create a const new date
 
-  const daysRemaining = countRemainingDays(new Date(), deadline);
-  const isWarningOn = countRemainingDays(new Date(), deadline) <= daysCountdown;
-  const isExpired = countRemainingDays(new Date(), deadline) < 0;
-  const isToday = countRemainingDays(new Date(), deadline) === 0;
-  const isYesterday = countRemainingDays(new Date(), deadline) === -1;
-  const isTomorrow = countRemainingDays(new Date(), deadline) === 1;
+  const daysRemaining = countRemainingDays(deadline);
+  const isWarningOn = countRemainingDays(deadline) <= daysCountdown;
+  const isExpired = countRemainingDays(deadline) < 0;
+  const isToday = countRemainingDays(deadline) === 0;
+  const isYesterday = countRemainingDays(deadline) === -1;
+  const isTomorrow = countRemainingDays(deadline) === 1;
 
   //TODO:Fix this component using if else statements in a util function
   return (
