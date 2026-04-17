@@ -42,3 +42,16 @@ export const sortedTodosFn = (todos: Todo[]): Todo[] =>
     const deadlineB = new Date(b.deadline).getTime();
     return deadlineA - deadlineB;
   });
+
+export type DateLanguages = "en-US" | "es-ES" | "sv-SE";
+export const getDateDifferentLanguage = (language: DateLanguages): string => {
+  const date = new Date();
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  } as const;
+
+  return date.toLocaleDateString(language, options);
+};

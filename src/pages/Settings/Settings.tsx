@@ -13,6 +13,8 @@ import { translations } from "../../data/translations";
 
 import styles from "./Settings.module.css";
 
+import { appVersion } from "../../utils/constants";
+
 const SettingsPage: FC = () => {
   const [isLockOn, setIsLockOn] = useState(true); //TODO: add lock me before feature, this is to manage the lock state, if the user click on the lock button, the lock state will be on, otherwise it will be off, this is to manage the lock style in the delete all events section.
   const isMobile = useMediaQuery(RESOLUTIONS.DESKTOP_BREAKPOINT); //It is working perfectly
@@ -141,6 +143,7 @@ const SettingsPage: FC = () => {
             </button>
           </div>
         </section>
+        <p className={styles.appVersionText}>App version: {appVersion} </p>
       </main>
     </>
   );

@@ -107,7 +107,7 @@ const HomePage: FC = () => {
     );
   } else {
     content = (
-      <AsidePanel title={homePage_T ? homePage_T.addTask.toUpperCase() : "ADD"}>
+      <AsidePanel title={homePage_T ? homePage_T.addTask : "Add"}>
         <TodoForm
           initialValues={{ deadline: getCurrentDateInput() }}
           /* fix problem with the modal */

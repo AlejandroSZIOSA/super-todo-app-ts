@@ -127,11 +127,7 @@ const OrganizePage: FC = () => {
     );
   } else {
     content = (
-      <AsidePanel
-        title={
-          editPage_T ? editPage_T.editTaskAsideTitle.toUpperCase() : "EDIT"
-        }
-      >
+      <AsidePanel title={editPage_T ? editPage_T.editTaskAsideTitle : "Edit"}>
         <TodoForm
           initialValues={todoEdit}
           onSubmit={(values) => {

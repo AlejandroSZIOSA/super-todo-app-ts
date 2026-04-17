@@ -99,10 +99,6 @@ ol {
     background-size: 4px 4px;
   }
 
-  header {
-    height: 7rem;
-  }
-
   main {
     display: flex;
     flex-direction: row;
