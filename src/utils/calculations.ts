@@ -17,7 +17,14 @@ export function countRemainingDays(deadline: string): number {
   return remainingDays;
 }
 
-export const getCurrentDateInput = () => new Date().toISOString().split("T")[0];
+/* export const getCurrentDateInput = () => new Date().toISOString().split("T")[0];
+ */
+export const getCurrentDateInput = () => {
+  const date = new Date();
+  const offset = date.getTimezoneOffset();
+  const localDate = new Date(date.getTime() - offset * 60 * 1000);
+  return localDate.toISOString().split("T")[0];
+};
 
 //tests
 export const getDateMinusDays = (days: number = 2) => {

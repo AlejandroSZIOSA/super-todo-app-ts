@@ -1,32 +1,30 @@
-import { type FC, useState, useEffect } from "react";
+import { type FC, useState } from "react";
 import type { Todo, Priority } from "../../../types/shared";
 import { ICONS_CARDS_WIDTH } from "../../../utils/constants";
 
 import { RemoveIcon, DeadLineIcon } from "../../../assets/icons";
 
-import { useAppDispatch, useAppSelector } from "../../../hooks/reduxHooks";
+import { useAppSelector } from "../../../hooks/reduxHooks";
 import { type RootState } from "../../../store";
 
 import { countRemainingDays } from "../../../utils/calculations";
 import { translations } from "../../../data/translations";
 
 import Accordion from "../Accordion/Accordion";
-import { handleToggleCompleteStatus } from "../../../utils/crudsREDUX";
 
 import styles from "./Card.module.css";
 import PriorityMark from "../../PriorityMark/PriorityMark";
 import DaysRemainingFigure from "../../DaysRemainingFigure/DaysRemainingFigure";
-import { deleteTodoDb, saveTodoDb } from "../../../services/db/crudsDB";
+import { saveTodoDb } from "../../../services/db/crudsDB";
 
 interface CardProps {
   todoData: Todo;
   onEdit?: (todoId: number) => void; //prop drilling x1 + call back
-  onRemove?: (todoId: number) => void;
+  onRemove?: (todoId: string) => void;
 }
 
 const Card: FC<CardProps> = ({ todoData, onRemove }) => {
   const { id, title, description, priority, deadline, isComplete } = todoData;
-  const dispatch = useAppDispatch();
   const { language, daysCountdown } = useAppSelector(
     (state: RootState) => state.settings,
   );

@@ -9,7 +9,7 @@ export type Todo = {
 
 //dialog types
 export type ConfirmDialogData = {
-  id?: number | null;
+  id?: string | null;
   title: string;
   operation: string;
 };

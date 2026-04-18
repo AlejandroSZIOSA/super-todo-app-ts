@@ -38,7 +38,7 @@ export async function getCompletedTodosDb() {
 }
 
 /* Delete */
-export async function deleteTodoDb(id: number) {
+export async function deleteTodoDb(id: string) {
   const db = await dbPromise;
   await db.delete("todos", id);
 }

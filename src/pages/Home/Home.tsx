@@ -77,7 +77,7 @@ const HomePage: FC = () => {
     }
   };
 
-  const handleRemove = async (id: number) => {
+  const handleRemove = async (id: string) => {
     try {
       deleteTodoDb(id);
       refetch(); // Fix:Refetch tasks after deleting to update the UI,fn by reference
@@ -89,7 +89,7 @@ const HomePage: FC = () => {
   };
 
   const handleOpenDialog = (
-    todoId: number,
+    todoId: string,
     title: string,
     operation: string,
   ) => {
