@@ -1,4 +1,4 @@
-export type Todo = {
+export type Task = {
   id: string;
   title: string;
   description: string;

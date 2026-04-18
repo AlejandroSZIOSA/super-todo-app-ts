@@ -1,5 +1,5 @@
 import { type FC, useState } from "react";
-import type { Todo, Priority } from "../../../types/shared";
+import type { Task, Priority } from "../../../types/shared";
 import { ICONS_CARDS_WIDTH } from "../../../utils/constants";
 
 import { RemoveIcon, DeadLineIcon } from "../../../assets/icons";
@@ -15,10 +15,10 @@ import Accordion from "../Accordion/Accordion";
 import styles from "./Card.module.css";
 import PriorityMark from "../../PriorityMark/PriorityMark";
 import DaysRemainingFigure from "../../DaysRemainingFigure/DaysRemainingFigure";
-import { saveTodoDb } from "../../../services/db/crudsDB";
+import { saveTaskDb } from "../../../services/db/crudsDB";
 
 interface CardProps {
-  todoData: Todo;
+  todoData: Task;
   onEdit?: (todoId: number) => void; //prop drilling x1 + call back
   onRemove?: (todoId: string) => void;
 }
@@ -30,26 +30,20 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
   );
 
   const [isDone, setIsDone] = useState<boolean>(isComplete);
-
   const [selectedPriority] = useState<Priority>(priority ?? "low");
 
   //translations  en - swe as context param, this change the current language state
   const TRANSLATION = translations[language];
   const { cardView_T } = TRANSLATION;
 
-  //sync isDone with isComplete from the store
-  /*   useEffect(() => {
-    setIsDone(isComplete);
-  }, [isComplete]); */
-
   const daysRemaining = countRemainingDays(deadline);
   const isWarningOn = countRemainingDays(deadline) <= daysCountdown;
   const isExpired = countRemainingDays(deadline) < 0;
   /* const isExpired = true; */
 
-  const handleToggleStatus = async (task: Todo, isComplete: boolean) => {
+  const handleToggleStatus = async (task: Task, isComplete: boolean) => {
     try {
-      saveTodoDb({ ...task, isComplete: !isComplete });
+      saveTaskDb({ ...task, isComplete: !isComplete });
       setIsDone((prev) => !prev);
     } catch (error: unknown) {
       if (error instanceof Error) {

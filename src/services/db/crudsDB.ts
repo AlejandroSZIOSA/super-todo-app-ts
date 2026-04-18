@@ -2,12 +2,12 @@
 // These functions are used in the utils/crudsCTX file to perform
 // CRUD operations on the database.
 import { dbPromise } from "./db";
-import { type Todo } from "../../types/shared";
+import { type Task } from "../../types/shared";
 
 /* Create / Update */
-export async function saveTodoDb(todo: Todo) {
+export async function saveTaskDb(task: Task) {
   const db = await dbPromise;
-  await db.put("todos", todo);
+  await db.put("tasksDB", task);
 }
 
 /* Get One */
@@ -17,9 +17,9 @@ export async function saveTodoDb(todo: Todo) {
 } */
 
 /* Get All */
-export async function getAllTodosDb() {
+export async function getAllTasksDb() {
   const db = await dbPromise;
-  return db.getAll("todos");
+  return db.getAll("tasksDB");
 
   //TODO IMPORTANT: Remove after testing
   /* const db = await dbPromise;
@@ -34,17 +34,17 @@ export async function getAllTodosDb() {
 /* Get Completed */
 export async function getCompletedTodosDb() {
   const db = await dbPromise;
-  return db.getAllFromIndex("todos", "by-completed");
+  return db.getAllFromIndex("tasksDB", "by-completed");
 }
 
 /* Delete */
-export async function deleteTodoDb(id: string) {
+export async function deleteTaskDb(id: string) {
   const db = await dbPromise;
-  await db.delete("todos", id);
+  await db.delete("tasksDB", id);
 }
 
 /* Clear All */
-export async function deleteTodosDb() {
+export async function deleteAllTasksDb() {
   const db = await dbPromise;
-  await db.clear("todos");
+  await db.clear("tasksDB");
 }

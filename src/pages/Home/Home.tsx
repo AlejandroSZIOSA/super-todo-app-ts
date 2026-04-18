@@ -16,15 +16,14 @@ import Message from "../../components/Message";
 import Header from "../../components/Header/Header";
 import Card from "../../components/mobile-ui/Card/Card";
 
-import { type Todo } from "../../types/shared";
+import type { Task, ConfirmDialogData } from "../../types/shared";
 import ConfirmDialog, {
   type ConfirmDialogRef,
 } from "../../components/ConfirmDialog/ConfirmDialog";
 
-import { type ConfirmDialogData } from "../../types/shared";
 /* import { handleCreate, handleRemoveTodo } from "../../utils/crudsREDUX";  continuar*/
 
-import { deleteTodoDb, saveTodoDb } from "../../services/db/crudsDB";
+import { deleteTaskDb, saveTaskDb } from "../../services/db/crudsDB";
 
 import { translations } from "../../data/translations";
 
@@ -52,7 +51,7 @@ const HomePage: FC = () => {
   const { homePage_T } = TRANSLATION;
 
   //custom hook that persist all tasks from the database and manage the loading and error states, this is to prevent the code duplication and to keep the component clean and focused on the UI logic, and also to make it reusable in other components if needed.
-  const { data, isLoading, error, refetch } = useGetTasksFromDb(); // Custom hook to fetch tasks from the database and manage loading and error states
+  const { data: tasks, isLoading, error, refetch } = useGetTasksFromDb(); // Custom hook to fetch tasks from the database and manage loading and error states
 
   //manage no-scroll class on body
   //fixed: problem with side effect when the dialog is open and the user scrolls, the dialog closes but the scroll lock remains, this is to remove the scroll lock when the dialog is closed by any means.
@@ -65,10 +64,9 @@ const HomePage: FC = () => {
     }
   }, [dialogData.id]);
 
-  const handleCreate = async (newTask: Todo) => {
-    console.log("Creating task:", newTask); // Debug log to check the values being passed
+  const handleCreate = async (newTask: Task) => {
     try {
-      saveTodoDb(newTask);
+      saveTaskDb(newTask);
       refetch(); //Fix: Refetch tasks after creating a new one to update the UI,fn by reference
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -79,7 +77,7 @@ const HomePage: FC = () => {
 
   const handleRemove = async (id: string) => {
     try {
-      deleteTodoDb(id);
+      deleteTaskDb(id);
       refetch(); // Fix:Refetch tasks after deleting to update the UI,fn by reference
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -121,7 +119,7 @@ const HomePage: FC = () => {
             /* fix problem with the modal */
             onSubmit={(values) => {
               /* handleCreate(dispatch, values); */
-              handleCreate(values as Todo);
+              handleCreate(values as Task);
               setIsModalOpen(false);
             }}
             operation="create"
@@ -138,7 +136,7 @@ const HomePage: FC = () => {
           /* fix problem with the modal */
           onSubmit={(values) => {
             /* handleCreate(dispatch, values); */
-            handleCreate(values as Todo);
+            handleCreate(values as Task);
           }}
           operation="create"
           submitBtnLabel="Add"
@@ -148,7 +146,7 @@ const HomePage: FC = () => {
   }
 
   //filtered and sorted task by priority and deadline , and useMemo to optimize the performance by memoizing the sorted todos, so it will only re-calculate when the todos array changes, this is to prevent unnecessary re-renders and calculations when the component re-renders for other reasons.
-  const sortedTodos = useMemo(() => sortedTodosFn(data), [data]);
+  const sortedTodos = useMemo(() => sortedTodosFn(tasks), [tasks]);
 
   return (
     <>

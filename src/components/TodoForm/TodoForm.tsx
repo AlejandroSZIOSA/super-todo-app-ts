@@ -1,6 +1,6 @@
 import { useState, type FC, useEffect, type ReactNode, useRef } from "react";
 /* import { Item } from "../store/itemsSlice"; */
-import type { Todo, Priority } from "../../types/shared";
+import type { Task, Priority } from "../../types/shared";
 import { getCurrentDateInput } from "../../utils/calculations";
 import { v4 as uuid } from "uuid"; //create unique ids max 4 values length
 
@@ -13,8 +13,8 @@ import { type RootState } from "../../store";
 import { translations } from "../../data/translations";
 
 interface TodoFormProps {
-  initialValues: Partial<Todo>;
-  onSubmit: (values: Omit<Todo, "id"> | Todo) => void;
+  initialValues: Partial<Task>;
+  onSubmit: (values: Omit<Task, "id"> | Task) => void;
   operation?: "create" | "edit";
   submitBtnLabel: "Add" | "Edit" | "Save";
 }
@@ -26,7 +26,7 @@ const TodoForm: FC<TodoFormProps> = ({
   submitBtnLabel,
 }) => {
   const [formData, setFormData] = useState<
-    Omit<Todo, "id" | "isComplete"> | Todo
+    Omit<Task, "id" | "isComplete"> | Task
   >({
     id: initialValues.id ?? uuid().replace(/-/g, "").slice(0, 3),
     title: initialValues.title ?? "",

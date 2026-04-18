@@ -1,4 +1,4 @@
-import { type Todo } from "../types/shared";
+import { type Task } from "../types/shared";
 
 const PRIORITY_ORDER = {
   high: 3,
@@ -26,15 +26,8 @@ export const getCurrentDateInput = () => {
   return localDate.toISOString().split("T")[0];
 };
 
-//tests
-export const getDateMinusDays = (days: number = 2) => {
-  const date = new Date();
-  date.setDate(date.getDate() - days);
-  return date.toISOString().split("T")[0];
-};
-
 // This function is used to sort the todos by priority and deadline, it is used in the Home page to sort the todos before rendering them, it is also used in the CardEdit component to sort the todos before rendering them in the accordion component.
-export const sortedTodosFn = (todos: Todo[]): Todo[] =>
+export const sortedTodosFn = (todos: Task[]): Task[] =>
   [...todos].sort((a, b) => {
     // First, sort by priority (higher priority first)
     if (a.priority !== b.priority) {
