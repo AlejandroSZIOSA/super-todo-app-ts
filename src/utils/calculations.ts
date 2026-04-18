@@ -17,7 +17,13 @@ export function countRemainingDays(deadline: string): number {
   return remainingDays;
 }
 
-export const getCurrentDateInput = () => new Date().toISOString().split("T")[0];
+//fix current date format to be compatible with the input type date in the form, this is used in the CardEdit component to set the default value of the deadline input field, it is also used in the Home page to set the default value of the deadline input field in the create todo form. it is also used in the CardEdit component to set the default value of the deadline input field when editing a todo.
+export const getCurrentDateInput = () => {
+  const date = new Date();
+  const offset = date.getTimezoneOffset();
+  const localDate = new Date(date.getTime() - offset * 60 * 1000);
+  return localDate.toISOString().split("T")[0];
+};
 
 //tests
 export const getDateMinusDays = (days: number = 2) => {
