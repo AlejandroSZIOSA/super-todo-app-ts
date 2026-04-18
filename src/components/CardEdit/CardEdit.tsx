@@ -1,13 +1,13 @@
 import { type FC } from "react";
-import type { Task } from "../../../types/shared";
-import { useAppSelector } from "../../../hooks/reduxHooks";
-import { type RootState } from "../../../store";
-import { countRemainingDays } from "../../../utils/calculations";
-import { translations } from "../../../data/translations";
-import { RemoveIcon, EditIcon } from "../../../assets/icons";
+import type { Task } from "../../types/shared";
+import { useAppSelector } from "../../hooks/reduxHooks";
+import { type RootState } from "../../store";
+import { countRemainingDays } from "../../utils/calculations";
+import { translations } from "../../data/translations";
+import { RemoveIcon, EditIcon } from "../../assets/icons";
 import Accordion from "../Accordion/Accordion";
 import styles from "./CardEdit.module.css";
-import { ICONS_CARDS_WIDTH } from "../../../utils/constants";
+import { ICONS_CARDS_WIDTH } from "../../utils/constants";
 
 interface CardEditProps {
   todoData: Task;

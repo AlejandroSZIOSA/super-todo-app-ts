@@ -9,20 +9,18 @@ import {
 } from "react";
 import type { Task, ConfirmDialogData } from "../../types/shared";
 import type { RootState } from "../../store";
-import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
+import { useAppSelector } from "../../hooks/reduxHooks";
 import TodoForm from "../../components/TodoForm/TodoForm";
 import useMediaQuery, { RESOLUTIONS } from "../../hooks/useMediaQuery";
 import Modal from "../../components/mobile-ui/Modal/Modal";
 import Header from "../../components/Header/Header";
 import Message from "../../components/Message";
-import CardEdit from "../../components/mobile-ui/CardEdit/CardEdit";
+import CardEdit from "../../components/CardEdit/CardEdit";
 
 import useGetTasksFromDb from "../../hooks/useGetTasksFromDb";
 import ConfirmDialog, {
   type ConfirmDialogRef,
 } from "../../components/ConfirmDialog/ConfirmDialog";
-
-import { handleOnEdit } from "../../utils/crudsREDUX";
 
 import { translations } from "../../data/translations";
 import { sortedTodosFn } from "../../utils/calculations";
@@ -46,7 +44,6 @@ const OrganizePage: FC = () => {
     operation: "",
   });
 
-  const dispatch = useAppDispatch(); // Correctly assign useAppDispatch
   const isMobile = useMediaQuery(RESOLUTIONS.DESKTOP_BREAKPOINT); //It is working perfectly
   const [openModal, setOpenModal] = useState(false);
   const dialogRef = useRef<ConfirmDialogRef>(null); //Imported type for ConfirmDialogRef
@@ -151,7 +148,7 @@ const OrganizePage: FC = () => {
         <TodoForm
           initialValues={todoEdit}
           onSubmit={(values) => {
-            handleOnEdit(dispatch, values);
+            handleEdit(values as Task);
             setOpenModal(false);
           }}
           operation="edit"

@@ -24,7 +24,7 @@ const useGetTasksFromDb = () => {
 
   useEffect(() => {
     fetchTasks();
-  }, [data.length]); // Dependency array to re-fetch if the number of tasks changes
+  }, []);
 
   return { data, isLoading, setIsLoading, error, refetch: fetchTasks };
 };

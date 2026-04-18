@@ -1,21 +1,21 @@
 import { type FC, useState } from "react";
-import type { Task, Priority } from "../../../types/shared";
-import { ICONS_CARDS_WIDTH } from "../../../utils/constants";
+import type { Task, Priority } from "../../types/shared";
+import { ICONS_CARDS_WIDTH } from "../../utils/constants";
 
-import { RemoveIcon, DeadLineIcon } from "../../../assets/icons";
+import { RemoveIcon, DeadLineIcon } from "../../assets/icons";
 
-import { useAppSelector } from "../../../hooks/reduxHooks";
-import { type RootState } from "../../../store";
+import { useAppSelector } from "../../hooks/reduxHooks";
+import { type RootState } from "../../store";
 
-import { countRemainingDays } from "../../../utils/calculations";
-import { translations } from "../../../data/translations";
+import { countRemainingDays } from "../../utils/calculations";
+import { translations } from "../../data/translations";
 
 import Accordion from "../Accordion/Accordion";
 
 import styles from "./Card.module.css";
-import PriorityMark from "../../PriorityMark/PriorityMark";
-import DaysRemainingFigure from "../../DaysRemainingFigure/DaysRemainingFigure";
-import { saveTaskDb } from "../../../services/db/crudsDB";
+import PriorityMark from "../PriorityMark/PriorityMark";
+import DaysRemainingFigure from "../DaysRemainingFigure/DaysRemainingFigure";
+import { saveTaskDb } from "../../services/db/crudsDB";
 
 interface CardProps {
   todoData: Task;

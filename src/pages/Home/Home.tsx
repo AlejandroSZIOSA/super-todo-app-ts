@@ -11,17 +11,15 @@ import { useAppSelector } from "../../hooks/reduxHooks";
 import TodoForm from "../../components/TodoForm/TodoForm";
 import useMediaQuery, { RESOLUTIONS } from "../../hooks/useMediaQuery";
 import Modal from "../../components/mobile-ui/Modal/Modal";
-import { getCurrentDateInput, sortedTodosFn } from "../../utils/calculations";
+import { sortedTodosFn } from "../../utils/calculations";
 import Message from "../../components/Message";
 import Header from "../../components/Header/Header";
-import Card from "../../components/mobile-ui/Card/Card";
+import Card from "../../components/Card/Card";
 
 import type { Task, ConfirmDialogData } from "../../types/shared";
 import ConfirmDialog, {
   type ConfirmDialogRef,
 } from "../../components/ConfirmDialog/ConfirmDialog";
-
-/* import { handleCreate, handleRemoveTodo } from "../../utils/crudsREDUX";  continuar*/
 
 import { deleteTaskDb, saveTaskDb } from "../../services/db/crudsDB";
 
@@ -115,7 +113,7 @@ const HomePage: FC = () => {
           onClose={() => setIsModalOpen(false)}
         >
           <TodoForm
-            initialValues={{ deadline: getCurrentDateInput() }}
+            initialValues={{}}
             /* fix problem with the modal */
             onSubmit={(values) => {
               /* handleCreate(dispatch, values); */
@@ -132,7 +130,7 @@ const HomePage: FC = () => {
     content = (
       <AsidePanel title={homePage_T ? homePage_T.addTask : "Add"}>
         <TodoForm
-          initialValues={{ deadline: getCurrentDateInput() }}
+          initialValues={{}}
           /* fix problem with the modal */
           onSubmit={(values) => {
             /* handleCreate(dispatch, values); */

@@ -28,7 +28,7 @@ const TodoForm: FC<TodoFormProps> = ({
   const [formData, setFormData] = useState<
     Omit<Task, "id" | "isComplete"> | Task
   >({
-    id: initialValues.id ?? uuid().replace(/-/g, "").slice(0, 3),
+    id: initialValues.id ?? "",
     title: initialValues.title ?? "",
     description: initialValues.description ?? "",
     priority: initialValues.priority ?? "low",
@@ -80,8 +80,9 @@ const TodoForm: FC<TodoFormProps> = ({
     //fixed: using guards :)
     if (operation === "create") {
       onSubmit({
-        ...(initialValues.id ? { id: initialValues.id } : {}),
+        /* ...(initialValues.id ? { id: initialValues.id } : {}), */
         ...formData,
+        id: uuid().replace(/-/g, "").slice(0, 3),
         priority: formData.priority ?? "low",
         isComplete: false,
       });
