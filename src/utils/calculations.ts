@@ -6,8 +6,18 @@ const PRIORITY_ORDER = {
   low: 1,
 } as const;
 
+export const localDate = () => {
+  const date = new Date();
+  const offset = date.getTimezoneOffset();
+  const localDate = new Date(date.getTime() - offset * 60 * 1000);
+  return localDate;
+};
+
 export function countRemainingDays(deadline: string): number {
-  const currentDate = new Date();
+  /*  const date = new Date();
+  const offset = date.getTimezoneOffset();
+  const currentDate = new Date(date.getTime() - offset * 60 * 1000); */
+  const currentDate = localDate();
   const target = new Date(deadline);
   // Calculate the difference in time (milliseconds)
   const timeDifference = target.getTime() - currentDate.getTime();
