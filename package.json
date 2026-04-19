@@ -1,5 +1,5 @@
 {
-  "name": "super-todo-app-ts",
+  "name": "task-remainder-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "type-coverage": "type-coverage -p tsconfig.app.json --details --at-least 90",
+    "type-coverage": "type-coverage -p tsconfig.app.json --details --at-least 100",
     "check": "run-s lint typecheck type-coverage",
     "preview": "vite preview"
   },

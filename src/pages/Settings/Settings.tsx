@@ -4,9 +4,7 @@ import useMediaQuery, { RESOLUTIONS } from "../../hooks/useMediaQuery";
 import Header from "../../components/Header/Header";
 import SelectorRoot from "../../components/selector/SelectorRoot";
 import SelectRootModal from "../../components/mobile-ui/SelectModal/SelectRootModal";
-
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import { handleDeleteAllTodos } from "../../utils/crudsREDUX";
+import { useAppSelector } from "../../hooks/reduxHooks";
 
 import { type RootState } from "../../store";
 import { translations } from "../../data/translations";
@@ -14,17 +12,28 @@ import { translations } from "../../data/translations";
 import styles from "./Settings.module.css";
 
 import { appVersion } from "../../utils/constants";
+import { deleteAllTasksDb } from "../../services/db/crudsDB";
 
 const SettingsPage: FC = () => {
   const [isLockOn, setIsLockOn] = useState(true); //TODO: add lock me before feature, this is to manage the lock state, if the user click on the lock button, the lock state will be on, otherwise it will be off, this is to manage the lock style in the delete all events section.
   const isMobile = useMediaQuery(RESOLUTIONS.DESKTOP_BREAKPOINT); //It is working perfectly
-  const dispatch = useAppDispatch();
 
   //translations  en - swe as context param, this change the current language state
   const { language } = useAppSelector((state: RootState) => state.settings);
 
   const TRANSLATION = translations[language];
   const { settingsPage_T, daysRemainingFig_T } = TRANSLATION;
+
+  const handleDeleteAll = async () => {
+    try {
+      await deleteAllTasksDb();
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
+      return;
+    }
+  };
 
   //Note: Using compound components pattern :)
   return (
@@ -135,10 +144,7 @@ const SettingsPage: FC = () => {
                   ? settingsPage_T.lock
                   : "Lock"}
             </button>
-            <button
-              onClick={() => handleDeleteAllTodos(dispatch)}
-              disabled={isLockOn}
-            >
+            <button onClick={handleDeleteAll} disabled={isLockOn}>
               {settingsPage_T ? settingsPage_T.delete : "Delete"}
             </button>
           </div>

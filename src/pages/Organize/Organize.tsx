@@ -7,22 +7,20 @@ import {
   useEffect,
   useMemo,
 } from "react";
-import type { Todo, ConfirmDialogData } from "../../types/shared";
+import type { Task, ConfirmDialogData } from "../../types/shared";
 import type { RootState } from "../../store";
-import { useAppSelector, useAppDispatch } from "../../hooks/reduxHooks";
+import { useAppSelector } from "../../hooks/reduxHooks";
 import TodoForm from "../../components/TodoForm/TodoForm";
 import useMediaQuery, { RESOLUTIONS } from "../../hooks/useMediaQuery";
 import Modal from "../../components/mobile-ui/Modal/Modal";
 import Header from "../../components/Header/Header";
 import Message from "../../components/Message";
-import CardEdit from "../../components/mobile-ui/CardEdit/CardEdit";
+import CardEdit from "../../components/CardEdit/CardEdit";
 
 import useGetTasksFromDb from "../../hooks/useGetTasksFromDb";
 import ConfirmDialog, {
   type ConfirmDialogRef,
 } from "../../components/ConfirmDialog/ConfirmDialog";
-
-import { handleRemoveTodo, handleOnEdit } from "../../utils/crudsREDUX";
 
 import { translations } from "../../data/translations";
 import { sortedTodosFn } from "../../utils/calculations";
@@ -31,8 +29,10 @@ import BarLoader from "../../components/BarLoader/BarLoader";
 
 import styles from "./Organize.module.css";
 
+import { deleteTaskDb, saveTaskDb } from "../../services/db/crudsDB";
+
 const OrganizePage: FC = () => {
-  const [todoEdit, setTodoEdit] = useState<Omit<Todo, "id" | "isComplete">>({
+  const [todoEdit, setTodoEdit] = useState<Omit<Task, "id" | "isComplete">>({
     title: "",
     description: "",
     deadline: "",
@@ -44,19 +44,13 @@ const OrganizePage: FC = () => {
     operation: "",
   });
 
-  const { todos } = useAppSelector((state: RootState) => state.todos);
-  const dispatch = useAppDispatch(); // Correctly assign useAppDispatch
-
   const isMobile = useMediaQuery(RESOLUTIONS.DESKTOP_BREAKPOINT); //It is working perfectly
   const [openModal, setOpenModal] = useState(false);
-
   const dialogRef = useRef<ConfirmDialogRef>(null); //Imported type for ConfirmDialogRef
-
   const { language } = useAppSelector((state: RootState) => state.settings);
   const TRANSLATION = translations[language];
   const { editPage_T } = TRANSLATION;
-
-  const { isLoading, error } = useGetTasksFromDb(dispatch); // Custom hook to fetch tasks from the database and manage loading and error states
+  const { data: tasks, isLoading, error, refetch } = useGetTasksFromDb(); // Custom hook to fetch tasks from the database and manage loading and error states
 
   //fixed: problem with dialog backdrop and scroll, when open the dialog the body is blocked to scroll but when close the dialog the body is still blocked, so I added a useEffect to remove the class "no-scroll" when the dialog is closed
   useEffect(() => {
@@ -68,23 +62,24 @@ const OrganizePage: FC = () => {
   }, [dialogData]);
 
   //filtered and sorted task by priority and deadline, optimize using useMemo to prevent unnecessary calculations on every render, it will only recalculate when the todos array changes, this is to improve the performance of the component and prevent unnecessary re-renders of the child components that depend on the sortedTodos.
-  const sortedTodos = useMemo(() => sortedTodosFn(todos), [todos]);
+  const sortedTodos = useMemo(() => sortedTodosFn(tasks), [tasks]);
 
   //callback FN set selected values todo item to the reusable form
-  function handleEditForm(todoId: number) {
+  function handleEditForm(taskId: string) {
     setOpenModal(true);
     // console.log("Edit todo with ID:", todoId);
-    const todo = todos.find((todo) => todo?.id === todoId);
-    if (todo) {
-      setTodoEdit(todo);
+    const task = tasks.find((t) => t.id === taskId);
+    if (task) {
+      console.log(task);
+      setTodoEdit(task);
     } else {
-      console.error(`Todo with ID ${todoId} not found.`);
+      console.error(`Todo with ID ${taskId} not found.`);
     }
   }
 
   //TODO: Use portals in dialog and modal next time
   const handleOpenDialog = (
-    todoId: number,
+    todoId: string,
     title: string,
     operation: string,
   ) => {
@@ -97,9 +92,31 @@ const OrganizePage: FC = () => {
   const confirmAction = () => {
     //NOTE:here can put more operations
     if (dialogData.id) {
-      handleRemoveTodo(dispatch, dialogData.id);
+      handleRemove(dialogData.id);
       setDialogData({ id: null, title: "", operation: "" });
       /* document.body.classList.remove("no-scroll"); */
+    }
+  };
+
+  const handleEdit = async (editedTask: Task) => {
+    try {
+      saveTaskDb(editedTask);
+      refetch();
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
+    }
+  };
+
+  const handleRemove = async (id: string) => {
+    try {
+      deleteTaskDb(id);
+      refetch(); // Fix:Refetch tasks after deleting to update the UI,fn by reference
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
     }
   };
 
@@ -116,7 +133,7 @@ const OrganizePage: FC = () => {
           <TodoForm
             initialValues={todoEdit}
             onSubmit={(values) => {
-              handleOnEdit(dispatch, values);
+              handleEdit(values as Task);
               setOpenModal(false);
             }}
             operation="edit"
@@ -131,7 +148,7 @@ const OrganizePage: FC = () => {
         <TodoForm
           initialValues={todoEdit}
           onSubmit={(values) => {
-            handleOnEdit(dispatch, values);
+            handleEdit(values as Task);
             setOpenModal(false);
           }}
           operation="edit"
@@ -169,11 +186,10 @@ const OrganizePage: FC = () => {
 
         {sortedTodos.length > 0 && (
           <ol>
-            {sortedTodos.map((todo, index) => (
+            {sortedTodos.map((todo) => (
               <li key={todo.id}>
                 <CardEdit
                   todoData={todo}
-                  todoNumber={index}
                   onEdit={handleEditForm}
                   onRemove={(id) => handleOpenDialog(id, todo.title, "remove")}
                 />

@@ -7,21 +7,21 @@ import {
   useMemo,
 } from "react";
 import type { RootState } from "../../store";
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
+import { useAppSelector } from "../../hooks/reduxHooks";
 import TodoForm from "../../components/TodoForm/TodoForm";
 import useMediaQuery, { RESOLUTIONS } from "../../hooks/useMediaQuery";
 import Modal from "../../components/mobile-ui/Modal/Modal";
-import { getCurrentDateInput, sortedTodosFn } from "../../utils/calculations";
+import { sortedTodosFn } from "../../utils/calculations";
 import Message from "../../components/Message";
 import Header from "../../components/Header/Header";
-import Card from "../../components/mobile-ui/Card/Card";
+import Card from "../../components/Card/Card";
 
+import type { Task, ConfirmDialogData } from "../../types/shared";
 import ConfirmDialog, {
   type ConfirmDialogRef,
 } from "../../components/ConfirmDialog/ConfirmDialog";
 
-import { type ConfirmDialogData } from "../../types/shared";
-import { handleCreate, handleRemoveTodo } from "../../utils/crudsREDUX";
+import { deleteTaskDb, saveTaskDb } from "../../services/db/crudsDB";
 
 import { translations } from "../../data/translations";
 
@@ -40,9 +40,6 @@ const HomePage: FC = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { todos } = useAppSelector((state: RootState) => state.todos);
-  const dispatch = useAppDispatch();
-
   const isMobile = useMediaQuery(RESOLUTIONS.DESKTOP_BREAKPOINT); //It is working perfectly
 
   const dialogRef = useRef<ConfirmDialogRef>(null); //Imported type for ConfirmDialogRef
@@ -52,7 +49,7 @@ const HomePage: FC = () => {
   const { homePage_T } = TRANSLATION;
 
   //custom hook that persist all tasks from the database and manage the loading and error states, this is to prevent the code duplication and to keep the component clean and focused on the UI logic, and also to make it reusable in other components if needed.
-  const { isLoading, error } = useGetTasksFromDb(dispatch); // Custom hook to fetch tasks from the database and manage loading and error states
+  const { data: tasks, isLoading, error, refetch } = useGetTasksFromDb(); // Custom hook to fetch tasks from the database and manage loading and error states
 
   //manage no-scroll class on body
   //fixed: problem with side effect when the dialog is open and the user scrolls, the dialog closes but the scroll lock remains, this is to remove the scroll lock when the dialog is closed by any means.
@@ -65,8 +62,30 @@ const HomePage: FC = () => {
     }
   }, [dialogData.id]);
 
+  const handleCreate = async (newTask: Task) => {
+    try {
+      saveTaskDb(newTask);
+      refetch(); //Fix: Refetch tasks after creating a new one to update the UI,fn by reference
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
+    }
+  };
+
+  const handleRemove = async (id: string) => {
+    try {
+      deleteTaskDb(id);
+      refetch(); // Fix:Refetch tasks after deleting to update the UI,fn by reference
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error.message);
+      }
+    }
+  };
+
   const handleOpenDialog = (
-    todoId: number,
+    todoId: string,
     title: string,
     operation: string,
   ) => {
@@ -76,7 +95,8 @@ const HomePage: FC = () => {
 
   const confirmAction = () => {
     if (dialogData.id) {
-      handleRemoveTodo(dispatch, dialogData.id);
+      /* handleRemoveTodo(dispatch, dialogData.id); */
+      handleRemove(dialogData.id);
       setDialogData({ id: null, operation: "", title: "" });
       //style class no-scroll is removed in the handleCancel function inside the ConfirmDialog component, this is to prevent the scroll lock when the dialog is closed after confirming the action.
     }
@@ -93,10 +113,11 @@ const HomePage: FC = () => {
           onClose={() => setIsModalOpen(false)}
         >
           <TodoForm
-            initialValues={{ deadline: getCurrentDateInput() }}
+            initialValues={{}}
             /* fix problem with the modal */
             onSubmit={(values) => {
-              handleCreate(dispatch, values);
+              /* handleCreate(dispatch, values); */
+              handleCreate(values as Task);
               setIsModalOpen(false);
             }}
             operation="create"
@@ -109,11 +130,11 @@ const HomePage: FC = () => {
     content = (
       <AsidePanel title={homePage_T ? homePage_T.addTask : "Add"}>
         <TodoForm
-          initialValues={{ deadline: getCurrentDateInput() }}
+          initialValues={{}}
           /* fix problem with the modal */
           onSubmit={(values) => {
-            handleCreate(dispatch, values);
-            setIsModalOpen(false);
+            /* handleCreate(dispatch, values); */
+            handleCreate(values as Task);
           }}
           operation="create"
           submitBtnLabel="Add"
@@ -123,7 +144,7 @@ const HomePage: FC = () => {
   }
 
   //filtered and sorted task by priority and deadline , and useMemo to optimize the performance by memoizing the sorted todos, so it will only re-calculate when the todos array changes, this is to prevent unnecessary re-renders and calculations when the component re-renders for other reasons.
-  const sortedTodos = useMemo(() => sortedTodosFn(todos), [todos]);
+  const sortedTodos = useMemo(() => sortedTodosFn(tasks), [tasks]);
 
   return (
     <>

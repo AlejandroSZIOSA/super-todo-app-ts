@@ -1,7 +1,8 @@
 import { useState, type FC, useEffect, type ReactNode, useRef } from "react";
 /* import { Item } from "../store/itemsSlice"; */
-import type { Todo, Priority } from "../../types/shared";
+import type { Task, Priority } from "../../types/shared";
 import { getCurrentDateInput } from "../../utils/calculations";
+import { v4 as uuid } from "uuid"; //create unique ids max 4 values length
 
 import useMediaQuery, { RESOLUTIONS } from "../../hooks/useMediaQuery";
 
@@ -12,8 +13,8 @@ import { type RootState } from "../../store";
 import { translations } from "../../data/translations";
 
 interface TodoFormProps {
-  initialValues: Partial<Todo>;
-  onSubmit: (values: Omit<Todo, "id"> | Todo) => void;
+  initialValues: Partial<Task>;
+  onSubmit: (values: Omit<Task, "id"> | Task) => void;
   operation?: "create" | "edit";
   submitBtnLabel: "Add" | "Edit" | "Save";
 }
@@ -24,7 +25,10 @@ const TodoForm: FC<TodoFormProps> = ({
   operation,
   submitBtnLabel,
 }) => {
-  const [formData, setFormData] = useState<Omit<Todo, "id" | "isComplete">>({
+  const [formData, setFormData] = useState<
+    Omit<Task, "id" | "isComplete"> | Task
+  >({
+    id: initialValues.id ?? "",
     title: initialValues.title ?? "",
     description: initialValues.description ?? "",
     priority: initialValues.priority ?? "low",
@@ -76,8 +80,9 @@ const TodoForm: FC<TodoFormProps> = ({
     //fixed: using guards :)
     if (operation === "create") {
       onSubmit({
-        ...(initialValues.id ? { id: initialValues.id } : {}),
+        /* ...(initialValues.id ? { id: initialValues.id } : {}), */
         ...formData,
+        id: uuid().replace(/-/g, "").slice(0, 3),
         priority: formData.priority ?? "low",
         isComplete: false,
       });

@@ -1,11 +1,11 @@
 import { openDB, type DBSchema } from "idb";
-import { type Todo } from "../../types/shared";
+import { type Task } from "../../types/shared";
 
 /* DB Schema */
-interface TodoDB extends DBSchema {
-  todos: {
-    key: number;
-    value: Todo;
+interface TasksDB extends DBSchema {
+  tasksDB: {
+    key: string;
+    value: Task;
     indexes: {
       "by-completed": string;
       "by-created": string;
@@ -14,9 +14,9 @@ interface TodoDB extends DBSchema {
 }
 
 /* Open DB */
-export const dbPromise = openDB<TodoDB>("SuperTodoAppDB", 1, {
+export const dbPromise = openDB<TasksDB>("TaskRemainderApp", 1, {
   upgrade(db) {
-    const store = db.createObjectStore("todos", {
+    const store = db.createObjectStore("tasksDB", {
       keyPath: "id",
     });
 
