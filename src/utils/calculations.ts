@@ -6,7 +6,7 @@ const PRIORITY_ORDER = {
   low: 1,
 } as const;
 
-export const localDate = () => {
+export const getLocalDate = () => {
   const date = new Date();
   const offset = date.getTimezoneOffset();
   const localDate = new Date(date.getTime() - offset * 60 * 1000);
@@ -14,10 +14,7 @@ export const localDate = () => {
 };
 
 export function countRemainingDays(deadline: string): number {
-  /*  const date = new Date();
-  const offset = date.getTimezoneOffset();
-  const currentDate = new Date(date.getTime() - offset * 60 * 1000); */
-  const currentDate = localDate();
+  const currentDate = getLocalDate();
   const target = new Date(deadline);
   // Calculate the difference in time (milliseconds)
   const timeDifference = target.getTime() - currentDate.getTime();
@@ -26,15 +23,6 @@ export function countRemainingDays(deadline: string): number {
   const remainingDays = Math.ceil(timeDifference / (1000 * 60 * 60 * 24)); // milliseconds to days
   return remainingDays;
 }
-
-/* export const getCurrentDateInput = () => new Date().toISOString().split("T")[0];
- */
-export const getCurrentDateInput = () => {
-  const date = new Date();
-  const offset = date.getTimezoneOffset();
-  const localDate = new Date(date.getTime() - offset * 60 * 1000);
-  return localDate.toISOString().split("T")[0];
-};
 
 // This function is used to sort the todos by priority and deadline, it is used in the Home page to sort the todos before rendering them, it is also used in the CardEdit component to sort the todos before rendering them in the accordion component.
 export const sortedTodosFn = (todos: Task[]): Task[] =>
