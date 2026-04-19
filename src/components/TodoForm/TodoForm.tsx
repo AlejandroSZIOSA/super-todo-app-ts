@@ -19,14 +19,15 @@ interface TodoFormProps {
   submitBtnLabel: "Add" | "Edit" | "Save";
 }
 
-const LocalDate = getLocalDate().toISOString().split("T")[0];
-
 const TodoForm: FC<TodoFormProps> = ({
   initialValues,
   onSubmit,
   operation,
   submitBtnLabel,
 }) => {
+  //local date as string
+  let LocalDate = getLocalDate().toISOString().split("T")[0];
+
   const [formData, setFormData] = useState<
     Omit<Task, "id" | "isComplete"> | Task
   >({

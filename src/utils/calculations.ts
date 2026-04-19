@@ -6,6 +6,10 @@ const PRIORITY_ORDER = {
   low: 1,
 } as const;
 
+//fix current local date to be used in the countRemainingDays function, this is needed because the current date is in UTC and the deadline is in local time,
+// so we need to convert the current date to local time before comparing it with the deadline, this is done by getting the timezone offset and subtracting
+// it from the current date, this way we get the local date that can be compared with the deadline.
+// This function is used in the countRemainingDays function to get the current local date before comparing it with the deadline.
 export const getLocalDate = () => {
   const date = new Date();
   const offset = date.getTimezoneOffset();
