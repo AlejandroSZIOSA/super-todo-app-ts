@@ -80,9 +80,8 @@ const TodoForm: FC<TodoFormProps> = ({
     //fixed: using guards :)
     if (operation === "create") {
       onSubmit({
-        /* ...(initialValues.id ? { id: initialValues.id } : {}), */
         ...formData,
-        id: uuid().replace(/-/g, "").slice(0, 3),
+        id: uuid().replace(/-/g, "").slice(0, 10),
         priority: formData.priority ?? "low",
         isComplete: false,
       });
