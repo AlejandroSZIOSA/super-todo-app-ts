@@ -28,14 +28,6 @@ export function countRemainingDays(deadline: string): number {
   return remainingDays;
 }
 
-//fix current date format to be compatible with the input type date in the form, this is used in the CardEdit component to set the default value of the deadline input field, it is also used in the Home page to set the default value of the deadline input field in the create todo form. it is also used in the CardEdit component to set the default value of the deadline input field when editing a todo.
-export const getCurrentDateInput = () => {
-  const date = new Date();
-  const offset = date.getTimezoneOffset();
-  const localDate = new Date(date.getTime() - offset * 60 * 1000);
-  return localDate.toISOString().split("T")[0];
-};
-
 // This function is used to sort the todos by priority and deadline, it is used in the Home page to sort the todos before rendering them, it is also used in the CardEdit component to sort the todos before rendering them in the accordion component.
 export const sortedTodosFn = (todos: Task[]): Task[] =>
   [...todos].sort((a, b) => {
