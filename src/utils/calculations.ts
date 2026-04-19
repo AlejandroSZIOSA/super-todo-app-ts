@@ -6,8 +6,19 @@ const PRIORITY_ORDER = {
   low: 1,
 } as const;
 
+//fix current local date to be used in the countRemainingDays function, this is needed because the current date is in UTC and the deadline is in local time,
+// so we need to convert the current date to local time before comparing it with the deadline, this is done by getting the timezone offset and subtracting
+// it from the current date, this way we get the local date that can be compared with the deadline.
+// This function is used in the countRemainingDays function to get the current local date before comparing it with the deadline.
+export const getLocalDate = () => {
+  const date = new Date();
+  const offset = date.getTimezoneOffset();
+  const localDate = new Date(date.getTime() - offset * 60 * 1000);
+  return localDate;
+};
+
 export function countRemainingDays(deadline: string): number {
-  const currentDate = new Date();
+  const currentDate = getLocalDate();
   const target = new Date(deadline);
   // Calculate the difference in time (milliseconds)
   const timeDifference = target.getTime() - currentDate.getTime();
@@ -17,6 +28,7 @@ export function countRemainingDays(deadline: string): number {
   return remainingDays;
 }
 
+<<<<<<< HEAD
 //fix current date format to be compatible with the input type date in the form, this is used in the CardEdit component to set the default value of the deadline input field, it is also used in the Home page to set the default value of the deadline input field in the create todo form. it is also used in the CardEdit component to set the default value of the deadline input field when editing a todo.
 export const getCurrentDateInput = () => {
   const date = new Date();
@@ -25,6 +37,8 @@ export const getCurrentDateInput = () => {
   return localDate.toISOString().split("T")[0];
 };
 
+=======
+>>>>>>> dev-4/fixRedux
 // This function is used to sort the todos by priority and deadline, it is used in the Home page to sort the todos before rendering them, it is also used in the CardEdit component to sort the todos before rendering them in the accordion component.
 export const sortedTodosFn = (todos: Task[]): Task[] =>
   [...todos].sort((a, b) => {
