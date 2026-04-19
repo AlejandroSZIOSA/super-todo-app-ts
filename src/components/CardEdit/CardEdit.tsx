@@ -41,7 +41,7 @@ const CardEdit: FC<CardEditProps> = ({ todoData, onEdit, onRemove }) => {
       <div
         className={`${styles.cardEditHeader} ${isExpired && !isComplete && styles.expired} ${isExpired && isComplete && styles.done} ${isComplete && !isExpired && styles.done} ${isWarningOn && !isComplete && styles.warningOn} ${!isWarningOn && !isComplete && styles.quite} `}
       >
-        <p>ID-{id}</p>
+        <p>ID-{id.slice(0, 3)}</p>
         <p>
           <strong>
             {isExpired &&

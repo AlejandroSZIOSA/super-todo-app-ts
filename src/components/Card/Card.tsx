@@ -81,7 +81,7 @@ const Card: FC<CardProps> = ({ todoData, onRemove }) => {
       <div
         className={`${styles.cardHomeSubHeader} ${isWarningOn && !isExpired && !isDone && styles.subHeaderWarningOn} ${!isWarningOn && !isDone && styles.subHeaderWarningOff} ${isExpired && !isDone && styles.subHeaderExpired} ${isDone && styles.subHeaderSuccess} ${isDone && isExpired && styles.subHeaderSuccess}}`}
       >
-        <p>ID-{id}</p>
+        <p>ID-{id.slice(0, 3)}</p>
         <p>
           <strong style={{ marginRight: "40px" }}>
             {isExpired && !isDone
